@@ -16,19 +16,11 @@ function LoginPage() {
                     <Label className="text-lg" htmlFor="email">Email</Label>
                     <Input type="email" placeholder="Email"/>
                     <Label className="text-lg"  htmlFor="pin">PIN</Label>
-                    <Input type="pin" placeholder="PIN"/>
-                    <Button className="mt-5.5 text-lg p-7 w-1/2 self-center" >Log In</Button>
+                    <Input type="password" placeholder="PIN"/>
+                    <Button className="mt-5.5 text-lg p-7 w-1/2 self-center">Log In</Button>
                 </div>
-
-                
-
-            
             
             </div>
-            
-
-
-
 
         </div>
     )
