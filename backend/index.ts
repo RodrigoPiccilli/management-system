@@ -8,10 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Backend is running!');
-});
-
 // Get All Jobs
 app.get('/api/jobs', async (req, res) => {
     try {
