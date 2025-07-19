@@ -15,14 +15,14 @@ datasource db {
 }
 
 model Job {
-  id           String   @id @default(uuid())
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   jobName      String   @unique
   areaCode     String?
   model        String?
   direction    String?
   stone        String?
   backsplash   Boolean?
-  installDate  DateTime?
+  installDate  DateTime? @db.Date
   ft2          Float?
   community    String?
   address      String?
