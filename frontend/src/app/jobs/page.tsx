@@ -23,6 +23,14 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -44,7 +52,7 @@ async function getData(): Promise<Job[]> {
           },
       
     ]
-  }
+}
 
 
 export default async function JobsPage() {
@@ -70,17 +78,6 @@ export default async function JobsPage() {
                                 <DialogDescription></DialogDescription>
                             </DialogHeader>
 
-                            {/* <div className="grid gap-4">
-                                <div className="grid gap-3">
-                                <Label htmlFor="name-1">Name</Label>
-                                <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-                                </div>
-                                <div className="grid gap-3">
-                                <Label htmlFor="username-1">Username</Label>
-                                <Input id="username-1" name="username" defaultValue="@peduarte" />
-                                </div>
-                            </div> */}
-
                             <Table>
                                 <TableBody>
                                     <TableRow>
@@ -92,10 +89,6 @@ export default async function JobsPage() {
                                         <TableCell><Input placeholder="Area Code"/></TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableHead>Stone</TableHead>
-                                        <TableCell><Input placeholder="Stone Type"/></TableCell>
-                                    </TableRow>
-                                    <TableRow>
                                         <TableHead>Model</TableHead>
                                         <TableCell><Input placeholder="Model"/></TableCell>
                                     </TableRow>
@@ -104,8 +97,50 @@ export default async function JobsPage() {
                                         <TableCell><Input placeholder="Direction"/></TableCell>
                                     </TableRow>
                                     <TableRow>
+                                        <TableHead>Stone</TableHead>
+                                        <TableCell><Input placeholder="Stone Type"/></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Backsplash</TableHead>
+                                        <TableCell>
+                                            <Select>
+                                                <SelectTrigger className="w-full">
+                                                    <SelectValue placeholder="Backsplash"/>
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="yes">Yes</SelectItem>
+                                                    <SelectItem value="no">No</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Install Date</TableHead>
+                                        <TableCell><Input type="date"/></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Ft<sup>2</sup></TableHead>
+                                        <TableCell><Input placeholder="Ft²"/></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Community</TableHead>
+                                        <TableCell><Input placeholder="Community"/></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Address</TableHead>
+                                        <TableCell><Input placeholder="Address"/></TableCell>
+                                    </TableRow>
+                                    <TableRow>
                                         <TableHead>Sink</TableHead>
                                         <TableCell><Input placeholder="Sink Type"/></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Amount ($)</TableHead>
+                                        <TableCell><Input placeholder="Amount ($)"/></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>PO Number</TableHead>
+                                        <TableCell><Input placeholder="PO Number"/></TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
