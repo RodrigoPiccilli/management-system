@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import { TabsMenu } from "@/components/ui/TabsMenu";
 import { columns, Job } from "./columns"
@@ -32,32 +34,29 @@ import {
 } from "@/components/ui/select"
 
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+
+import { useEffect, useState} from "react"
+import api from "@/lib/apis";
 
 
-async function getData(): Promise<Job[]> {
-    // Fetch data from your API here.
-    return [
-        {
-            id: "IG-80",
-            material: "Frost White",
-            direction: "per plan",
-            model: "hudson",
-          },
-          {
-              id: "IG-81",
-              material: "Luna Pearl",
-              direction: "reverse",
-              model: "aspen",
-          },
-      
-    ]
-}
+export default function JobsPage() {
 
+    const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-export default async function JobsPage() {
-
-    const data = await getData();
+    useEffect(() => {
+        api.get("/jobs")
+          .then(res => {
+            setJobs(res.data);
+            setLoading(false);
+          })
+          .catch(err => {
+            console.error("Axios error:", err);
+            setLoading(false);
+          });
+      }, []);
+    
+      if (loading) return <div>Loading...</div>;
 
     return ( 
          <div>
@@ -157,7 +156,7 @@ export default async function JobsPage() {
              </div>
 
              <div className="container mx-auto py-10">
-                <DataTable columns={columns} data={data} />
+                <DataTable columns={columns} data={jobs} />
             </div>
                 
         

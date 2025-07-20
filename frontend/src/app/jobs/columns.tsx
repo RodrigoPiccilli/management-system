@@ -36,15 +36,25 @@ import {
 } from "@/components/ui/select"
 
 export type Job = {
-    id: string
-    material: string
-    direction: "per plan" | "reverse"
-    model: string
-}
+    id: string;
+    jobName: string;
+    areaCode?: string;
+    model?: string;
+    direction?: string;
+    stone?: string;
+    backsplash?: boolean;
+    installDate?: string; 
+    ft2?: number;
+    community?: string;
+    address?: string;
+    sink?: string;
+    amount?: number;
+    poNumber?: string;
+  };
 
 export const columns: ColumnDef<Job>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "jobName",
     header: ({ column }) => {
         return (
             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -52,12 +62,6 @@ export const columns: ColumnDef<Job>[] = [
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
 
-            // {/* <div className="flex flex-row items-center cursor-pointer"
-            // // variant="ghost"
-            // >
-            // <h3 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>Job Name</h3>
-            // <ArrowUpDown className="ml-2 h-4 w-4" />
-            // </div> */}
         )
       },
       cell: ({ row }) => (
@@ -65,7 +69,7 @@ export const columns: ColumnDef<Job>[] = [
         <Dialog>
             <form>
                 <DialogTrigger asChild>
-                    <Button variant="ghost">{row.getValue("id")}</Button>
+                    <Button variant="ghost">{row.getValue("jobName")}</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -147,11 +151,9 @@ export const columns: ColumnDef<Job>[] = [
             </form>
         </Dialog>
       ),
-
-      //HERE! WE WANT TO MAKE THIS INTO A CLICKABLE DIALOG THAT ALLOWS YOU TO EDIT THE CONTENT!
   },
   {
-    accessorKey: "area-code",
+    accessorKey: "areaCode",
     header: "Area Code",
   },
   {
@@ -169,14 +171,34 @@ export const columns: ColumnDef<Job>[] = [
   {
     accessorKey: "backsplash",
     header: "Backsplash",
+    cell: ({ row }) => {
+        const value = row.getValue("backsplash");
+        return (
+            <div>{value === true ? "Yes" : value === false ? "No" : ""}</div>
+        );
+    },
   },
   {
-    accessorKey: "install-date",
+    accessorKey: "installDate",
     header: "Install Date",
+    cell: ({ row }) => {
+        const value = row.getValue("installDate");
+        if (!value || typeof value !== "string") return "";
+        const date = new Date(value);
+        const formatted = `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}-${date.getFullYear()}`;
+        return <span>{formatted}</span>;
+        },
   },
   {
-    accessorKey: "ft",
+    accessorKey: "ft2",
     header: "FT²",
+    cell: ({ row }) => {
+        const value = row.getValue("ft2");
+        if (typeof value === "number") {
+          return value.toFixed(2);
+        }
+        return "";
+    },
   },
   {
     accessorKey: "community",
@@ -193,9 +215,18 @@ export const columns: ColumnDef<Job>[] = [
   {
     accessorKey: "amount",
     header: "Amount",
+    cell: ({ row }) => {
+      const value = row.getValue("amount");
+      if (typeof value === "number") {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(value);
+      }
+    },
   },
   {
-    accessorKey: "po-number",
+    accessorKey: "poNumber",
     header: "PO Number",
   },
 ]
