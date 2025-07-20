@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogDescription, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Table, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,10 +10,21 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 
 function EditJobDialog({ job }: { job: Job }) {
     const [form, setForm] = useState({ ...job });
+    const [open, setOpen] = useState(false);
 
     const handleChange = (field: keyof Job) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [field]: e.target.value });
     };
+
+    const handleDelete = async () => {
+        try {
+            await api.delete(`/jobs/delete/${job.jobName}`);
+            setOpen(false);
+            console.log("Job deleted successfully!");
+        } catch (error) {
+            console.error("Failed to delete job: ", error);
+        }
+    }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,8 +37,9 @@ function EditJobDialog({ job }: { job: Job }) {
     }
   };
 
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost">{job.jobName}</Button>
       </DialogTrigger>
@@ -180,10 +192,36 @@ function EditJobDialog({ job }: { job: Job }) {
             </TableBody>
           </Table>
           <DialogFooter className="mt-5">
+        
             <DialogClose asChild>
               <Button variant="outline" type="button">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
+
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button variant="destructive">Delete</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle><span className="font-bold text-red-500">Delete </span>{job.jobName}?</DialogTitle>
+                    <DialogDescription>This action cannot be undone.</DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                    <DialogClose asChild>
+                        <Button variant="outline">Cancel</Button>
+                    </DialogClose>
+                    <DialogClose asChild>
+                        <Button type="button" variant="destructive" onClick={() => {handleDelete()}}>Delete</Button>
+                    </DialogClose>
+                </DialogFooter>
+                </DialogContent>
+            </Dialog>
+  
+
+
+            <DialogClose asChild>
+                <Button type="submit">Save changes</Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </DialogContent>
