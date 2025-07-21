@@ -8,7 +8,7 @@ import api from "@/lib/apis"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
 
-function EditJobDialog({ job }: { job: Job }) {
+function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) {
     const [form, setForm] = useState({ ...job });
     const [open, setOpen] = useState(false);
 
@@ -19,7 +19,8 @@ function EditJobDialog({ job }: { job: Job }) {
     const handleDelete = async () => {
         try {
             await api.delete(`/jobs/delete/${job.jobName}`);
-            setOpen(false);
+            fetchJobs(); // Refresh the table after delete
+            setOpen(false); // Optionally close the dialog
             console.log("Job deleted successfully!");
         } catch (error) {
             console.error("Failed to delete job: ", error);
@@ -31,6 +32,8 @@ function EditJobDialog({ job }: { job: Job }) {
 
     try {
       await api.put(`/jobs/update/${form.jobName}`, form);
+      fetchJobs(); // Refresh the table after update
+      setOpen(false); // Optionally close the dialog
       console.log("Job updated successfully!");
     } catch (error) {
       console.error("Failed to update job:", error);

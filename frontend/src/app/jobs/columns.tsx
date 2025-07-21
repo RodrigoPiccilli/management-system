@@ -52,19 +52,16 @@ export type Job = {
     poNumber?: string;
 };
 
-export const columns: ColumnDef<Job>[] = [
+export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
   {
     accessorKey: "jobName",
-    header: ({ column }) => {
-        return (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Job Name
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-
-        )
-      },
-      cell: ({ row }) => <ViewJobDialog job={row.original} />
+    header: ({ column }) => (
+      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        Job Name
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <ViewJobDialog job={row.original} fetchJobs={fetchJobs} />
   },
   {
     accessorKey: "areaCode",

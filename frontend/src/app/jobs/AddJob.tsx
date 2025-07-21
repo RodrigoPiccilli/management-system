@@ -35,7 +35,7 @@ import { Input } from "@/components/ui/input"
 import { useEffect, useState} from "react"
 import api from "@/lib/apis";
 
-const AddJobDialog = () => {
+const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
 
     const [form, setForm] = useState({
         jobName: "",
@@ -74,6 +74,7 @@ const AddJobDialog = () => {
             await api.post(`/jobs/add`, dataToSend);
             console.log("Job added successfully!");
             setOpen(false); 
+            fetchJobs(); // Refresh the table after successful add
         } catch (error) {
             console.error("Failed to add job:", error);
             setOpen(false);

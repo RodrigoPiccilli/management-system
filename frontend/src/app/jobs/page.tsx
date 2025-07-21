@@ -15,7 +15,8 @@ export default function JobsPage() {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+    const fetchJobs = () => {
+        setLoading(true);
         api.get("/jobs")
           .then(res => {
             setJobs(res.data);
@@ -25,9 +26,13 @@ export default function JobsPage() {
             console.error("Axios error:", err);
             setLoading(false);
           });
-      }, []);
+      };
     
-      if (loading) return <div>Loading...</div>;
+      useEffect(() => {
+        fetchJobs();
+      }, []);
+
+    if (loading) return <div>Loading...</div>;
 
     return ( 
          <div>
@@ -35,12 +40,12 @@ export default function JobsPage() {
 
              <h1 className="text-5xl text-center mt-20 mb-5">NVR Jobs</h1>
              
-            <div className="flex justify-center gap-7 w-full bg-amber-500">
-                <AddJobDialog />
+            <div className="flex justify-center gap-7 w-full">
+                <AddJobDialog fetchJobs={fetchJobs} />
             </div>
 
              <div className="container mx-auto py-10">
-                <DataTable columns={columns} data={jobs} />
+                <DataTable columns={columns(fetchJobs)} data={jobs} />
             </div>
                 
         
