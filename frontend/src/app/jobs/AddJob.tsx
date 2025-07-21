@@ -1,9 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { TabsMenu } from "@/components/ui/TabsMenu";
 import { columns, Job } from "./columns"
-import { DataTable } from "./data-table"
 import {
     Dialog,
     DialogClose,
@@ -18,7 +16,6 @@ import {
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -46,25 +43,48 @@ const AddJobDialog = () => {
         model: "",
         direction: "",
         stone: "",
-        backsplash: undefined,
+        backsplash: undefined as boolean | undefined,
         installDate: "",
-        ft2: undefined,
+        ft2: undefined as number | undefined,
         community: "",
         address: "",
         sink: "",
-        amount: undefined,
+        amount: undefined as number | undefined,
         poNumber: ""
     });
+
+    const [open, setOpen] = useState(false);
 
     const handleChange = (field: keyof Job) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [field]: e.target.value });
     };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+       
+        e.preventDefault();
+
+        const dataToSend = {
+            ...form,
+            installDate: form.installDate
+                ? new Date(form.installDate).toISOString()
+                : undefined,
+        };
+    
+        try {
+            await api.post(`/jobs/add`, dataToSend);
+            console.log("Job added successfully!");
+            setOpen(false); 
+        } catch (error) {
+            console.error("Failed to add job:", error);
+            setOpen(false);
+        }
+      };
+
     return (
-        <Dialog>
-            <form>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <form onSubmit={handleSubmit}>
                 <DialogTrigger asChild>
-                    <Button className="p-6 text-xl cursor-pointer">Add</Button>
+                    <Button className="p-6 text-xl cursor-pointer" onClick={() => setOpen(true)}>Add</Button>
                 </DialogTrigger>
 
                 <DialogContent className="sm:max-w-[425px]">
@@ -73,106 +93,13 @@ const AddJobDialog = () => {
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
 
-                    {/* <Table>
-                        <TableBody>
-                            <TableRow>
-                                <TableHead>Job Name</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Job Name" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Area Code</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Area Code" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Model</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Model" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Direction</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Direction" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Stone</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Stone Type" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Backsplash</TableHead>
-                                <TableCell>
-                                    <Select>
-                                        <SelectTrigger className="w-full">
-                                            <SelectValue placeholder="Backsplash" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="yes">Yes</SelectItem>
-                                            <SelectItem value="no">No</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Install Date</TableHead>
-                                <TableCell>
-                                    <Input type="date" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>
-                                    Ft<sup>2</sup>
-                                </TableHead>
-                                <TableCell>
-                                    <Input placeholder="Ft²" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Community</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Community" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Address</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Address" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Sink</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Sink Type" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Amount ($)</TableHead>
-                                <TableCell>
-                                    <Input placeholder="Amount ($)" />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>PO Number</TableHead>
-                                <TableCell>
-                                    <Input placeholder="PO Number" />
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table> */}
-
                     <Table>
                         <TableBody>
                             <TableRow>
                                 <TableHead>Job Name</TableHead>
                                 <TableCell>
                                 <Input 
-                                    value={form.jobName} 
+                                    value={form.jobName || ""} 
                                     placeholder="Job Name"
                                     onChange={handleChange("jobName")}/>
                                 </TableCell>
@@ -181,7 +108,7 @@ const AddJobDialog = () => {
                                 <TableHead>Area Code</TableHead>
                                 <TableCell>
                                 <Input 
-                                    value={form.areaCode} 
+                                    value={form.areaCode || ""} 
                                     placeholder="Area Code"
                                     onChange={handleChange("areaCode")}/>
                                 </TableCell>
@@ -190,7 +117,7 @@ const AddJobDialog = () => {
                                 <TableHead>Model</TableHead>
                                 <TableCell>
                                 <Input 
-                                    value={form.model} 
+                                    value={form.model || ""} 
                                     placeholder="Model"
                                     onChange={handleChange("model")}/>
                                 </TableCell>
@@ -199,7 +126,7 @@ const AddJobDialog = () => {
                                 <TableHead>Direction</TableHead>
                                 <TableCell>
                                 <Select
-                                    value={ form.direction}
+                                    value={ form.direction || ""}
                                     onValueChange={(value) =>
                                         setForm({ ...form, direction: value })
                                     }
@@ -227,14 +154,16 @@ const AddJobDialog = () => {
                                 <TableHead>Backsplash</TableHead>
                                 <TableCell>
                                 <Select
-                                    value={ form.backsplash === true ? "Yes" : form.backsplash === false ? "No" : "" }
-                                >
+                                   value={form.backsplash === true ? "yes" : form.backsplash === false ? "no" : ""}
+                                    onValueChange={value =>
+                                    setForm({...form, backsplash: value === "yes" ? true : value === "no" ? false : undefined })
+                                    }>
                                     <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Backsplash" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                    <SelectItem value="Yes">Yes</SelectItem>
-                                    <SelectItem value="No">No</SelectItem>
+                                    <SelectItem value="yes">Yes</SelectItem>
+                                    <SelectItem value="no">No</SelectItem>
                                     </SelectContent>
                                 </Select>
                                 </TableCell>
@@ -244,7 +173,7 @@ const AddJobDialog = () => {
                                 <TableCell>
                                 <Input
                                     type="date"
-                                    value={form.installDate}
+                                    value={form.installDate || ""}
                                     onChange={handleChange("installDate")}
                                 />
                                 </TableCell>
@@ -254,8 +183,13 @@ const AddJobDialog = () => {
                                 <TableCell>
                                 <Input
                                     type="number"
-                                    value={form.ft2}
-                                    onChange={handleChange("ft2")}
+                                    value={form.ft2 != null ? form.ft2 : ""}
+                                    onChange={e =>
+                                        setForm({
+                                          ...form,
+                                          ft2: e.target.value === "" ? undefined : Number(e.target.value)
+                                        })
+                                      }
                                     placeholder="FT²"
                                 />
                                 </TableCell>
@@ -264,7 +198,7 @@ const AddJobDialog = () => {
                                 <TableHead>Community</TableHead>
                                 <TableCell>
                                 <Input 
-                                    value={form.community} 
+                                    value={form.community || ""} 
                                     placeholder="Community"
                                     onChange={handleChange("community")}
                                 />
@@ -274,7 +208,7 @@ const AddJobDialog = () => {
                                 <TableHead>Address</TableHead>
                                 <TableCell>
                                 <Input 
-                                    value={form.address}
+                                    value={form.address || ""}
                                     placeholder="Address"
                                     onChange={handleChange("address")}/>
                                 </TableCell>
@@ -283,7 +217,8 @@ const AddJobDialog = () => {
                                 <TableHead>Sink</TableHead>
                                 <TableCell>
                                 <Select
-                                    value={form.sink }
+                                    value={form.sink || ""}
+                                    onValueChange={value => setForm({ ...form, sink: value })}
                                 >
                                     <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Sink Type" />
@@ -300,9 +235,14 @@ const AddJobDialog = () => {
                                 <TableCell>
                                 <Input
                                     type="number"
-                                    value={form.amount}
+                                    value={form.amount != null ? form.amount : ""}
                                     placeholder="Amount ($)"
-                                    onChange={handleChange("amount")}
+                                    onChange={e =>
+                                        setForm({
+                                          ...form,
+                                          amount: e.target.value === "" ? undefined : Number(e.target.value)
+                                        })
+                                      }
                                 />
                                 </TableCell>
                             </TableRow>
@@ -310,7 +250,7 @@ const AddJobDialog = () => {
                                 <TableHead>PO Number</TableHead>
                                 <TableCell>
                                 <Input 
-                                    value={form.poNumber} 
+                                    value={form.poNumber || ""} 
                                     placeholder="PO Number"
                                     onChange={handleChange("poNumber")}
                                 />
@@ -323,9 +263,7 @@ const AddJobDialog = () => {
                         <DialogClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DialogClose>
-                        <DialogClose asChild>
-                            <Button type="submit">Add</Button>
-                        </DialogClose>
+                            <Button type="submit" onClick={handleSubmit}>Add</Button>
                     </DialogFooter>
                     </DialogContent>
                 </form>

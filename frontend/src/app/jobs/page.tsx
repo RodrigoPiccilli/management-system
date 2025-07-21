@@ -4,36 +4,6 @@ import { Button } from "@/components/ui/button";
 import { TabsMenu } from "@/components/ui/TabsMenu";
 import { columns, Job } from "./columns"
 import { DataTable } from "./data-table"
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
-
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-
-import { Input } from "@/components/ui/input"
 
 import { useEffect, useState} from "react"
 import api from "@/lib/apis";
