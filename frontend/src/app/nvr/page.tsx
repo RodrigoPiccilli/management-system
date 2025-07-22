@@ -10,7 +10,7 @@ import api from "@/lib/apis";
 import AddJobDialog from "./AddJob";
 
 
-export default function JobsPage() {
+export default function NVRPage() {
 
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -35,8 +35,8 @@ export default function JobsPage() {
     if (loading) return <div>Loading...</div>;
 
     return ( 
-         <div>
-             <TabsMenu/>
+         <div className="bg-gray-100">
+             < TabsMenu/>
 
              <h1 className="text-5xl text-center mt-20 mb-5">NVR Jobs</h1>
              
