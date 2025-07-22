@@ -55,6 +55,28 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
 
     const [open, setOpen] = useState(false);
 
+    useEffect(() => { 
+
+        const defaultJob = {
+            jobName: "",
+            areaCode: "",
+            model: "",
+            direction: "",
+            stone: "",
+            backsplash: undefined as boolean | undefined,
+            installDate: "",
+            ft2: undefined as number | undefined,
+            community: "",
+            address: "",
+            sink: "",
+            amount: undefined as number | undefined,
+            poNumber: ""
+        }
+
+        setForm(defaultJob);
+
+    }, [open]);
+
     const handleChange = (field: keyof Job) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [field]: e.target.value });
     };

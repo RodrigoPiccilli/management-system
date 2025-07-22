@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogDescription, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Table, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,12 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) {
     const [form, setForm] = useState({ ...job });
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+
+            if(open) setForm(job);
+
+    }, [open, job]);
 
     const handleChange = (field: keyof Job) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [field]: e.target.value });
@@ -32,8 +38,8 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
 
     try {
       await api.put(`/jobs/update/${form.jobName}`, form);
-      fetchJobs(); // Refresh the table after update
-      setOpen(false); // Optionally close the dialog
+      fetchJobs(); 
+      setOpen(false); 
       console.log("Job updated successfully!");
     } catch (error) {
       console.error("Failed to update job:", error);
