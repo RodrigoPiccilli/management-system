@@ -34,7 +34,12 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  fetchJobs,
+}: {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  fetchJobs: () => void;
+}) {
 
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -69,6 +74,7 @@ export function DataTable<TData, TValue>({
             }
             className="max-w-sm"
             />
+            <Button className="mx-2.5" onClick={fetchJobs}>Refresh</Button>
       </div>
 
        {/* Table */}

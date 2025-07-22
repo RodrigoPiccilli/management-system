@@ -19,8 +19,8 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
     const handleDelete = async () => {
         try {
             await api.delete(`/jobs/delete/${job.jobName}`);
-            fetchJobs(); // Refresh the table after delete
-            setOpen(false); // Optionally close the dialog
+            fetchJobs(); 
+            setOpen(false);
             console.log("Job deleted successfully!");
         } catch (error) {
             console.error("Failed to delete job: ", error);

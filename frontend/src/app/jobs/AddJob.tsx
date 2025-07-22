@@ -74,7 +74,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
             await api.post(`/jobs/add`, dataToSend);
             console.log("Job added successfully!");
             setOpen(false); 
-            fetchJobs(); // Refresh the table after successful add
+            fetchJobs();
         } catch (error) {
             console.error("Failed to add job:", error);
             setOpen(false);

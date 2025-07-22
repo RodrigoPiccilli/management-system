@@ -45,7 +45,7 @@ export default function JobsPage() {
             </div>
 
              <div className="container mx-auto py-10">
-                <DataTable columns={columns(fetchJobs)} data={jobs} />
+                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs}/>
             </div>
                 
         
@@ -53,5 +53,3 @@ export default function JobsPage() {
 
     )
 }
-
-// export default JobsPage;
