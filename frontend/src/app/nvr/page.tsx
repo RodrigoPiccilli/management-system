@@ -35,16 +35,18 @@ export default function NVRPage() {
     if (loading) return <div>Loading...</div>;
 
     return ( 
-         <div className="bg-gray-100 h-screen">
+         <div className="bg-gray-100 h-screen w-screen">
              < TabsMenu/>
 
-             <h1 className="text-5xl text-center mt-7 mb-0 p-0">NVR Jobs</h1>
+             <div className="container mx-auto mt-10 mb-5">
+                <h1 className="text-5xl text-left">NVR Jobs</h1>
+            </div>
              
             {/* <div className="flex justify-center gap-7 w-full">
                 <AddJobDialog fetchJobs={fetchJobs} />
             </div> */}
 
-             <div className="container mx-auto py-10">
+             <div className="container mx-auto pt-5">
                 <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs}/>
             </div>
                 

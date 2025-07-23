@@ -86,7 +86,7 @@ export function DataTable<TData, TValue>({
 
     <div>
         {/* Filter Input */}
-        <div className="flex items-center py-4">
+        <div className="flex items-center py-4 justify-between align-middle">
             <Input
             placeholder="Filter Jobs By Name"
             value={(table.getColumn("jobName")?.getFilterValue() as string) ?? ""}
@@ -96,8 +96,10 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
             />
             {/* <Button className="mx-2 min-w-1/20" onClick={fetchJobs}></Button> */}
-            <AddJobDialog fetchJobs={fetchJobs}/>
-            <Button className="max-w-1/15" onClick={fetchJobs}>Refresh</Button>
+            <div className="flex">
+                <AddJobDialog fetchJobs={fetchJobs}/>
+                <Button className="w-fit" onClick={fetchJobs}>Refresh</Button>
+            </div>
         </div>
 
        {/* Table */}

@@ -108,7 +108,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
             <form onSubmit={handleSubmit}>
                 <DialogTrigger asChild>
                     {/* <Button className="p-6 text-xl cursor-pointer" onClick={() => setOpen(true)}>Add</Button> */}
-                    <Button className="mx-2 max-w-20 cursor-pointer" onClick={() => setOpen(true)}>Add</Button>
+                    <Button className="mx-2 max-w-20 cursor-pointer bg-indigo-600 text-white" onClick={() => setOpen(true)}>Add</Button>
 
                 </DialogTrigger>
 
