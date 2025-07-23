@@ -8,10 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Get All Jobs
-app.get('/api/jobs', async (req, res) => {
+// Get All NVR Jobs
+app.get('/api/nvr', async (req, res) => {
     try {
-      const jobs = await prisma.job.findMany();
+      const jobs = await prisma.nVRJob.findMany();
       res.json(jobs);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch jobs' });
@@ -19,11 +19,11 @@ app.get('/api/jobs', async (req, res) => {
 });
 
 
-// Get Job by Job Name
-app.get('/api/jobs/:jobName', async (req, res) => {
+// Get NVR Job by Job Name
+app.get('/api/nvr/:jobName', async (req, res) => {
     try {
         const { jobName } = req.params;
-        const job = await prisma.job.findUnique({
+        const job = await prisma.nVRJob.findUnique({
             where: {
                 jobName: jobName,
             }
@@ -35,8 +35,8 @@ app.get('/api/jobs/:jobName', async (req, res) => {
     }
 });
 
-// Add Job
-app.post('/api/jobs/add', async (req, res) => {
+// Add NVR Job
+app.post('/api/nvr/add', async (req, res) => {
   try {
     const {
       jobName,
@@ -54,7 +54,7 @@ app.post('/api/jobs/add', async (req, res) => {
       poNumber
     } = req.body;
 
-    const newJob = await prisma.job.create({
+    const newJob = await prisma.nVRJob.create({
       data: {
         jobName,
         areaCode,
@@ -78,8 +78,8 @@ app.post('/api/jobs/add', async (req, res) => {
   }
 });
 
-// Update Job
-app.put('/api/jobs/update/:jobName', async (req, res) => {
+// Update NVR Job
+app.put('/api/nvr/update/:jobName', async (req, res) => {
     try {
         const { jobName } = req.params;
 
@@ -98,7 +98,7 @@ app.put('/api/jobs/update/:jobName', async (req, res) => {
             poNumber
           } = req.body;
 
-          const updatedJob = await prisma.job.update({
+          const updatedJob = await prisma.nVRJob.update({
             where: { jobName },
             data: {
               areaCode,
@@ -122,12 +122,12 @@ app.put('/api/jobs/update/:jobName', async (req, res) => {
     }
 });
 
-// Delete Job
-app.delete('/api/jobs/delete/:jobName', async (req, res) => {
+// Delete NVR Job
+app.delete('/api/nvr/delete/:jobName', async (req, res) => {
     try {
         const { jobName } = req.params;  
 
-        const deletedJob = await prisma.job.delete({
+        const deletedJob = await prisma.nVRJob.delete({
             where: {
               jobName: jobName,
             },

@@ -24,7 +24,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
 
     const handleDelete = async () => {
         try {
-            await api.delete(`/jobs/delete/${job.jobName}`);
+            await api.delete(`/nvr/delete/${job.jobName}`);
             fetchJobs(); 
             setOpen(false);
             console.log("Job deleted successfully!");
@@ -37,7 +37,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
     e.preventDefault();
 
     try {
-      await api.put(`/jobs/update/${form.jobName}`, form);
+      await api.put(`/nvr/update/${form.jobName}`, form);
       fetchJobs(); 
       setOpen(false); 
       console.log("Job updated successfully!");

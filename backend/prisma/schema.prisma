@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Job {
+model NVRJob {
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   jobName      String   @unique
   areaCode     String?
@@ -29,4 +29,16 @@ model Job {
   sink         String?
   amount       Float?
   poNumber     String?
+}
+
+model HOJob {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  jobName      String   @unique
+  stone        String?
+  backsplash   Boolean?
+  installDate  DateTime? @db.Date
+  ft2          Float?
+  address      String?
+  sink         String?
+  amount       Float?
 }
