@@ -107,7 +107,9 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
         <Dialog open={open} onOpenChange={setOpen}>
             <form onSubmit={handleSubmit}>
                 <DialogTrigger asChild>
-                    <Button className="p-6 text-xl cursor-pointer" onClick={() => setOpen(true)}>Add</Button>
+                    {/* <Button className="p-6 text-xl cursor-pointer" onClick={() => setOpen(true)}>Add</Button> */}
+                    <Button className="mx-2 max-w-20 cursor-pointer" onClick={() => setOpen(true)}>Add</Button>
+
                 </DialogTrigger>
 
                 <DialogContent className="sm:max-w-[425px]">
@@ -249,6 +251,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                     <SelectContent>
                                     <SelectItem value="Single Bowl">Single Bowl</SelectItem>
                                     <SelectItem value="50/50">50/50</SelectItem>
+                                    <SelectItem value="Farm Sink">Farm Sink</SelectItem>
                                     </SelectContent>
                                 </Select>
                                 </TableCell>
