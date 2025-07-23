@@ -62,19 +62,19 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
               <TableRow>
                 <TableHead>Job Name</TableHead>
                 <TableCell>
-                  <Input value={form.jobName || ""} readOnly />
+                  <Input value={form.jobName || ""} readOnly className="border-slate-300 focus:border-indigo-500"/>
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableHead>Area Code</TableHead>
                 <TableCell>
-                  <Input value={form.areaCode || ""} onChange={handleChange("areaCode")} />
+                  <Input value={form.areaCode || ""} onChange={handleChange("areaCode")} className="border-slate-300 focus:border-indigo-500"/>
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableHead>Model</TableHead>
                 <TableCell>
-                  <Input value={form.model || ""} onChange={handleChange("model")} />
+                  <Input value={form.model || ""} onChange={handleChange("model")} className="border-slate-300 focus:border-indigo-500"/>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -86,7 +86,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
                         setForm({ ...form, direction: value })
                     }
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
                       <SelectValue placeholder="Direction" />
                     </SelectTrigger>
                     <SelectContent>
@@ -99,7 +99,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
               <TableRow>
                 <TableHead>Stone</TableHead>
                 <TableCell>
-                  <Input value={form.stone || ""} onChange={handleChange("stone")} />
+                  <Input value={form.stone || ""} onChange={handleChange("stone")} className="border-slate-300 focus:border-indigo-500"/>
                 </TableCell>
               </TableRow>
                <TableRow>
@@ -111,7 +111,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
                       setForm({ ...form, backsplash: value === "Yes" ? true : value === "No" ? false : undefined })
                     }
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
                       <SelectValue placeholder="Backsplash" />
                     </SelectTrigger>
                     <SelectContent>
@@ -125,6 +125,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
                 <TableHead>Install Date</TableHead>
                 <TableCell>
                   <Input
+                    className="border-slate-300 focus:border-indigo-500"
                     type="date"
                     value={form.installDate ? form.installDate.substring(0, 10) : ""}
                     onChange={e => {
@@ -151,13 +152,13 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
              <TableRow>
                 <TableHead>Community</TableHead>
                 <TableCell>
-                  <Input value={form.community || ""} onChange={handleChange("community")} />
+                  <Input value={form.community || ""} onChange={handleChange("community")} className="border-slate-300 focus:border-indigo-500"/>
                 </TableCell>
               </TableRow>
                <TableRow>
                 <TableHead>Address</TableHead>
                 <TableCell>
-                  <Input value={form.address || ""} onChange={handleChange("address")} />
+                  <Input value={form.address || ""} onChange={handleChange("address")} className="border-slate-300 focus:border-indigo-500"/>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -170,7 +171,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
                         setForm({ ...form, sink: value })
                     }
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
                       <SelectValue placeholder="Sink Type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -190,13 +191,14 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
                     onChange={e =>
                         setForm({...form, amount: e.target.value === "" ? undefined : Number(e.target.value)})
                     }
+                    className="border-slate-300 focus:border-indigo-500"
                 />
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableHead>PO Number</TableHead>
                 <TableCell>
-                  <Input value={form.poNumber || ""} onChange={handleChange("poNumber")} />
+                  <Input value={form.poNumber || ""} onChange={handleChange("poNumber")} className="border-slate-300 focus:border-indigo-500"/>
                 </TableCell>
               </TableRow>
             </TableBody>

@@ -35,11 +35,11 @@ export default function NVRPage() {
     if (loading) return <div>Loading...</div>;
 
     return ( 
-         <div className="bg-gray-100 h-screen w-screen">
+         <div className="bg-slate-50 h-screen w-screen">
              < TabsMenu/>
 
              <div className="container mx-auto mt-10 mb-5">
-                <h1 className="text-5xl text-left">NVR Jobs</h1>
+                <h1 className="text-5xl text-left text-slate-900">NVR Jobs</h1>
             </div>
              
             {/* <div className="flex justify-center gap-7 w-full">

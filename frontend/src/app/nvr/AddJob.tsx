@@ -108,7 +108,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
             <form onSubmit={handleSubmit}>
                 <DialogTrigger asChild>
                     {/* <Button className="p-6 text-xl cursor-pointer" onClick={() => setOpen(true)}>Add</Button> */}
-                    <Button className="mx-2 max-w-20 cursor-pointer bg-indigo-600 text-white" onClick={() => setOpen(true)}>Add</Button>
+                    <Button className="mx-2 max-w-20 cursor-pointer bg-indigo-600 text-white hover:bg-indigo-700" onClick={() => setOpen(true)}>Add</Button>
 
                 </DialogTrigger>
 
@@ -123,7 +123,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                             <TableRow>
                                 <TableHead>Job Name</TableHead>
                                 <TableCell>
-                                <Input 
+                                <Input
+                                    className="border-slate-300 focus:border-indigo-500"
                                     value={form.jobName || ""} 
                                     placeholder="Job Name"
                                     onChange={handleChange("jobName")}/>
@@ -133,6 +134,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>Area Code</TableHead>
                                 <TableCell>
                                 <Input 
+                                    className="border-slate-300 focus:border-indigo-500"
                                     value={form.areaCode || ""} 
                                     placeholder="Area Code"
                                     onChange={handleChange("areaCode")}/>
@@ -142,6 +144,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>Model</TableHead>
                                 <TableCell>
                                 <Input 
+                                    className="border-slate-300 focus:border-indigo-500"
                                     value={form.model || ""} 
                                     placeholder="Model"
                                     onChange={handleChange("model")}/>
@@ -156,7 +159,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                         setForm({ ...form, direction: value })
                                     }
                                 >
-                                    <SelectTrigger className="w-full">
+                                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
                                     <SelectValue placeholder="Direction" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -170,6 +173,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>Stone</TableHead>
                                 <TableCell>
                                 <Input 
+                                    className="border-slate-300 focus:border-indigo-500"
                                     value={form.stone || ""}
                                     placeholder="Stone Type"
                                     onChange={handleChange("stone")}/>
@@ -183,7 +187,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                     onValueChange={value =>
                                     setForm({...form, backsplash: value === "yes" ? true : value === "no" ? false : undefined })
                                     }>
-                                    <SelectTrigger className="w-full">
+                                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
                                     <SelectValue placeholder="Backsplash" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -197,6 +201,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>Install Date</TableHead>
                                 <TableCell>
                                 <Input
+                                    className="border-slate-300 focus:border-indigo-500"
                                     type="date"
                                     value={form.installDate || ""}
                                     onChange={handleChange("installDate")}
@@ -207,6 +212,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>FT²</TableHead>
                                 <TableCell>
                                 <Input
+                                    className="border-slate-300 focus:border-indigo-500"
                                     type="number"
                                     value={form.ft2 != null ? form.ft2 : ""}
                                     onChange={e =>
@@ -223,6 +229,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>Community</TableHead>
                                 <TableCell>
                                 <Input 
+                                    className="border-slate-300 focus:border-indigo-500"
                                     value={form.community || ""} 
                                     placeholder="Community"
                                     onChange={handleChange("community")}
@@ -233,6 +240,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>Address</TableHead>
                                 <TableCell>
                                 <Input 
+                                    className="border-slate-300 focus:border-indigo-500"
                                     value={form.address || ""}
                                     placeholder="Address"
                                     onChange={handleChange("address")}/>
@@ -245,7 +253,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                     value={form.sink || ""}
                                     onValueChange={value => setForm({ ...form, sink: value })}
                                 >
-                                    <SelectTrigger className="w-full">
+                                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo=-500">
                                     <SelectValue placeholder="Sink Type" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -260,6 +268,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>Amount</TableHead>
                                 <TableCell>
                                 <Input
+                                    className="border-slate-300 focus:border-indigo-500"
                                     type="number"
                                     value={form.amount != null ? form.amount : ""}
                                     placeholder="Amount ($)"
@@ -276,6 +285,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 <TableHead>PO Number</TableHead>
                                 <TableCell>
                                 <Input 
+                                    className="border-slate-300 focus:border-indigo-500"
                                     value={form.poNumber || ""} 
                                     placeholder="PO Number"
                                     onChange={handleChange("poNumber")}

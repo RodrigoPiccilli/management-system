@@ -56,7 +56,7 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
   {
     accessorKey: "jobName",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+      <Button variant="ghost" className="rounded-full" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
         Job Name
         <ArrowUpDown className="h-4 w-4"/>
       </Button>

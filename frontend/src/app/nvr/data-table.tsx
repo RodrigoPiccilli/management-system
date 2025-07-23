@@ -82,7 +82,7 @@ export function DataTable<TData, TValue>({
 
   
 
-  return (
+  return ( 
 
     <div>
         {/* Filter Input */}
@@ -93,19 +93,19 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
                 table.getColumn("jobName")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="max-w-sm bg-white border-AMBER-200"
             />
             {/* <Button className="mx-2 min-w-1/20" onClick={fetchJobs}></Button> */}
             <div className="flex">
                 <AddJobDialog fetchJobs={fetchJobs}/>
-                <Button className="w-fit" onClick={fetchJobs}>Refresh</Button>
+                <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700" onClick={fetchJobs}>Refresh</Button>
             </div>
         </div>
 
        {/* Table */}
-        <div className="rounded-md border">
+        <div className="rounded-md border bg-white">
             <Table>
-                <TableHeader>
+                <TableHeader className="bg-slate-200 text-slate-800">
                 {table.getHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id} className="divide-x divide-gray-200">
                     {headerGroup.headers.map((header) => {
@@ -126,10 +126,10 @@ export function DataTable<TData, TValue>({
                     </TableRow>
                 ))}
                 </TableHeader>
-                <TableBody>
+                <TableBody >
                 {table.getRowModel().rows?.length ? (
                     table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id} className="divide-x divide-gray-200">
+                    <TableRow key={row.id} className="divide-x divide-slate-200 even:bg-slate-50 odd:bg-white hover:bg-indigo-50" >
                         {row.getVisibleCells().map((cell) => {
                             // Safely access className only if meta and className exist
                             const className = cell.column.columnDef.meta && 'className' in cell.column.columnDef.meta
@@ -157,7 +157,8 @@ export function DataTable<TData, TValue>({
         {/* Pagination */}
         <div className="flex items-center justify-end space-x-2 py-4">
             <Button
-            variant="outline"
+            // variant="outline"
+            className="bg-slate-600 text-white hover:bg-slate-700"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -165,7 +166,8 @@ export function DataTable<TData, TValue>({
             Previous
             </Button>
             <Button
-            variant="outline"
+            // variant="outline"
+            className="bg-indigo-600 text-white hover:bg-indigo-700"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}

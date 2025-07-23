@@ -14,11 +14,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function TabsMenu() {
   return (
-    <Tabs defaultValue="jobs" className="bg-slate-400 py-2">
-        <TabsList className="h-15 bg-gray-100">
-        <TabsTrigger className="text-lg px-10 data-[state=active]:bg-gray-400 data-[state=active]:text-white data-[state=active]:font-bold min-w-7" value="jobs">NVR</TabsTrigger>
-        <TabsTrigger className="text-lg px-10 data-[state=active]:bg-gray-400 data-[state=active]:text-white data-[state=active]:font-bold min-w-7" value="calendar">Homeowners</TabsTrigger>
-        <TabsTrigger className="text-lg px-10 data-[state=active]:bg-gray-400 data-[state=active]:text-white data-[state=active]:font-bold min-w-7" value="template">Payables</TabsTrigger>
+    <Tabs defaultValue="jobs" className="bg-slate-800 py-2 text-white">
+        <TabsList className="h-15 bg-slate-100 text-slate-700">
+        <TabsTrigger className="text-lg px-10 data-[state=active]:bg-indigo-600 data-[state=active]:text-white data-[state=active]:font-bold min-w-7 hover:bg-slate-300" value="jobs">NVR</TabsTrigger>
+        <TabsTrigger className="text-lg px-10 data-[state=active]:bg-indigo-600 data-[state=active]:text-white data-[state=active]:font-bold min-w-7 hover:bg-slate-300" value="calendar">Homeowners</TabsTrigger>
+        <TabsTrigger className="text-lg px-10 data-[state=active]:bg-indigo-600 data-[state=active]:text-white data-[state=active]:font-bold min-w-7 hover:bg-slate-300" value="template">Payables</TabsTrigger>
         {/* <TabsTrigger className="text-lg px-10" value="schedule">Schedule</TabsTrigger>
         <TabsTrigger className="text-lg px-10" value="payment">Payment</TabsTrigger> */}
         </TabsList>
