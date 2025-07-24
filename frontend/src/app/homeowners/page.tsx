@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { TabsMenu } from "@/components/ui/TabsMenu";
+import { Navigation } from "@/components/ui/Navigation";
 
 import { useEffect, useState } from "react";
 import api from "@/lib/apis";
@@ -34,7 +34,7 @@ export default function HOPage() {
 
     return ( 
          <div className="bg-slate-50 h-screen w-screen">
-             < TabsMenu/>
+             < Navigation/>
 
              <div className="container mx-auto mt-10 mb-5">
                 <h1 className="text-5xl text-left text-slate-900">Homeowner Jobs</h1>
