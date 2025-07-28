@@ -232,7 +232,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
 
 
             <DialogClose asChild>
-                <Button type="submit">Save changes</Button>
+                <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700" >Save changes</Button>
             </DialogClose>
           </DialogFooter>
         </form>

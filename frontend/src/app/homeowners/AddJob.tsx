@@ -228,7 +228,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                         <DialogClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DialogClose>
-                            <Button type="submit" onClick={handleSubmit}>Add</Button>
+                            <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700"  onClick={handleSubmit}>Add</Button>
                     </DialogFooter>
                     </DialogContent>
                 </form>

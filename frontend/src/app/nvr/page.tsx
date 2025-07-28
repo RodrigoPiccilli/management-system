@@ -7,6 +7,7 @@ import { DataTable } from "./data-table"
 
 import { useEffect, useState} from "react"
 import api from "@/lib/apis";
+import LoadingPage from "@/components/ui/loading";
 
 
 export default function NVRPage() {
@@ -31,7 +32,7 @@ export default function NVRPage() {
         fetchJobs();
       }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage />
 
     return ( 
          <div className="bg-slate-50 h-screen w-screen">
