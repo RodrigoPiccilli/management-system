@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import api from "@/lib/apis";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import LoadingPage from "@/components/ui/loading";
 
 export default function HOPage() {
 
@@ -30,7 +31,7 @@ export default function HOPage() {
         fetchJobs();
       }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage/>;
 
     return ( 
          <div className="h-15 bg-slate-100 text-slate-700 px-17">
@@ -42,8 +43,7 @@ export default function HOPage() {
              
              <div className="container mx-auto pt-5">
                 <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs}/>
-            </div>
-                
+            </div>            
         
         </div>
 

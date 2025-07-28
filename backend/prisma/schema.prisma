@@ -41,4 +41,6 @@ model HOJob {
   address      String?
   sink         String?
   amount       Float?
+  deposit      Boolean?
+  final        Boolean?
 }

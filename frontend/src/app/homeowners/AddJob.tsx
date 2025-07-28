@@ -13,6 +13,9 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 
+import { Checkbox } from "@/components/ui/checkbox"
+
+
 import {
     Table,
     TableBody,
@@ -46,6 +49,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
         address: "",
         sink: "",
         amount: undefined as number | undefined,
+        deposit: false,
+        final: false
     });
 
     const [open, setOpen] = useState(false);
@@ -61,6 +66,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
             address: "",
             sink: "",
             amount: undefined as number | undefined,
+            deposit: false,
+            final: false
         }
 
         setForm(defaultJob);
@@ -223,6 +230,34 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                             </TableRow>
                             </TableBody>
                         </Table>
+
+                        <div className="flex justify-evenly mb-5">
+
+                            <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="deposit" 
+                                  className="w-5 h-5 border-indigo-500 border-2 data-[state=checked]:bg-indigo-500"
+                                  checked={!!form.deposit}
+                                  onCheckedChange={(checked) => 
+                                    setForm({ ...form, deposit: checked === true })
+                                  }
+                                />
+                                <label htmlFor="deposit" className="">Deposit</label>
+                            </div>
+                            
+                            <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="final" 
+                                  className="w-5 h-5 border-indigo-500 border-2 data-[state=checked]:bg-indigo-500"
+                                  checked={form.final}
+                                  onCheckedChange={(checked) => 
+                                    setForm({ ...form, final: checked === true})
+                                  }
+                                />
+                                <label htmlFor="final" className="">Final</label>
+                            </div>
+
+                        </div>
 
                     <DialogFooter>
                         <DialogClose asChild>

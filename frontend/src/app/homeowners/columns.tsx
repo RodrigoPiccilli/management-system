@@ -16,6 +16,8 @@ export type Job = {
     address?: string;
     sink?: string;
     amount?: number;
+    deposit?: boolean;
+    final?: boolean;
 };
 
 export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [

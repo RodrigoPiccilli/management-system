@@ -28,7 +28,6 @@ app.get('/api/homeowners', async (req, res) => {
     }
 });
 
-
 // Get NVR Jobs by Job Name
 app.get('/api/nvr/:jobName', async (req, res) => {
     try {
@@ -58,6 +57,23 @@ app.get('/api/homeowners/:jobName', async (req, res) => {
       res.json(job);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch job' });
+    }
+});
+
+// Get All Homeowner Jobs with Install Dates Set
+app.get('/api/receivables', async (req, res) => {
+    try {
+      const jobs = await prisma.hOJob.findMany({
+        where: {
+            installDate: {
+                not: null
+            }
+        }
+      });
+      res.json(jobs);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to fetch jobs' });
     }
 });
 
@@ -116,6 +132,8 @@ app.post('/api/homeowners/add', async (req, res) => {
         address,
         sink,
         amount,
+        deposit,
+        final,
       } = req.body;
   
       const newJob = await prisma.hOJob.create({
@@ -128,6 +146,8 @@ app.post('/api/homeowners/add', async (req, res) => {
           address,
           sink,
           amount,
+          deposit,
+          final,
         }
       });
   
@@ -194,6 +214,8 @@ app.put('/api/homeowners/update/:jobName', async (req, res) => {
             address,
             sink,
             amount,
+            deposit,
+            final,
           } = req.body;
 
           const updatedJob = await prisma.hOJob.update({
@@ -206,6 +228,8 @@ app.put('/api/homeowners/update/:jobName', async (req, res) => {
               address,
               sink,
               amount,
+              deposit,
+              final,
             }
           });
 
