@@ -15,7 +15,7 @@ export default function HOPage() {
 
     const fetchJobs = () => {
         setLoading(true);
-        api.get("/homeowner-jobs")
+        api.get("/homeowners")
           .then(res => {
             setJobs(res.data);
             setLoading(false);
@@ -33,7 +33,7 @@ export default function HOPage() {
     if (loading) return <div>Loading...</div>;
 
     return ( 
-         <div className="bg-slate-50 h-screen w-screen">
+         <div className="h-15 bg-slate-100 text-slate-700 px-17">
              < Navigation/>
 
              <div className="container mx-auto mt-10 mb-5">

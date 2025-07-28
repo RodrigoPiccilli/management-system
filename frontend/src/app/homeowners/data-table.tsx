@@ -25,7 +25,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-// import AddJobDialog from "./AddJob";
+import AddJobDialog from "./AddJob"
 
 
 interface DataTableProps<TData, TValue> {
@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [pagination, setPagination] = React.useState({
         pageIndex: 0,
-        pageSize: 10, // Changes the Number of Jobs Being Showed Per Page.
+        pageSize: 10,
     })
 
   const table = useReactTable({
@@ -97,7 +97,7 @@ export function DataTable<TData, TValue>({
             />
             {/* <Button className="mx-2 min-w-1/20" onClick={fetchJobs}></Button> */}
             <div className="flex">
-                {/* <AddJobDialog fetchJobs={fetchJobs}/> */}
+                <AddJobDialog fetchJobs={fetchJobs}/>
                 <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700" onClick={fetchJobs}>Refresh</Button>
             </div>
         </div>

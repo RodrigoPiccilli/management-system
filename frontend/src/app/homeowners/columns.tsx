@@ -3,53 +3,19 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 
-import { useState, useEffect } from "react"
-
-// import ViewJobDialog from "./EditJob"
+import ViewJobDialog from "./EditJob"
 
 export type Job = {
     id: string;
     jobName: string;
-    areaCode?: string;
-    model?: string;
-    direction?: string;
     stone?: string;
     backsplash?: boolean;
     installDate?: string; 
     ft2?: number;
-    community?: string;
     address?: string;
     sink?: string;
     amount?: number;
-    poNumber?: string;
 };
 
 export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
@@ -61,29 +27,13 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
         <ArrowUpDown className="h-4 w-4"/>
       </Button>
     ),
-    // cell: ({ row }) => <ViewJobDialog job={row.original} fetchJobs={fetchJobs} />,
+    cell: ({ row }) => <ViewJobDialog job={row.original} fetchJobs={fetchJobs} />,
     
-  },
-  {
-    accessorKey: "areaCode",
-    header: "Area Code",
-    cell: info => info.getValue(),
-    meta: { className:"text-center"}
-  },
-  {
-    accessorKey: "model",
-    header: "Model",
-    meta: { className: "w-24 text-center" }
-  },
-  {
-    accessorKey: "direction",
-    header: "Direction",
-    meta: { className:"max-w-24 text-center"}
   },
   {
     accessorKey: "stone",
     header: "Stone",
-    meta: { className: "w-24 text-center" }
+    meta: { className: "text-center" }
 
   },
   
@@ -96,7 +46,7 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
             <div>{value === true ? "Yes" : value === false ? "No" : ""}</div>
         );
     },
-    meta: {className:"max-w-24 text-center"}
+    meta: {className:"text-center"}
   },
   {
     accessorKey: "installDate",
@@ -120,22 +70,17 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
         }
         return "";
     },
-    meta: { className: "w-20 text-center" }
-  },
-  {
-    accessorKey: "community",
-    header: "Community",
-    meta: { className: "text-left" }
+    meta: { className: "text-center" }
   },
   {
     accessorKey: "address",
     header: "Address",
-    meta: { className: "text-left" }
+    meta: { className: "text-center" }
   },
   {
     accessorKey: "sink",
     header: "Sink",
-    meta: { className: "w-24 text-center" }
+    meta: { className: "text-center" }
   },
   {
     accessorKey: "amount",
@@ -149,11 +94,6 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
         }).format(value);
       }
     },
-    meta: { className: "w-24 text-right" }
-  },
-  {
-    accessorKey: "poNumber",
-    header: "PO Number",
-    meta: { className: "pr-5 text-right" }
+    meta: { className: "text-center" }
   },
 ]
