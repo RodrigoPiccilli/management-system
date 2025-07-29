@@ -31,7 +31,7 @@ model NVRJob {
   poNumber     String?
 }
 
-model HOJob {
+model HomeownerJob {
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   jobName      String   @unique
   stone        String?
