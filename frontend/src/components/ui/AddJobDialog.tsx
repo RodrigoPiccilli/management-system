@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { columns, Job } from "./columns"
 import {
     Dialog,
     DialogClose,
@@ -12,6 +11,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+
+import { Checkbox } from "@/components/ui/checkbox"
+
 
 import {
     Table,
@@ -35,49 +37,26 @@ import { Input } from "@/components/ui/input"
 import { useEffect, useState} from "react"
 import api from "@/lib/apis";
 
-const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
+type JobForm = Record<string, any>;
 
-    const [form, setForm] = useState({
-        jobName: "",
-        areaCode: "",
-        model: "",
-        direction: "",
-        stone: "",
-        backsplash: undefined as boolean | undefined,
-        installDate: "",
-        ft2: undefined as number | undefined,
-        community: "",
-        address: "",
-        sink: "",
-        amount: undefined as number | undefined,
-        poNumber: ""
-    });
+interface AddJobDialogProps {
+    apiEndpoint: string;
+    initialForm: JobForm;
+    title: string;
+    fetchJobs: () => void;
+  }
 
+const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDialogProps) => {
+
+
+    const [form, setForm] = useState<JobForm>(initialForm);
     const [open, setOpen] = useState(false);
 
     useEffect(() => { 
+        setForm(initialForm);
+    }, [open, initialForm]);
 
-        const defaultJob = {
-            jobName: "",
-            areaCode: "",
-            model: "",
-            direction: "",
-            stone: "",
-            backsplash: undefined as boolean | undefined,
-            installDate: "",
-            ft2: undefined as number | undefined,
-            community: "",
-            address: "",
-            sink: "",
-            amount: undefined as number | undefined,
-            poNumber: ""
-        }
-
-        setForm(defaultJob);
-
-    }, [open]);
-
-    const handleChange = (field: keyof Job) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [field]: e.target.value });
     };
 
@@ -87,13 +66,12 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
 
         const dataToSend = {
             ...form,
-            installDate: form.installDate
-                ? new Date(form.installDate).toISOString()
-                : undefined,
+            ...(form.installDate ? { installDate: new Date(form.installDate).toISOString() } : {}),
         };
     
         try {
-            await api.post(`/nvr`, dataToSend);
+            console.log(dataToSend);
+            await api.post(apiEndpoint, dataToSend);
             console.log("Job added successfully!");
             setOpen(false); 
             fetchJobs();
@@ -114,61 +92,70 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
 
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Add NVR Job</DialogTitle>
+                        <DialogTitle>{title}</DialogTitle>
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
 
                     <Table>
                         <TableBody>
-                            <TableRow>
-                                <TableHead>Job Name</TableHead>
-                                <TableCell>
-                                <Input
-                                    className="border-slate-300 focus:border-indigo-500"
-                                    value={form.jobName || ""} 
-                                    placeholder="Job Name"
-                                    onChange={handleChange("jobName")}/>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Area Code</TableHead>
-                                <TableCell>
-                                <Input 
-                                    className="border-slate-300 focus:border-indigo-500"
-                                    value={form.areaCode || ""} 
-                                    placeholder="Area Code"
-                                    onChange={handleChange("areaCode")}/>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Model</TableHead>
-                                <TableCell>
-                                <Input 
-                                    className="border-slate-300 focus:border-indigo-500"
-                                    value={form.model || ""} 
-                                    placeholder="Model"
-                                    onChange={handleChange("model")}/>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableHead>Direction</TableHead>
-                                <TableCell>
-                                <Select
-                                    value={ form.direction || ""}
-                                    onValueChange={(value) =>
-                                        setForm({ ...form, direction: value })
-                                    }
-                                >
-                                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
-                                    <SelectValue placeholder="Direction" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                    <SelectItem value="Per Plan">Per Plan</SelectItem>
-                                    <SelectItem value="Reverse">Reverse</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                </TableCell>
-                            </TableRow>
+                            {"jobName" in form && (
+                                <TableRow>
+                                    <TableHead>Job Name</TableHead>
+                                    <TableCell>
+                                    <Input
+                                        className="border-slate-300 focus:border-indigo-500"
+                                        value={form.jobName || ""} 
+                                        placeholder="Job Name"
+                                        onChange={handleChange("jobName")}/>
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                            {"areaCode" in form && (
+                                <TableRow>
+                                    <TableHead>Area Code</TableHead>
+                                    <TableCell>
+                                    <Input 
+                                        className="border-slate-300 focus:border-indigo-500"
+                                        value={form.areaCode || ""} 
+                                        placeholder="Area Code"
+                                        onChange={handleChange("areaCode")}/>
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                            {"model" in form && (
+                                <TableRow>
+                                    <TableHead>Model</TableHead>
+                                    <TableCell>
+                                    <Input 
+                                        className="border-slate-300 focus:border-indigo-500"
+                                        value={form.model || ""} 
+                                        placeholder="Model"
+                                        onChange={handleChange("model")}/>
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                            {"direction" in form && (
+                                <TableRow>
+                                    <TableHead>Direction</TableHead>
+                                    <TableCell>
+                                    <Select
+                                        value={ form.direction || ""}
+                                        onValueChange={(value) =>
+                                            setForm({ ...form, direction: value })
+                                        }
+                                    >
+                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                        <SelectValue placeholder="Direction" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                        <SelectItem value="Per Plan">Per Plan</SelectItem>
+                                        <SelectItem value="Reverse">Reverse</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                            {"stone" in form && (
                             <TableRow>
                                 <TableHead>Stone</TableHead>
                                 <TableCell>
@@ -179,6 +166,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                     onChange={handleChange("stone")}/>
                                 </TableCell>
                             </TableRow>
+                            )}
+                            {"backsplash" in form && (
                             <TableRow>
                                 <TableHead>Backsplash</TableHead>
                                 <TableCell>
@@ -197,6 +186,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 </Select>
                                 </TableCell>
                             </TableRow>
+                            )}
+                            {"installDate" in form && (
                             <TableRow>
                                 <TableHead>Install Date</TableHead>
                                 <TableCell>
@@ -208,6 +199,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 />
                                 </TableCell>
                             </TableRow>
+                            )}
+                            {"ft2" in form && (
                             <TableRow>
                                 <TableHead>FT²</TableHead>
                                 <TableCell>
@@ -225,7 +218,9 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 />
                                 </TableCell>
                             </TableRow>
-                            <TableRow>
+                            )}
+                            {"community" in form && (
+                             <TableRow>
                                 <TableHead>Community</TableHead>
                                 <TableCell>
                                 <Input 
@@ -236,6 +231,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 />
                                 </TableCell>
                             </TableRow>
+                            )}
+                            {"address" in form && (
                             <TableRow>
                                 <TableHead>Address</TableHead>
                                 <TableCell>
@@ -246,6 +243,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                     onChange={handleChange("address")}/>
                                 </TableCell>
                             </TableRow>
+                            )}
+                            {"sink" in form && (
                             <TableRow>
                                 <TableHead>Sink</TableHead>
                                 <TableCell>
@@ -253,7 +252,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                     value={form.sink || ""}
                                     onValueChange={value => setForm({ ...form, sink: value })}
                                 >
-                                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo=-500">
+                                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
                                     <SelectValue placeholder="Sink Type" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -264,6 +263,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 </Select>
                                 </TableCell>
                             </TableRow>
+                            )}
+                            {"amount" in form && (
                             <TableRow>
                                 <TableHead>Amount</TableHead>
                                 <TableCell>
@@ -281,6 +282,8 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 />
                                 </TableCell>
                             </TableRow>
+                            )}
+                            {"poNumber" in form && (
                             <TableRow>
                                 <TableHead>PO Number</TableHead>
                                 <TableCell>
@@ -292,14 +295,46 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
                                 />
                                 </TableCell>
                             </TableRow>
+                            )}
                             </TableBody>
                         </Table>
+
+                        {"deposit" in form && (
+
+                        <div className="flex justify-evenly mb-5">
+
+                            <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="deposit" 
+                                  className="w-5 h-5 border-indigo-500 border-2 data-[state=checked]:bg-indigo-500"
+                                  checked={!!form.deposit}
+                                  onCheckedChange={(checked) => 
+                                    setForm({ ...form, deposit: checked === true })
+                                  }
+                                />
+                                <label htmlFor="deposit" className="">Deposit</label>
+                            </div>
+                            
+                            <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="final" 
+                                  className="w-5 h-5 border-indigo-500 border-2 data-[state=checked]:bg-indigo-500"
+                                  checked={form.final}
+                                  onCheckedChange={(checked) => 
+                                    setForm({ ...form, final: checked === true})
+                                  }
+                                />
+                                <label htmlFor="final" className="">Final</label>
+                            </div>
+
+                        </div>
+                        )}
 
                     <DialogFooter>
                         <DialogClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DialogClose>
-                            <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700" onClick={handleSubmit}>Add</Button>
+                            <Button className="bg-emerald-600 hover:bg-emerald-700"  onClick={handleSubmit}>Add</Button>
                     </DialogFooter>
                     </DialogContent>
                 </form>
@@ -309,3 +344,4 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
 }
 
 export default AddJobDialog;
+

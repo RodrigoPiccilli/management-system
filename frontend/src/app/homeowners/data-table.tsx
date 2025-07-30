@@ -25,7 +25,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import AddJobDialog from "./AddJob"
+import AddJobDialog from "@/components/ui/AddJobDialog"
 
 
 interface DataTableProps<TData, TValue> {
@@ -95,9 +95,24 @@ export function DataTable<TData, TValue>({
             }
             className="max-w-sm bg-white border-AMBER-200"
             />
-            {/* <Button className="mx-2 min-w-1/20" onClick={fetchJobs}></Button> */}
             <div className="flex">
-                <AddJobDialog fetchJobs={fetchJobs}/>
+            <AddJobDialog
+                apiEndpoint="/homeowners"
+                initialForm={{
+                    jobName: "",        
+                    stone: null,         
+                    backsplash: null,    
+                    installDate: null,   
+                    ft2: null,           
+                    address: null,
+                    sink: null,
+                    amount: null,
+                    deposit: false,      
+                    final: false       
+                  }}
+                title="Add Homeowner Job"
+                fetchJobs={fetchJobs}
+            />
                 <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700" onClick={fetchJobs}>Refresh</Button>
             </div>
         </div>
