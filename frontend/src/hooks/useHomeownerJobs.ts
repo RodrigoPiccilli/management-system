@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 
 import api from "@/lib/apis";
 
-export function useNVRJobs() {
+export function useHomeownerJobs() {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchJobs = () => {
+    const fetchJobs= () => {
         setLoading(true);
-        api.get('/nvr')
+        api.get('/homeowners')
         .then(
             res => setJobs(res.data)
         )

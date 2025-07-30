@@ -1,19 +1,15 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
 import { Navigation } from "@/components/ui/Navigation";
 import { columns, Job } from "./columns"
 import { DataTable } from "./data-table"
-
-import { useEffect, useState} from "react"
-import api from "@/lib/apis";
 import LoadingPage from "@/components/ui/loading";
-import { useNvrJobs } from "@/hooks/useNVRJobs";
+import { useNVRJobs } from "@/hooks/useNVRJobs";
 
 
 export default function NVRPage() {
 
-    const { jobs, loading } = useNvrJobs();
+    const { jobs, loading, fetchJobs } = useNVRJobs();
 
     if (loading) return <LoadingPage />
 
@@ -24,13 +20,13 @@ export default function NVRPage() {
                 < Navigation/>
             </div> 
 
-             <div className="container mx-auto mt-10 mb-5">
+             <header className="container mx-auto mt-10 mb-5">
                 <h1 className="text-5xl text-left text-slate-900">NVR Jobs</h1>
-            </div>
+            </header>
              
              <div className="container mx-auto pt-5">
-                <DataTable columns={columns(useNvrJobs)} data={jobs} fetchJobs={useNvrJobs}/>
-            </div>
+                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs}/>
+             </div>
                 
         
         </div>
