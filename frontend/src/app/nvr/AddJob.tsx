@@ -93,7 +93,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
         };
     
         try {
-            await api.post(`/nvr/add`, dataToSend);
+            await api.post(`/nvr`, dataToSend);
             console.log("Job added successfully!");
             setOpen(false); 
             fetchJobs();

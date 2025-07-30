@@ -26,7 +26,7 @@ router.get('/:jobName', async (req: Request, res: Response) => {
 });
 
 // Add NVR Job
-router.post('/add', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
     try {
         const data = req.body;
         const newJob = await prisma.nVRJob.create({ data });
@@ -37,7 +37,7 @@ router.post('/add', async (req: Request, res: Response) => {
 });
 
 // Update NVR Job
-router.put('/update/:jobName', async (req: Request, res: Response) => {
+router.put('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
         const data = req.body;
@@ -52,7 +52,7 @@ router.put('/update/:jobName', async (req: Request, res: Response) => {
 });
 
 // Delete NVR Job
-router.delete('/delete/:jobName', async (req: Request, res: Response) => {
+router.delete('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
         const deletedJob = await prisma.nVRJob.delete({ where: { jobName } });

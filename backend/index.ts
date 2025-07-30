@@ -6,7 +6,6 @@ import cors from 'cors';
 
 import nvrRoutes from './routes/nvr';
 import homeownerRoutes from './routes/homeowners';
-import receivablesRoutes from './routes/receivables';
 
 const app = express();
 
@@ -15,7 +14,6 @@ app.use(express.json());
 
 app.use('/api/nvr', nvrRoutes);
 app.use('/api/homeowners', homeownerRoutes);
-app.use('/api/receivables', receivablesRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

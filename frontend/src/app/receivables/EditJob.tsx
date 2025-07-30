@@ -25,7 +25,7 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
 
     const handleDelete = async () => {
         try {
-            await api.delete(`/homeowners/delete/${job.jobName}`);
+            await api.delete(`/homeowners/${job.jobName}`);
             fetchJobs(); 
             setOpen(false);
             console.log("Job deleted successfully!");
@@ -38,12 +38,12 @@ function EditJobDialog({ job, fetchJobs }: { job: Job; fetchJobs: () => void }) 
         e.preventDefault();
 
         try {
-        await api.put(`/homeowners/update/${form.jobName}`, form);
-        fetchJobs(); 
-        setOpen(false); 
-        console.log("Job updated successfully!");
+            await api.put(`/homeowners/${form.jobName}`, form);
+            fetchJobs(); 
+            setOpen(false); 
+            console.log("Job updated successfully!");
         } catch (error) {
-        console.error("Failed to update job:", error);
+            console.error("Failed to update job:", error);
         }
     };
 

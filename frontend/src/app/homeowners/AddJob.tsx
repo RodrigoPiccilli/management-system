@@ -90,7 +90,7 @@ const AddJobDialog = ({ fetchJobs }: { fetchJobs: () => void }) => {
         };
     
         try {
-            await api.post(`/homeowners/add`, dataToSend);
+            await api.post(`/homeowners`, dataToSend);
             console.log("Job added successfully!");
             setOpen(false); 
             fetchJobs();

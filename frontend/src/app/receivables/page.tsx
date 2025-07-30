@@ -14,7 +14,7 @@ export default function Receivables() {
 
     const fetchJobs = () => {
         setLoading(true);
-        api.get("/receivables")
+        api.get("/homeowners/receivables")
           .then(res => {
             setJobs(res.data);
             setLoading(false);
