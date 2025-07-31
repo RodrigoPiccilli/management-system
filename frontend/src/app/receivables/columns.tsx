@@ -4,9 +4,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { differenceInDays } from 'date-fns';
-
-
-import ViewJobDialog from "./EditJob"
+import EditJobDialog from "@/components/ui/EditJobDialog";
 
 export type Job = {
     id: string;
@@ -31,7 +29,7 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
         <ArrowUpDown className="h-4 w-4"/>
       </Button>
     ),
-    cell: ({ row }) => <ViewJobDialog job={row.original} fetchJobs={fetchJobs} />,
+    cell: ({ row }) => <EditJobDialog apiEndpoint="/homeowners" job={row.original} fetchJobs={fetchJobs} />,
     
   }, 
   {

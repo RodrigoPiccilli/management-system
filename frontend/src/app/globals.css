@@ -120,3 +120,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+.outer-div-template {
+  @apply bg-slate-50 h-screen w-screen;
+}
+
+.navigation {
+    @apply h-15 bg-slate-100 text-slate-700 px-17
+}
+
+.page-header {
+    @apply container mx-auto mt-10 mb-5
+}
+
+.page-title {
+    @apply text-5xl text-left text-slate-900
+}
+
+.data-table {
+    @apply container mx-auto pt-5
+}

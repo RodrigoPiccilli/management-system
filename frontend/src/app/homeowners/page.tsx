@@ -13,14 +13,16 @@ export default function HOPage() {
     if (loading) return <LoadingPage/>;
 
     return ( 
-         <div className="h-15 bg-slate-100 text-slate-700 px-17">
+        <div className="outer-div-template">
+            <div className="navigation">
              < Navigation/>
+             </div>
 
-             <header className="container mx-auto mt-10 mb-5">
-                <h1 className="text-5xl text-left text-slate-900">Homeowner Jobs</h1>
+             <header className="page-header">
+                <h1 className="page-title">Homeowner Jobs</h1>
             </header>
              
-             <div className="container mx-auto pt-5">
+             <div className="data-table">
                 <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs}/>
              </div>            
         
