@@ -14,10 +14,9 @@ export default function HOPage() {
 
     return ( 
         <div className="outer-div-template">
-            <div className="navigation">
-             < Navigation/>
-             </div>
-
+           
+             < Navigation activeTab="homeowners"/>
+            
              <header className="page-header">
                 <h1 className="page-title">Homeowner Jobs</h1>
             </header>

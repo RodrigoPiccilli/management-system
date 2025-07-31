@@ -16,9 +16,7 @@ export default function NVRPage() {
     return ( 
         <div className="outer-div-template">
 
-            <div className="navigation">
-                < Navigation/>
-            </div> 
+            < Navigation activeTab="nvr"/>
 
             <header className="page-header">
                 <h1 className="page-title">NVR Jobs</h1>

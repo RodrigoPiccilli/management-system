@@ -86,14 +86,14 @@ export function DataTable<TData, TValue>({
 
     <div>
         {/* Filter Input */}
-        <div className="flex items-center py-4 justify-between align-middle">
+        <div className="data-actions">
             <Input
             placeholder="Filter Jobs By Name"
             value={(table.getColumn("jobName")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
                 table.getColumn("jobName")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm bg-white border-AMBER-200"
+            className="filter-input"
             />
             <div className="flex">
             <AddJobDialog
@@ -118,7 +118,7 @@ export function DataTable<TData, TValue>({
         </div>
 
        {/* Table */}
-        <div className="rounded-md border bg-white">
+        <div className="table-edges">
             <Table>
                 <TableHeader className="bg-slate-200 text-slate-800">
                 {table.getHeaderGroups().map((headerGroup) => (

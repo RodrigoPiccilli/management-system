@@ -15,10 +15,8 @@ export default function Receivables() {
     return ( 
         <div className="outer-div-template">
             
-            <div className="navigation">
-                < Navigation/>
-            </div>
-
+            < Navigation activeTab="receivables"/>
+          
             <header className="page-header">
                 <h1 className="page-title">Receivables</h1>
             </header>

@@ -2,13 +2,9 @@
 
 import {
     NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
-    NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
 
 
@@ -16,25 +12,37 @@ import * as React from "react"
 import Link from "next/link"
 
 
-export function Navigation() {
+export function Navigation({ activeTab }: { activeTab?: string }) {
 
     return (
 
-        <NavigationMenu className="h-15 bg-slate-100 text-slate-700">
+        <NavigationMenu className="h-15 bg-slate-100 text-slate-700 min-w-full flex justify-start pl-17 border-b-2 border-indigo-500">
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuLink asChild className="cursor-pointer">
-                        <Link href="/nvr">NVR</Link>
+                 <NavigationMenuLink asChild className="cursor-pointer">
+                        <Link
+                            href="/nvr"
+                            className={`navigation-title ${activeTab === "nvr" ? "text-indigo-600 font-bold" : ""}`}>
+                            NVR
+                        </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem className="px-10">
                     <NavigationMenuLink asChild className="cursor-pointer">
-                        <Link href="/homeowners">Homeowners</Link>
+                        <Link 
+                            href="/homeowners" 
+                            className={`navigation-title ${activeTab === "homeowners" ? "text-indigo-600 font-bold" : ""}`}>
+                            Homeowners
+                        </Link>
                     </NavigationMenuLink>
-                </NavigationMenuItem>
+                </NavigationMenuItem> 
                 <NavigationMenuItem className="">
                     <NavigationMenuLink asChild className="cursor-pointer">
-                        <Link href="/receivables">Receivables</Link>
+                        <Link 
+                            href="/receivables" 
+                            className={`navigation-title ${activeTab === "receivables" ? "text-indigo-600 font-bold" : ""}`}>
+                            Receivables
+                        </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
             </NavigationMenuList>
