@@ -3,24 +3,12 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { HomeownerJob } from "../types/job"
 
-import ViewJobDialog from "./EditJob"
+import EditJobDialog from "@/components/ui/EditJobDialog"
 
-export type Job = {
-    id: string;
-    jobName: string;
-    stone?: string;
-    backsplash?: boolean;
-    installDate?: string; 
-    ft2?: number;
-    address?: string;
-    sink?: string;
-    amount?: number;
-    deposit?: boolean;
-    final?: boolean;
-};
 
-export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
+export const columns = (fetchJobs: () => void): ColumnDef<HomeownerJob>[] => [
   {
     accessorKey: "jobName",
     header: ({ column }) => (
@@ -29,7 +17,7 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
         <ArrowUpDown className="h-4 w-4"/>
       </Button>
     ),
-    cell: ({ row }) => <ViewJobDialog job={row.original} fetchJobs={fetchJobs} />,
+    cell: ({ row }) => <EditJobDialog apiEndpoint="/homeowners" job={row.original} fetchJobs={fetchJobs} />,
     
   },
   {
