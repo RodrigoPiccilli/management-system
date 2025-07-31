@@ -61,7 +61,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs}: EditJobDialogProps) => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                   <DialogTitle>Edit {job.jobName}</DialogTitle>
+                   <DialogTitle><span className="text-indigo-500">Edit</span> {job.jobName}</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit}>
                     <Table>
