@@ -6,7 +6,7 @@ export type NVRJob = {
     direction?: string;
     stone?: string;
     backsplash?: boolean;
-    installDate?: string; 
+    installDate?: string;
     ft2?: number;
     community?: string;
     address?: string;
@@ -20,7 +20,7 @@ export type HomeownerJob = {
     jobName: string;
     stone?: string;
     backsplash?: boolean;
-    installDate?: string; 
+    installDate?: string;
     ft2?: number;
     address?: string;
     sink?: string;

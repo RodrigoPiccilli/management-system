@@ -10,23 +10,23 @@ import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 export default function Receivables() {
 
     useAuthRedirect();
-   
+
     const { jobs, loading, fetchJobs } = useReceivables();
 
-    if (loading) return <LoadingPage/>;
+    if (loading) return <LoadingPage />;
 
-    return ( 
+    return (
         <div className="outer-div-template">
-            
-            < Navigation activeTab="receivables"/>
-          
+
+            < Navigation activeTab="receivables" />
+
             <header className="page-header">
                 <h1 className="page-title">Receivables</h1>
             </header>
-                
+
             <div className="data-table">
-                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs}/>
-            </div>   
+                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
+            </div>
 
         </div>
     )

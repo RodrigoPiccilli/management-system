@@ -5,19 +5,19 @@ import api from "@/lib/apis";
 export function useReceivables() {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(false);
-  
+
     const fetchJobs = () => {
-      setLoading(true);
-      api.get('/homeowners/receivables')
-        .then(res => setJobs(res.data))
-        .catch(err => console.error('Axios error:', err))
-        .finally(() => setLoading(false));
+        setLoading(true);
+        api.get('/homeowners/receivables')
+            .then(res => setJobs(res.data))
+            .catch(err => console.error('Axios error:', err))
+            .finally(() => setLoading(false));
     };
-  
+
     useEffect(() => {
-      fetchJobs();
+        fetchJobs();
     }, []);
-  
+
     return { jobs, loading, fetchJobs };
 }
-  
+

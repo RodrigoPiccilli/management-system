@@ -6,21 +6,21 @@ export function useHomeownerJobs() {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchJobs= () => {
+    const fetchJobs = () => {
         setLoading(true);
         api.get('/homeowners')
-        .then(
-            res => setJobs(res.data)
-        )
-        .catch(
-            err => console.error('Axios error:', err)
-        )
-        .finally(() => setLoading(false));
+            .then(
+                res => setJobs(res.data)
+            )
+            .catch(
+                err => console.error('Axios error:', err)
+            )
+            .finally(() => setLoading(false));
     };
 
     useEffect(() => {
         fetchJobs();
     }, []);
 
-  return { jobs, loading, fetchJobs };
+    return { jobs, loading, fetchJobs };
 }

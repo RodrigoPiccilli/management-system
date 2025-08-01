@@ -3,21 +3,21 @@ import { useRouter } from "next/navigation";
 import supabase from "@/lib/supabaseClient";
 
 export function useAuthRedirect() {
-  const router = useRouter();
+    const router = useRouter();
 
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (!data?.user) {
-        router.push("/login");
-      } else {
-        setLoading(false);
-      }
-    };
-    checkUser();
-  }, [router]);
+    useEffect(() => {
+        const checkUser = async () => {
+            const { data } = await supabase.auth.getUser();
+            if (!data?.user) {
+                router.push("/login");
+            } else {
+                setLoading(false);
+            }
+        };
+        checkUser();
+    }, [router]);
 
-  return loading;
+    return loading;
 }

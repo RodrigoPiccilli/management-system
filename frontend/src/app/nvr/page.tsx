@@ -16,19 +16,19 @@ export default function NVRPage() {
 
     if (loading) return <LoadingPage />
 
-    return ( 
+    return (
         <div className="outer-div-template">
 
-            < Navigation activeTab="nvr"/>
+            < Navigation activeTab="nvr" />
 
             <header className="page-header">
                 <h1 className="page-title">NVR Jobs</h1>
             </header>
-             
+
             <div className="data-table">
-                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs}/>
+                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
             </div>
-                
+
         </div>
     )
 }

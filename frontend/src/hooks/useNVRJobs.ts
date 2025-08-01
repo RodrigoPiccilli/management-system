@@ -9,18 +9,18 @@ export function useNVRJobs() {
     const fetchJobs = () => {
         setLoading(true);
         api.get('/nvr')
-        .then(
-            res => setJobs(res.data)
-        )
-        .catch(
-            err => console.error('Axios error:', err)
-        )
-        .finally(() => setLoading(false));
+            .then(
+                res => setJobs(res.data)
+            )
+            .catch(
+                err => console.error('Axios error:', err)
+            )
+            .finally(() => setLoading(false));
     };
 
     useEffect(() => {
         fetchJobs();
     }, []);
 
-  return { jobs, loading, fetchJobs };
+    return { jobs, loading, fetchJobs };
 }
