@@ -19,22 +19,23 @@ import supabase from "@/lib/supabaseClient";
 export function LoginForm() {
 
     const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const router = useRouter();
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setMessage("");
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      setMessage("Login failed: " + error.message);
-    } else {
-      setMessage("Login successful! Redirecting...");
-    }
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setMessage("");
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        });
+        if (error) {
+            setMessage("Login failed: " + error.message);
+        } else {
+            setMessage("Login successful! Redirecting...");
+            router.push("/nvr");
+        }
   };
 
     return (

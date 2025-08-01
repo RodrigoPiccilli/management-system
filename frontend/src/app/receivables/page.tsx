@@ -5,8 +5,11 @@ import { Navigation } from "@/components/ui/Navigation";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { useReceivables } from "@/hooks/useReceivables";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 export default function Receivables() {
+
+    useAuthRedirect();
    
     const { jobs, loading, fetchJobs } = useReceivables();
 

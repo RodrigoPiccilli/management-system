@@ -5,9 +5,12 @@ import { columns } from "./columns"
 import { DataTable } from "./data-table"
 import LoadingPage from "@/components/ui/loading";
 import { useNVRJobs } from "@/hooks/useNVRJobs";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 
 export default function NVRPage() {
+
+    useAuthRedirect();
 
     const { jobs, loading, fetchJobs } = useNVRJobs();
 

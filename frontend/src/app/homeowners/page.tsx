@@ -5,8 +5,11 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import LoadingPage from "@/components/ui/loading";
 import { useHomeownerJobs } from "@/hooks/useHomeownerJobs";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 export default function HOPage() {
+
+    useAuthRedirect();
 
     const { jobs, loading, fetchJobs } = useHomeownerJobs();
 
