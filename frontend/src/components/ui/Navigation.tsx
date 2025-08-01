@@ -16,7 +16,7 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
 
     return (
 
-        <NavigationMenu className="h-15 bg-slate-100 text-slate-700 min-w-full flex justify-start pl-17 border-b-2 border-indigo-500">
+        <NavigationMenu className="h-15 bg-slate-100 text-slate-700 min-w-full flex justify-start pl-17 border-b-2 border-indigo-500 shadow-lg rounded-lg">
             <NavigationMenuList>
                 <NavigationMenuItem>
                  <NavigationMenuLink asChild className="cursor-pointer">
