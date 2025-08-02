@@ -4,10 +4,11 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { NVRJob } from "../types/job"
+import { HomeownerJob } from "../types/job"
 import EditJobDialog from "@/components/ui/EditJobDialog"
 
 
-export const columns = (fetchJobs: () => void): ColumnDef<NVRJob>[] => [
+export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>[] => [
     {
         accessorKey: "jobName",
         header: ({ column }) => (
@@ -17,7 +18,7 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob>[] => [
             </Button>
         ),
         cell: ({ row }) => <EditJobDialog apiEndpoint="/nvr" job={row.original} fetchJobs={fetchJobs} />,
-        meta: { className: "text-left max-w-12" }
+        meta: { className: "text-left max-w-12 p-2" }
 
     },
     {
