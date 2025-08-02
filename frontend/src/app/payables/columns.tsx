@@ -5,7 +5,7 @@ import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { NVRJob } from "../types/job"
 import { HomeownerJob } from "../types/job"
-import EditJobDialog from "@/components/ui/EditJobDialog"
+import EditPayableDialog from "@/components/ui/EditPayableDialog"
 
 
 export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>[] => [
@@ -17,7 +17,9 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
                 <ArrowUpDown className="h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <EditJobDialog apiEndpoint="/nvr" job={row.original} fetchJobs={fetchJobs} />,
+        cell: ({ row }) => (
+            <EditPayableDialog job={row.original} fetchJobs={fetchJobs} nvr={"community" in row.original}/>
+        ),
         meta: { className: "text-left max-w-12 p-2" }
 
     },
@@ -38,6 +40,18 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
     {
         accessorKey: "installedBy",
         header: "Installed By",
+        meta: { className: "max-w-12 text-center" }
+    },
+    {
+        accessorKey: "ft2",
+        header: "FT²",
+        cell: ({ row }) => {
+            const value = row.getValue("ft2");
+            if (typeof value === "number") {
+                return value.toFixed(2);
+            }
+            return "";
+        },
         meta: { className: "max-w-12 text-center" }
     },
 ]
