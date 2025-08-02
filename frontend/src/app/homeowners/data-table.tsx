@@ -103,6 +103,7 @@ export function DataTable<TData, TValue>({
                             stone: null,
                             backsplash: null,
                             installDate: null,
+                            installedBy: null,
                             ft2: null,
                             address: null,
                             sink: null,

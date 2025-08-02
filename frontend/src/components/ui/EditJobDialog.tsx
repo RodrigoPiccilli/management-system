@@ -156,6 +156,27 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                     </TableCell>
                                 </TableRow>
                             )}
+                            {"installedBy" in form && (
+                                <TableRow>
+                                    <TableHead>Installed By</TableHead>
+                                    <TableCell>
+                                        <Select
+                                            value={form.installedBy || ""}
+                                            onValueChange={(value) =>
+                                                setForm({ ...form, installedBy: value })
+                                            }
+                                        >
+                                            <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                <SelectValue placeholder="Installed By" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Lionel">Lionel</SelectItem>
+                                                <SelectItem value="Umberto">Umberto</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </TableCell>
+                                </TableRow>
+                            )}
                             {"ft2" in form && (
                                 <TableRow>
                                     <TableHead>FT²</TableHead>
@@ -193,7 +214,6 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                 <TableRow>
                                     <TableHead>Sink</TableHead>
                                     <TableCell>
-                                        {/* <Input value={form.sink || ""} onChange={handleChange("sink")} /> */}
                                         <Select
                                             value={form.sink || ""}
                                             onValueChange={(value) =>
