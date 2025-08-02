@@ -44,8 +44,10 @@ export const columns = (fetchJobs: () => void): ColumnDef<HomeownerJob>[] => [
         cell: ({ row }) => {
             const value = row.getValue("installDate");
             if (!value || typeof value !== "string") return "";
-            const date = new Date(value);
-            const formatted = `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate() + 1).padStart(2, "0")}-${date.getFullYear()}`;
+            const [year, month, day] = value.split('-');
+            const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
+            const formatted = `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}-${date.getFullYear()}`;
             return <span>{formatted}</span>;
         },
         meta: { className: "text-center" }
