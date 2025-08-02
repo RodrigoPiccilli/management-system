@@ -14,6 +14,39 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
+// Get NVR Jobs by Install Date Range
+router.get('/from/:from/to/:to', async (req: Request, res: Response) => {
+    try {
+        const { from, to } = req.params;
+
+        const fromDate = new Date(from);
+        const toDate = new Date(to);
+
+        const endOfToDate = new Date(toDate);
+        endOfToDate.setHours(23, 59, 59, 999);
+
+        const jobs = await prisma.nVRJob.findMany({
+            where: {
+                installDate: {
+                    gte: fromDate,
+                    lte: endOfToDate,
+                }
+            },
+            orderBy: {
+                installDate: 'asc'
+            },
+        });
+
+        res.json(jobs);
+
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch receivables' });
+    }
+});
+
+
 // Get NVR Job by Job Name
 router.get('/:jobName', async (req: Request, res: Response) => {
     try {

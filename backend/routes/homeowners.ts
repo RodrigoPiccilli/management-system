@@ -17,20 +17,52 @@ router.get('/', async (req: Request, res: Response) => {
 // Get Homeowner Jobs with Install Dates
 router.get('/receivables', async (req: Request, res: Response) => {
     try {
-      const jobs = await prisma.homeownerJob.findMany({
-        where: {
-          installDate: {
-            not: null
-          }
-        }
-      });
-  
-      res.json(jobs);
+        const jobs = await prisma.homeownerJob.findMany({
+            where: {
+                installDate: {
+                    not: null
+                }
+            }
+        });
+
+        res.json(jobs);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to fetch receivables' });
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch receivables' });
     }
-  });
+});
+
+// Get Homeowner Jobs by Install Date Range
+router.get('/from/:from/to/:to', async (req: Request, res: Response) => {
+    try {
+        const { from, to } = req.params;
+
+        const fromDate = new Date(from);
+        const toDate = new Date(to);
+
+        const endOfToDate = new Date(toDate);
+        endOfToDate.setHours(23, 59, 59, 999);
+
+        const jobs = await prisma.homeownerJob.findMany({
+            where: {
+                installDate: {
+                    gte: fromDate,
+                    lte: endOfToDate,
+                }
+            },
+            orderBy: {
+                installDate: 'asc'
+            },
+        });
+
+        res.json(jobs);
+
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch receivables' });
+    }
+});
 
 // Get Homeowner Job by Job Name
 router.get('/:jobName', async (req: Request, res: Response) => {
