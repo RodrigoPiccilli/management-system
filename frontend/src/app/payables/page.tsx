@@ -77,61 +77,63 @@ export default function PayablesPage() {
                 <Navigation activeTab="payables" />
             </div>
 
-            <header className="page-header print:hidden">
-                <h1 className="page-title">Payables</h1>
-            </header>
+            <div className="container mx-auto px-4">
+                <header className="page-header print:hidden">
+                    <h1 className="page-title">Payables</h1>
+                </header>
 
-            <div className="flex gap-10 justify-center print:hidden">
-                <div className="flex items-center justify-center gap-2">
-                    <h3 className="font-bold">From: </h3>
-                    <DatePicker onDateChange={handleFrom} value={selectedFrom} />
+                <div className="flex gap-10 justify-center print:hidden">
+                    <div className="flex items-center justify-center gap-2">
+                        <h3 className="font-bold">From: </h3>
+                        <DatePicker onDateChange={handleFrom} value={selectedFrom} />
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                        <h3 className="font-bold">To: </h3>
+                        <DatePicker onDateChange={handleTo} value={selectedTo} />
+                    </div>
                 </div>
-                <div className="flex items-center justify-center gap-2">
-                    <h3 className="font-bold">To: </h3>
-                    <DatePicker onDateChange={handleTo} value={selectedTo} />
+
+                <div className="flex gap-10 justify-center mt-5 print:hidden">
+                    <Button
+                        variant="primary"
+                        onClick={handleSearch}
+                        disabled={!selectedFrom || !selectedTo}
+                    >
+                        Search
+                    </Button>
                 </div>
-            </div>
 
-            <div className="flex gap-10 justify-center mt-5 print:hidden">
-                <Button
-                    variant="primary"
-                    onClick={handleSearch}
-                    disabled={!selectedFrom || !selectedTo}
-                >
-                    Search
-                </Button>
-            </div>
+                <div className="flex gap-20 pb-10">
 
-            <div className="flex gap-20 pb-10">
+                    <div className="data-table flex flex-col gap-5">
 
-                <div className="data-table pl-17 flex flex-col gap-5">
+                        <h1 className="text-xl text-center hidden print:block">Lionel <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
+                        <DataTable
+                            columns={columns(fetchJobs)}
+                            data={searchDates ? jobs.filter(job => job.installedBy === "Lionel") : []}
+                            fetchJobs={fetchJobs}
+                        />
 
-                    <h1 className="text-xl text-center hidden print:block">Lionel <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
-                    <DataTable
-                        columns={columns(fetchJobs)}
-                        data={searchDates ? jobs.filter(job => job.installedBy === "Lionel") : []}
-                        fetchJobs={fetchJobs}
-                    />
+                        <div className="self-center table-edges">
+                            <DynamicTable totalFT2={lionelFT2} rate={lionelRate} />
+                        </div>
 
-                    <div className="self-center table-edges">
-                        <DynamicTable totalFT2={lionelFT2} rate={lionelRate} />
                     </div>
 
-                </div>
+                    <div className="data-table flex flex-col gap-5">
+                        <h1 className="text-xl text-center text-nowrap hidden print:block">Umberto <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
 
-                <div className="data-table pr-17 flex flex-col gap-5">
-                    <h1 className="text-xl text-center text-nowrap hidden print:block">Umberto <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
+                        <DataTable
+                            columns={columns(fetchJobs)}
+                            data={searchDates ? jobs.filter(job => job.installedBy === "Umberto") : []}
+                            fetchJobs={fetchJobs}
+                        />
 
-                    <DataTable
-                        columns={columns(fetchJobs)}
-                        data={searchDates ? jobs.filter(job => job.installedBy === "Umberto") : []}
-                        fetchJobs={fetchJobs}
-                    />
+                        <div className="self-center table-edges">
+                            <DynamicTable totalFT2={umbertoFT2} rate={umbertoRate} />
+                        </div>
 
-                    <div className="self-center table-edges">
-                        <DynamicTable totalFT2={umbertoFT2} rate={umbertoRate} />
                     </div>
-
                 </div>
             </div>
 
