@@ -77,7 +77,7 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
                             <Input
                                 type="number"
                                 className="max-w-fit border-1 text-center no-step print:text-sm"
-                                placeholder="Amount"
+                                placeholder="$"
                                 onChange={(e) => setHelpersTotal(Number(e.target.value))}
                             />
                         </TableCell>
