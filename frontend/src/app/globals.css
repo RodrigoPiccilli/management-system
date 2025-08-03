@@ -159,3 +159,7 @@
 .data-actions {
     @apply flex items-center py-4 justify-between align-middle
 }
+
+.no-step {
+    @apply [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]
+}

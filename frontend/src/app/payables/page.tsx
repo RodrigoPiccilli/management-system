@@ -33,6 +33,9 @@ export default function PayablesPage() {
     const [lionelTotal, setLionelTotal] = useState(0);
     const [umbertoTotal, setUmbertoTotal] = useState(0);
 
+    const lionelRate = 6;
+    const umbertoRate = 5;
+
     const handleFrom = (date: Date | undefined) => {
         setSelectedFrom(date)
         console.log("Selected From Date:", date)
@@ -121,20 +124,21 @@ export default function PayablesPage() {
                     />
 
                     <div className="self-center table-edges">
-                        <DynamicTable lionelFT2={lionelFT2}/>
+                        <DynamicTable totalFT2={lionelFT2} rate={lionelRate}/>
                     </div>
 
                 </div>
 
-                <div className="data-table pr-17">
+                <div className="data-table pr-17 flex flex-col gap-5">
                     <DataTable
                         columns={columns(fetchJobs)}
                         data={searchDates ? jobs.filter(job => job.installedBy === "Umberto") : []}
                         fetchJobs={fetchJobs}
                     />
 
-                    {/* <h3 className="mt-5 text-2xl bg-emerald-500">Details</h3> */}
-
+                    <div className="self-center table-edges">
+                        <DynamicTable totalFT2={umbertoFT2} rate={umbertoRate}/>
+                    </div>
 
                 </div>
             </div>

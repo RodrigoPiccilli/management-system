@@ -15,7 +15,8 @@ interface ExtraRow {
     amount: number;
 }
 
-export default function DynamicTable({ lionelFT2 = 0 }: { lionelFT2?: number }) {
+export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rate: number }) {
+    const [helpersTotal, setHelpersTotal] = useState(0);
     const [extraRows, setExtraRows] = useState<ExtraRow[]>([]);
 
     const addRow = () => {
@@ -38,10 +39,13 @@ export default function DynamicTable({ lionelFT2 = 0 }: { lionelFT2?: number }) 
     };
 
     const calculateTotal = () => {
-        const baseTotal = lionelFT2 * 6;
+        const baseTotal = totalFT2 * rate;
         const extraTotal = extraRows.reduce((sum, row) => sum + (parseFloat(row.amount.toString()) || 0), 0);
-        return baseTotal + extraTotal;
-    };
+        return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+        }).format(baseTotal + extraTotal + helpersTotal)
+    }
 
     return (
         <div className="flex flex-col m-5">
@@ -49,28 +53,44 @@ export default function DynamicTable({ lionelFT2 = 0 }: { lionelFT2?: number }) 
                 <TableBody>
                     <TableRow>
                         <TableCell className="border-r-1 border-r-gray-500 min-w-60">Total FT2</TableCell>
-                        <TableCell className="text-center">{lionelFT2}</TableCell>
+                        <TableCell className="text-center">{totalFT2}</TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell className="border-r-1 border-r-gray-500 min-w-60">Rate</TableCell>
-                        <TableCell className="text-center">$6</TableCell>
+                        <TableCell className="text-center">{new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                        }).format(rate)}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell className="border-r-1 border-r-gray-500 min-w-60">Base</TableCell>
+                        <TableCell className="text-center">
+                            {new Intl.NumberFormat("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                            }).format(totalFT2 * rate)}
+                        </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell className="border-r-1 border-r-gray-500 min-w-60">Helpers</TableCell>
                         <TableCell>
-                            <Input type="number" className="max-w-fit border-1 text-center pr-8 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]" />
+                            <Input
+                                type="number"
+                                className="max-w-fit border-1 text-center no-step"
+                                placeholder="Amount"
+                                onChange={(e) => setHelpersTotal(Number(e.target.value))}
+                            />
                         </TableCell>
                     </TableRow>
-
                     {extraRows.map((row) => (
                         <TableRow key={row.id}>
-                            <TableCell className="border-r-1 border-r-gray-500 min-w-60">
+                            <TableCell className="border-r-1 border-r-gray-500">
                                 <Input
                                     type="text"
                                     value={row.description}
                                     onChange={(e) => updateRow(row.id, 'description', e.target.value)}
                                     placeholder="Description"
-                                    className="max-w-fit border-0 p-0"
+                                    className="border-0 p-0"
                                 />
                             </TableCell>
                             <TableCell className="relative">
@@ -79,15 +99,15 @@ export default function DynamicTable({ lionelFT2 = 0 }: { lionelFT2?: number }) 
                                     value={row.amount === 0 ? '' : row.amount} onChange={(e) => updateRow(row.id, 'amount', parseFloat(e.target.value) || 0)}
                                     placeholder="Amount"
                                     min={0}
-                                    className="max-w-fit border-1 text-center [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]" />
-                                {/* <Button
+                                    className="border-1 text-center no-step" />
+                                <Button
                                     variant="destructive"
                                     size="sm"
                                     onClick={() => removeRow(row.id)}
                                     className="rounded-4xl absolute top-0 right-0 w-4 h-4 p-0 text-xs"
                                 >
-                                    x */}
-                                {/* </Button> */}
+                                    x
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -96,7 +116,7 @@ export default function DynamicTable({ lionelFT2 = 0 }: { lionelFT2?: number }) 
                 <TableFooter>
                     <TableRow>
                         <TableCell colSpan={1}>Total</TableCell>
-                        <TableCell className="text-right">${calculateTotal().toFixed(2)}</TableCell>
+                        <TableCell className="text-right">{calculateTotal()}</TableCell>
                     </TableRow>
                 </TableFooter>
             </Table>
