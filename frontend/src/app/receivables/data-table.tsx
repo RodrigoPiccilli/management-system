@@ -96,7 +96,7 @@ export function DataTable<TData, TValue>({
                     className="filter-input"
                 />
                 <div className="flex">
-                    <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700" onClick={fetchJobs}>Refresh</Button>
+                    <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700 cursor-pointer" onClick={fetchJobs}>Refresh</Button>
                 </div>
             </div>
 

@@ -8,18 +8,6 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { usePayables } from "@/hooks/usePayables";
 import React, { useEffect, useState } from "react";
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
-import { HomeownerJob, NVRJob } from "../types/job";
-import { Input } from "@/components/ui/input";
 import DynamicTable from "@/components/ui/DynamicTable";
 
 export default function PayablesPage() {
@@ -30,8 +18,6 @@ export default function PayablesPage() {
     const [searchDates, setSearchDates] = useState<{ from?: Date, to?: Date } | null>(null);
     const [lionelFT2, setLionelFT2] = useState(0);
     const [umbertoFT2, setUmbertoFT2] = useState(0);
-    const [lionelTotal, setLionelTotal] = useState(0);
-    const [umbertoTotal, setUmbertoTotal] = useState(0);
 
     const lionelRate = 6;
     const umbertoRate = 5;
@@ -87,13 +73,15 @@ export default function PayablesPage() {
     return (
         <div className="outer-div-template">
 
-            <Navigation activeTab="payables" />
+            <div className="print:hidden">
+                <Navigation activeTab="payables" />
+            </div>
 
-            <header className="page-header">
+            <header className="page-header print:hidden">
                 <h1 className="page-title">Payables</h1>
             </header>
 
-            <div className="flex gap-10 justify-center">
+            <div className="flex gap-10 justify-center print:hidden">
                 <div className="flex items-center justify-center gap-2">
                     <h3 className="font-bold">From: </h3>
                     <DatePicker onDateChange={handleFrom} value={selectedFrom} />
@@ -104,7 +92,7 @@ export default function PayablesPage() {
                 </div>
             </div>
 
-            <div className="flex gap-10 justify-center mt-5">
+            <div className="flex gap-10 justify-center mt-5 print:hidden">
                 <Button
                     variant="primary"
                     onClick={handleSearch}
@@ -115,8 +103,10 @@ export default function PayablesPage() {
             </div>
 
             <div className="flex gap-20 pb-10">
-                
+
                 <div className="data-table pl-17 flex flex-col gap-5">
+
+                    <h1 className="text-xl text-center hidden print:block">Lionel <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
                     <DataTable
                         columns={columns(fetchJobs)}
                         data={searchDates ? jobs.filter(job => job.installedBy === "Lionel") : []}
@@ -124,12 +114,14 @@ export default function PayablesPage() {
                     />
 
                     <div className="self-center table-edges">
-                        <DynamicTable totalFT2={lionelFT2} rate={lionelRate}/>
+                        <DynamicTable totalFT2={lionelFT2} rate={lionelRate} />
                     </div>
 
                 </div>
 
                 <div className="data-table pr-17 flex flex-col gap-5">
+                    <h1 className="text-xl text-center text-nowrap hidden print:block">Umberto <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
+
                     <DataTable
                         columns={columns(fetchJobs)}
                         data={searchDates ? jobs.filter(job => job.installedBy === "Umberto") : []}
@@ -137,11 +129,16 @@ export default function PayablesPage() {
                     />
 
                     <div className="self-center table-edges">
-                        <DynamicTable totalFT2={umbertoFT2} rate={umbertoRate}/>
+                        <DynamicTable totalFT2={umbertoFT2} rate={umbertoRate} />
                     </div>
 
                 </div>
             </div>
+
+            <div className="flex items-center justify-center px-5 py-15">
+                <Button variant="primary" onClick={() => window.print()} className="print:hidden px-14 py-10 text-4xl shadow-2xl text-slate-50">Print</Button>
+            </div>
+
         </div>
     )
 }

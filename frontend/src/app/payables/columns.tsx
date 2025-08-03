@@ -1,7 +1,6 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { NVRJob } from "../types/job"
 import { HomeownerJob } from "../types/job"
@@ -12,15 +11,14 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
     {
         accessorKey: "jobName",
         header: ({ column }) => (
-            <Button variant="ghost" className="rounded-full" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+            <Button variant="ghost" className="rounded-full">
                 Job Name
-                <ArrowUpDown className="h-4 w-4" />
             </Button>
         ),
         cell: ({ row }) => (
             <EditPayableDialog job={row.original} fetchJobs={fetchJobs} nvr={"community" in row.original}/>
         ),
-        meta: { className: "text-left max-w-12 p-2" }
+        meta: { className: "text-left max-w-12 p-2 print:p-0"}
 
     },
     {
@@ -35,12 +33,12 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
             const formatted = `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}-${date.getFullYear()}`;
             return <span>{formatted}</span>;
         },
-        meta: { className: "text-center max-w-12" }
+        meta: { className: "text-center max-w-12 print:hidden" }
     },
     {
         accessorKey: "installedBy",
         header: "Installed By",
-        meta: { className: "max-w-12 text-center" }
+        meta: { className: "max-w-12 text-center print:hidden" }
     },
     {
         accessorKey: "ft2",

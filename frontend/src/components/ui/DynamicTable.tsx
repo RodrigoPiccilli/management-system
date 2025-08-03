@@ -52,18 +52,18 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500 min-w-60">Total FT2</TableCell>
-                        <TableCell className="text-center">{totalFT2}</TableCell>
+                        <TableCell className="border-r-1 border-r-gray-500 min-w-50 print:min-w-0">Total FT2</TableCell>
+                        <TableCell className="text-center">{totalFT2.toFixed(2)}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500 min-w-60">Rate</TableCell>
+                        <TableCell className="border-r-1 border-r-gray-500">Rate</TableCell>
                         <TableCell className="text-center">{new Intl.NumberFormat("en-US", {
                             style: "currency",
                             currency: "USD",
                         }).format(rate)}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500 min-w-60">Base</TableCell>
+                        <TableCell className="border-r-1 border-r-gray-500">Base</TableCell>
                         <TableCell className="text-center">
                             {new Intl.NumberFormat("en-US", {
                                 style: "currency",
@@ -72,11 +72,11 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
                         </TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500 min-w-60">Helpers</TableCell>
-                        <TableCell>
+                        <TableCell className="border-r-1 border-r-gray-500 ">Helpers</TableCell>
+                        <TableCell className="">
                             <Input
                                 type="number"
-                                className="max-w-fit border-1 text-center no-step"
+                                className="max-w-fit border-1 text-center no-step print:text-sm"
                                 placeholder="Amount"
                                 onChange={(e) => setHelpersTotal(Number(e.target.value))}
                             />
@@ -90,21 +90,21 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
                                     value={row.description}
                                     onChange={(e) => updateRow(row.id, 'description', e.target.value)}
                                     placeholder="Description"
-                                    className="border-0 p-0"
+                                    className="border-0 p-0 print:text-sm"
                                 />
                             </TableCell>
                             <TableCell className="relative">
                                 <Input
                                     type="number"
                                     value={row.amount === 0 ? '' : row.amount} onChange={(e) => updateRow(row.id, 'amount', parseFloat(e.target.value) || 0)}
-                                    placeholder="Amount"
+                                    placeholder="$"
                                     min={0}
-                                    className="border-1 text-center no-step" />
+                                    className="border-1 text-center no-step print:text-sm" />
                                 <Button
                                     variant="destructive"
                                     size="sm"
                                     onClick={() => removeRow(row.id)}
-                                    className="rounded-4xl absolute top-0 right-0 w-4 h-4 p-0 text-xs"
+                                    className="rounded-4xl absolute top-0 right-0 w-4 h-4 p-0 text-xs cursor-pointer print:hidden"
                                 >
                                     x
                                 </Button>
@@ -121,7 +121,7 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
                 </TableFooter>
             </Table>
 
-            <div className="mt-4 self-center">
+            <div className="mt-4 self-center print:hidden">
                 <Button onClick={addRow} variant="primary">
                     + Add Extra
                 </Button>
