@@ -122,7 +122,7 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
             </Table>
 
             <div className="mt-4 self-center">
-                <Button onClick={addRow} variant="default">
+                <Button onClick={addRow} variant="primary">
                     + Add Extra
                 </Button>
             </div>

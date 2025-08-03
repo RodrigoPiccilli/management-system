@@ -114,7 +114,7 @@ export function DataTable<TData, TValue>({
                         title="Add Homeowner Job"
                         fetchJobs={fetchJobs}
                     />
-                    <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700" onClick={fetchJobs}>Refresh</Button>
+                    <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700 cursor-pointer" onClick={fetchJobs}>Refresh</Button>
                 </div>
             </div>
 
@@ -174,7 +174,7 @@ export function DataTable<TData, TValue>({
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button
                     // variant="outline"
-                    className="bg-slate-600 text-white hover:bg-slate-700"
+                    className="bg-slate-600 text-white hover:bg-slate-700 cursor-pointer"
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
@@ -182,8 +182,7 @@ export function DataTable<TData, TValue>({
                     Previous
                 </Button>
                 <Button
-                    // variant="outline"
-                    className="bg-indigo-600 text-white hover:bg-indigo-700"
+                    variant="primary"
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}

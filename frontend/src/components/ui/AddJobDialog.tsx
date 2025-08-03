@@ -85,7 +85,7 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
         <Dialog open={open} onOpenChange={setOpen}>
             <form onSubmit={handleSubmit}>
                 <DialogTrigger asChild>
-                    <Button className="mx-2 max-w-20 cursor-pointer bg-indigo-600 text-white hover:bg-indigo-700" onClick={() => setOpen(true)}>Add</Button>
+                    <Button variant="primary" className="mx-2 max-w-20" onClick={() => setOpen(true)}>Add</Button>
 
                 </DialogTrigger>
 
@@ -352,9 +352,9 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
 
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button variant="outline">Cancel</Button>
+                            <Button variant="outline" className="cursor-pointer">Cancel</Button>
                         </DialogClose>
-                        <Button className="bg-emerald-600 hover:bg-emerald-700" onClick={handleSubmit}>Add</Button>
+                        <Button className="bg-emerald-600 hover:bg-emerald-700 cursor-pointer" onClick={handleSubmit}>Add</Button>
                     </DialogFooter>
                 </DialogContent>
             </form>

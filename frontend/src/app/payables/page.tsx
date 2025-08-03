@@ -106,7 +106,7 @@ export default function PayablesPage() {
 
             <div className="flex gap-10 justify-center mt-5">
                 <Button
-                    variant="default"
+                    variant="primary"
                     onClick={handleSearch}
                     disabled={!selectedFrom || !selectedTo}
                 >

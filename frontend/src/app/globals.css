@@ -128,7 +128,7 @@
 }
 
 .outer-div-template {
-    @apply bg-slate-50 h-screen w-screen;
+    @apply bg-slate-50 min-h-screen min-w-screen;
 }
 
 
