@@ -35,11 +35,11 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
         },
         meta: { className: "text-center max-w-12 print:hidden" }
     },
-    {
-        accessorKey: "installedBy",
-        header: "Installed By",
-        meta: { className: "max-w-12 text-center print:hidden" }
-    },
+    // {
+    //     accessorKey: "installedBy",
+    //     header: "Installed By",
+    //     meta: { className: "max-w-12 text-center print:hidden" }
+    // },
     {
         accessorKey: "ft2",
         header: "FT²",

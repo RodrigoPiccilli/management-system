@@ -82,7 +82,7 @@ export default function PayablesPage() {
                     <h1 className="page-title">Payables</h1>
                 </header>
 
-                <div className="flex gap-10 justify-center print:hidden">
+                <div className="flex gap-10 print:hidden py-3">
                     <div className="flex items-center justify-center gap-2">
                         <h3 className="font-bold">From: </h3>
                         <DatePicker onDateChange={handleFrom} value={selectedFrom} />
@@ -91,15 +91,12 @@ export default function PayablesPage() {
                         <h3 className="font-bold">To: </h3>
                         <DatePicker onDateChange={handleTo} value={selectedTo} />
                     </div>
-                </div>
-
-                <div className="flex gap-10 justify-center mt-5 print:hidden">
                     <Button
                         variant="primary"
                         onClick={handleSearch}
                         disabled={!selectedFrom || !selectedTo}
                     >
-                        Search
+                        Apply
                     </Button>
                 </div>
 
@@ -108,6 +105,7 @@ export default function PayablesPage() {
                     <div className="data-table flex flex-col gap-5">
 
                         <h1 className="text-xl text-center hidden print:block">Lionel <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
+                        <h1 className="text-2xl print:hidden text-slate-900">Lionel's Jobs</h1>
                         <DataTable
                             columns={columns(fetchJobs)}
                             data={searchDates ? jobs.filter(job => job.installedBy === "Lionel") : []}
@@ -123,6 +121,7 @@ export default function PayablesPage() {
                     <div className="data-table flex flex-col gap-5">
                         <h1 className="text-xl text-center text-nowrap hidden print:block">Umberto <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
 
+                        <h1 className="text-2xl text-slate-900 print:hidden">Umberto's Jobs</h1>
                         <DataTable
                             columns={columns(fetchJobs)}
                             data={searchDates ? jobs.filter(job => job.installedBy === "Umberto") : []}

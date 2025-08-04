@@ -52,7 +52,7 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500 min-w-50 print:min-w-0">Total FT2</TableCell>
+                        <TableCell className="border-r-1 border-r-gray-500 min-w-50 print:min-w-0">Total FT²</TableCell>
                         <TableCell className="text-center">{totalFT2.toFixed(2)}</TableCell>
                     </TableRow>
                     <TableRow>
@@ -77,7 +77,7 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
                             <Input
                                 type="number"
                                 className="max-w-fit border-1 text-center no-step print:text-sm"
-                                placeholder="$"
+                                placeholder="$0.00"
                                 onChange={(e) => setHelpersTotal(Number(e.target.value))}
                             />
                         </TableCell>
@@ -97,7 +97,7 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
                                 <Input
                                     type="number"
                                     value={row.amount === 0 ? '' : row.amount} onChange={(e) => updateRow(row.id, 'amount', parseFloat(e.target.value) || 0)}
-                                    placeholder="$"
+                                    placeholder="$0.00"
                                     min={0}
                                     className="border-1 text-center no-step print:text-sm" />
                                 <Button

@@ -81,8 +81,10 @@ export function DataTable<TData, TValue>({
 
         <div>
 
+            {/* style={{ minHeight: `${someVariable}px` }} */}
+
             {/* Table */}
-            <div className="table-edges">
+            <div className='table-edges'>
                 <Table>
                     <TableHeader className="bg-slate-200 text-slate-800">
                         {table.getHeaderGroups().map((headerGroup) => (
