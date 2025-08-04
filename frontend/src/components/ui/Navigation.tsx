@@ -5,7 +5,7 @@ import {
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-  } from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu"
 
 
 import * as React from "react"
@@ -19,7 +19,16 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
         <NavigationMenu className="h-15 bg-slate-100 text-slate-700 min-w-full flex justify-start pl-17 border-b-2 border-indigo-500 shadow-lg rounded-lg">
             <NavigationMenuList className="flex gap-5">
                 <NavigationMenuItem>
-                 <NavigationMenuLink asChild className="cursor-pointer">
+                    <NavigationMenuLink asChild className="cursor-pointer">
+                        <Link
+                            href="/calendar"
+                            className={`navigation-title ${activeTab === "calendar" ? "text-indigo-600 font-bold" : ""}`}>
+                            Calendar
+                        </Link>
+                    </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuLink asChild className="cursor-pointer">
                         <Link
                             href="/nvr"
                             className={`navigation-title ${activeTab === "nvr" ? "text-indigo-600 font-bold" : ""}`}>
@@ -29,17 +38,17 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild className="cursor-pointer">
-                        <Link 
-                            href="/homeowners" 
+                        <Link
+                            href="/homeowners"
                             className={`navigation-title ${activeTab === "homeowners" ? "text-indigo-600 font-bold" : ""}`}>
                             Homeowners
                         </Link>
                     </NavigationMenuLink>
-                </NavigationMenuItem> 
+                </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild className="cursor-pointer">
-                        <Link 
-                            href="/receivables" 
+                        <Link
+                            href="/receivables"
                             className={`navigation-title ${activeTab === "receivables" ? "text-indigo-600 font-bold" : ""}`}>
                             Receivables
                         </Link>
@@ -47,8 +56,8 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild className="cursor-pointer">
-                        <Link 
-                            href="/payables" 
+                        <Link
+                            href="/payables"
                             className={`navigation-title ${activeTab === "payables" ? "text-indigo-600 font-bold" : ""}`}>
                             Payables
                         </Link>
@@ -58,6 +67,6 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
         </NavigationMenu>
 
 
-        
+
     );
 }

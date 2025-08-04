@@ -137,7 +137,7 @@ export default function PayablesPage() {
             </div>
 
             <div className="flex items-center justify-center px-5 py-15">
-                <Button variant="primary" onClick={() => window.print()} className="print:hidden px-14 py-10 text-4xl shadow-2xl text-slate-50">Print</Button>
+                <Button variant="primary" disabled={!selectedFrom || !selectedTo} onClick={() => window.print()} className="print:hidden px-14 py-10 text-4xl shadow-2xl text-slate-50">Print</Button>
             </div>
 
         </div>
