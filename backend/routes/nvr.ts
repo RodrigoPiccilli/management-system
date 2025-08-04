@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../prisma/prisma';
 
-const prisma = new PrismaClient();
 const router = express.Router();
 
 // Get All NVR Jobs
