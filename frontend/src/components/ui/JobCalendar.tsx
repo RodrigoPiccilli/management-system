@@ -3,10 +3,17 @@
 import FullCalendar from '@fullcalendar/react';
 import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { useCalendarEvents } from '@/hooks/useCalendarEvents';
+import LoadingPage from './loading';
+import api from '@/lib/apis';
+import { parseEventId } from '@/utils/parseEventId';
 
 export default function ReactCalendar() {
+    const { events, loading, refetch } = useCalendarEvents();
+
+    if (loading) return <LoadingPage />
+
     const handleDateSelect = (selectInfo: DateSelectArg) => {
         console.log('Date selected:', selectInfo);
     };
@@ -16,25 +23,37 @@ export default function ReactCalendar() {
     };
 
     return (
+
+
         <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            plugins={[dayGridPlugin, interactionPlugin]}
             headerToolbar={{
-                // left: 'prev today',
-                left: 'title',
-                center: '',
-                // right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                right: 'prev today next'
+                left: 'prev today next',
+                center: 'title',
+                right: 'dayGridMonth dayGridWeek'
             }}
             initialView='dayGridMonth'
             editable={true}
+            eventDrop={async (info) => {
+                const { jobType, jobName } = parseEventId(info.event.id);
+
+                console.log(`/${jobType}/${jobName}`);
+
+                try {
+                    await api.put(`/${jobType}/${jobName}`, {
+                        installDate: new Date(info.event.startStr)
+                    });
+                    console.log('Install Date updated successfully');
+                } catch (error) {
+                    console.error('Failed to update install date:', error);
+                    info.revert();
+                }
+            }}
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
             weekends={true}
-            events={[
-                { title: 'Event 1', date: '2025-08-05' },
-                { title: 'Event 2', date: '2025-08-10' }
-            ]}
+            events={events}
             select={handleDateSelect}
             eventClick={handleEventClick}
             height="auto"
