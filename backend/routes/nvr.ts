@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { handleError } from "../utils/handleError"
 import prisma from '../prisma/prisma';
 
 const router = express.Router();
@@ -7,19 +8,24 @@ const router = express.Router();
 router.get('/', async (req: Request, res: Response) => {
     try {
         const jobs = await prisma.nVRJob.findMany();
-        res.json(jobs);
+        return res.json(jobs);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch jobs' });
+        handleError(res, 'Failed to fetch jobs', error);
     }
 });
 
 // Get NVR Jobs by Install Date Range
 router.get('/from/:from/to/:to', async (req: Request, res: Response) => {
+
     try {
         const { from, to } = req.params;
 
         const fromDate = new Date(from);
         const toDate = new Date(to);
+
+        if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
+            return res.status(400).json({ error: 'Invalid date format' });
+        }
 
         const endOfToDate = new Date(toDate);
         endOfToDate.setHours(23, 59, 59, 999);
@@ -36,24 +42,23 @@ router.get('/from/:from/to/:to', async (req: Request, res: Response) => {
             },
         });
 
-        res.json(jobs);
+        return res.json(jobs);
 
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to fetch receivables' });
+        handleError(res, 'Failed to fetch receivables', error);
     }
 });
-
 
 // Get NVR Job by Job Name
 router.get('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
         const job = await prisma.nVRJob.findUnique({ where: { jobName } });
-        res.json(job);
+        if (!job) return res.status(404).json({ error: 'Job not found' });
+        return res.json(job);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch job' });
+        handleError(res, 'Failed to fetch job', error);
     }
 });
 
@@ -62,9 +67,9 @@ router.post('/', async (req: Request, res: Response) => {
     try {
         const data = req.body;
         const newJob = await prisma.nVRJob.create({ data });
-        res.status(201).json(newJob);
+        return res.status(201).json(newJob);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to create job' });
+        handleError(res, 'Failed to create job', error);
     }
 });
 
@@ -77,9 +82,9 @@ router.put('/:jobName', async (req: Request, res: Response) => {
             where: { jobName },
             data
         });
-        res.status(200).json(updatedJob);
+        return res.status(200).json(updatedJob);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to update job' });
+        handleError(res, 'Failed to update job', error);
     }
 });
 
@@ -88,9 +93,9 @@ router.delete('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
         const deletedJob = await prisma.nVRJob.delete({ where: { jobName } });
-        res.status(200).json(deletedJob);
+        return res.status(200).json(deletedJob);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to delete job' });
+        handleError(res, 'Failed to delete job', error);
     }
 });
 
