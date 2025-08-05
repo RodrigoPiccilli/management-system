@@ -4,7 +4,7 @@ import api from "@/lib/apis";
 
 export function useNVRJobs() {
     const [jobs, setJobs] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const fetchJobs = () => {
         setLoading(true);

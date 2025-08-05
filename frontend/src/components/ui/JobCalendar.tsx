@@ -7,7 +7,14 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { useCalendarEvents } from '@/hooks/useCalendarEvents';
 import LoadingPage from './loading';
 import api from '@/lib/apis';
-import { parseEventId } from '@/utils/parseEventId';
+
+function parseEventId(eventId: string): { jobType: string; jobName: string } {
+    const [jobType, ...jobNameParts] = eventId.split('-');
+    return {
+        jobType,
+        jobName: jobNameParts.join('-'),
+    };
+}
 
 export default function ReactCalendar() {
     const { events, loading, refetch } = useCalendarEvents();

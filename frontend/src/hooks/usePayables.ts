@@ -9,7 +9,7 @@ interface UsePayablesParams {
 
 export function usePayables(params: UsePayablesParams) {
     const [jobs, setJobs] = useState<any[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const fetchJobs = async () => {
         if (!params.enabled || !params.dateFrom || !params.dateTo) {
