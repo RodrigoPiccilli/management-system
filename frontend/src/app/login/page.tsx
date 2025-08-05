@@ -1,7 +1,7 @@
 "use client"
 
-import LoadingPage from "@/components/ui/loading";
-import { LoginForm } from "@/components/ui/login-form";
+import LoadingPage from "@/components/ui/Loading";
+import { LoginForm } from "@/components/ui/LoginForm";
 import { useLoginRedirect } from "@/hooks/useLoginRedirect";
 
 export default function Login() {

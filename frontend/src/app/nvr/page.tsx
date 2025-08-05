@@ -3,7 +3,7 @@
 import { Navigation } from "@/components/ui/Navigation";
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
-import LoadingPage from "@/components/ui/loading";
+import LoadingPage from "@/components/ui/Loading";
 import { useNVRJobs } from "@/hooks/useNVRJobs";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 

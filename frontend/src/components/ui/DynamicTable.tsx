@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import {
     Table,
     TableBody,
     TableCell,
     TableFooter,
     TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/Table";
 
 interface ExtraRow {
     id: number;

@@ -3,7 +3,7 @@
 import { Navigation } from "@/components/ui/Navigation";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import LoadingPage from "@/components/ui/loading";
+import LoadingPage from "@/components/ui/Loading";
 import { useHomeownerJobs } from "@/hooks/useHomeownerJobs";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 

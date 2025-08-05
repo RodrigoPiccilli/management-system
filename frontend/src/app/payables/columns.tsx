@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 import { NVRJob } from "../types/job"
 import { HomeownerJob } from "../types/job"
 import EditPayableDialog from "@/components/ui/EditPayableDialog"

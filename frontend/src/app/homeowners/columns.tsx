@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 import { HomeownerJob } from "../types/job"
 
 import EditJobDialog from "@/components/ui/EditJobDialog"
