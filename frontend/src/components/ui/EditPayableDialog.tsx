@@ -1,10 +1,27 @@
 import { useEffect, useState } from "react";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/Dialog";
-import { Table, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/Table";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import {
+    Dialog,
+    DialogTrigger,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogFooter,
+    DialogClose,
+    Table,
+    TableBody,
+    TableRow,
+    TableHead,
+    TableCell,
+    Input,
+    Button,
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectItem
+
+} from "@/components/ui";
 import api from "@/lib/apis"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/Select";
 import { HomeownerJob, NVRJob } from "@/app/types/job";
 
 
@@ -76,7 +93,7 @@ const EditPayableDialog = ({ nvr, job, fetchJobs }: EditPayableDialogProps) => {
                                     </TableCell>
                                 </TableRow>
                             )}
-                            
+
                             {"installDate" in form && (
                                 <TableRow>
                                     <TableHead>Install Date</TableHead>

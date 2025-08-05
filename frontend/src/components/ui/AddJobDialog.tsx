@@ -1,7 +1,6 @@
 "use client"
-
-import { Button } from "@/components/ui/Button";
 import {
+    Button,
     Dialog,
     DialogClose,
     DialogContent,
@@ -10,30 +9,19 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/Dialog"
-
-import { Checkbox } from "@/components/ui/Checkbox"
-
-
-import {
+    Checkbox,
     Table,
     TableBody,
     TableCell,
     TableHead,
-    TableHeader,
     TableRow,
-} from "@/components/ui/Table"
-
-import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/Select"
-
-import { Input } from "@/components/ui/Input"
-
+    Input,
+} from '@/components/ui';
 import { useEffect, useState } from "react"
 import api from "@/lib/apis";
 

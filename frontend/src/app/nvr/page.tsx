@@ -1,6 +1,6 @@
 "use client"
 
-import { Navigation } from "@/components/ui/Navigation";
+import { Navigation } from "@/components/ui";
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
 import LoadingPage from "@/components/ui/Loading";

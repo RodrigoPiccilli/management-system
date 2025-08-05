@@ -1,9 +1,7 @@
 "use client"
-import { Navigation } from "@/components/ui/Navigation";
+import { Navigation, DatePicker, Button } from "@/components/ui";
 import LoadingPage from "@/components/ui/Loading";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
-import { DatePicker } from "@/components/ui/DatePicker"
-import { Button } from "@/components/ui/Button";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { usePayables } from "@/hooks/usePayables";

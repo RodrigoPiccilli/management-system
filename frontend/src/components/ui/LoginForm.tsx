@@ -1,15 +1,15 @@
 "use client"
 
-import { Button } from "@/components/ui/Button"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/Card"
-import { Input } from "@/components/ui/Input"
-import { Label } from "@/components/ui/Label"
+    Button,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+    Label,
+    Input,
+} from "@/components/ui"
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -36,7 +36,7 @@ export function LoginForm() {
             setMessage("Login successful! Redirecting...");
             router.push("/nvr");
         }
-  };
+    };
 
     return (
         <div className={"flex flex-col gap-6"}>
@@ -48,37 +48,37 @@ export function LoginForm() {
                 <CardContent>
                     <form onSubmit={handleLogin}>
                         <div className="flex flex-col gap-6">
-                        <div className="grid gap-3">
-                            <Label htmlFor="email">Email</Label>
-                            <Input
-                            id="email"
-                            type="email"
-                            placeholder="email@example.com"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                            required
-                            />
-                        </div>
-                        <div className="grid gap-3">
-                            <div className="flex items-center">
-                            <Label htmlFor="password">Password</Label>
+                            <div className="grid gap-3">
+                                <Label htmlFor="email">Email</Label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="email@example.com"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    required
+                                />
                             </div>
-                            <Input 
-                                id="password" 
-                                type="password" 
-                                placeholder="Password"
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                required />
-                        </div>
-                        <div className="flex flex-col gap-3">
-                            <Button type="submit" className="w-full">
-                            Login
-                            </Button>
-                            {message && (
-                                <div className="mt-4 text-center text-red-600">{message}</div>
+                            <div className="grid gap-3">
+                                <div className="flex items-center">
+                                    <Label htmlFor="password">Password</Label>
+                                </div>
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    required />
+                            </div>
+                            <div className="flex flex-col gap-3">
+                                <Button type="submit" className="w-full">
+                                    Login
+                                </Button>
+                                {message && (
+                                    <div className="mt-4 text-center text-red-600">{message}</div>
                                 )}
-                        </div>
+                            </div>
                         </div>
                     </form>
                 </CardContent>

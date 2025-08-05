@@ -23,8 +23,7 @@ import {
     TableRow,
 } from "@/components/ui/Table"
 
-import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
+import { Button, Input } from "@/components/ui"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]

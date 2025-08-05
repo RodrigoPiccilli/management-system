@@ -1,12 +1,30 @@
 import { useEffect, useState } from "react";
-import { Dialog, DialogDescription, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/Dialog";
-import { Table, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/Table";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import {
+    Dialog,
+    DialogDescription,
+    DialogTrigger,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogFooter,
+    DialogClose,
+    Table,
+    TableBody,
+    TableRow,
+    TableHead,
+    TableCell,
+    Input,
+    Button,
+    Checkbox,
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectItem
+} from "@/components/ui";
 import api from "@/lib/apis"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/Select";
 import { HomeownerJob, NVRJob } from "@/app/types/job";
-import { Checkbox } from "@/components/ui/Checkbox";
+
 
 
 interface EditJobDialogProps {

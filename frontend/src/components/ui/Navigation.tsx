@@ -5,7 +5,7 @@ import {
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-} from "@/components/ui/NavigationMenu"
+} from "@/components/ui"
 
 
 import * as React from "react"

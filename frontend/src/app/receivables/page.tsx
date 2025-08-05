@@ -1,7 +1,7 @@
 "use client"
 
 import LoadingPage from "@/components/ui/Loading";
-import { Navigation } from "@/components/ui/Navigation";
+import { Navigation } from "@/components/ui";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { useReceivables } from "@/hooks/useReceivables";

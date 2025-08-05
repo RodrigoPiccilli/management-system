@@ -21,10 +21,10 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/Table"
+    Button,
+    Input
+} from "@/components/ui"
 
-import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
 import AddJobDialog from "@/components/ui/AddJobDialog"
 
 

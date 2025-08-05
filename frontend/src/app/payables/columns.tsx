@@ -2,8 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/Button"
-import { NVRJob } from "../types/job"
-import { HomeownerJob } from "../types/job"
+import { NVRJob, HomeownerJob } from "../types/job"
 import EditPayableDialog from "@/components/ui/EditPayableDialog"
 
 
@@ -16,9 +15,9 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
             </Button>
         ),
         cell: ({ row }) => (
-            <EditPayableDialog job={row.original} fetchJobs={fetchJobs} nvr={"community" in row.original}/>
+            <EditPayableDialog job={row.original} fetchJobs={fetchJobs} nvr={"community" in row.original} />
         ),
-        meta: { className: "text-left max-w-12 p-2 print:p-0"}
+        meta: { className: "text-left max-w-12 p-2 print:p-0" }
 
     },
     {

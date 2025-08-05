@@ -1,7 +1,7 @@
 "use client"
 
 import LoadingPage from '@/components/ui/Loading';
-import { Navigation } from '@/components/ui/Navigation';
+import { Navigation } from '@/components/ui';
 import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 import dynamic from 'next/dynamic';
 
