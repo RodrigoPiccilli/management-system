@@ -36,7 +36,6 @@ interface AddJobDialogProps {
 
 const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDialogProps) => {
 
-
     const [form, setForm] = useState<JobForm>(initialForm);
     const [open, setOpen] = useState(false);
 
@@ -351,5 +350,5 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
 
 }
 
-export default AddJobDialog;
+export { AddJobDialog };
 

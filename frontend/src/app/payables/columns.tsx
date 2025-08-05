@@ -1,10 +1,8 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Button } from "@/components/ui/Button"
+import { Button, EditPayableDialog } from "@/components/ui"
 import { NVRJob, HomeownerJob } from "../types/job"
-import EditPayableDialog from "@/components/ui/EditPayableDialog"
-
 
 export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>[] => [
     {

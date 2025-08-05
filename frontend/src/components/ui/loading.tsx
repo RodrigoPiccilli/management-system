@@ -10,4 +10,4 @@ const LoadingPage = () => {
 
 }
 
-export default LoadingPage
+export { LoadingPage }

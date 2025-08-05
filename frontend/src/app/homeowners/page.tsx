@@ -1,9 +1,8 @@
 "use client"
 
-import { Navigation } from "@/components/ui";
+import { Navigation, LoadingPage } from "@/components/ui";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import LoadingPage from "@/components/ui/Loading";
 import { useHomeownerJobs } from "@/hooks/useHomeownerJobs";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 

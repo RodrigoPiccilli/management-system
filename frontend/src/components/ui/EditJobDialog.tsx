@@ -354,7 +354,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
 
 
 
-export default EditJobDialog;
+export { EditJobDialog };
 
 
 

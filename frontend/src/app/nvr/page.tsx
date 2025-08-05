@@ -1,9 +1,8 @@
 "use client"
 
-import { Navigation } from "@/components/ui";
+import { Navigation, LoadingPage } from "@/components/ui";
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
-import LoadingPage from "@/components/ui/Loading";
 import { useNVRJobs } from "@/hooks/useNVRJobs";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 

@@ -170,7 +170,7 @@ const EditPayableDialog = ({ nvr, job, fetchJobs }: EditPayableDialogProps) => {
 
 
 
-export default EditPayableDialog;
+export { EditPayableDialog };
 
 
 

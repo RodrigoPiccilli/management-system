@@ -1,12 +1,10 @@
 "use client"
-import { Navigation, DatePicker, Button } from "@/components/ui";
-import LoadingPage from "@/components/ui/Loading";
+import { Navigation, DatePicker, Button, LoadingPage, DynamicTable } from "@/components/ui";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { usePayables } from "@/hooks/usePayables";
 import React, { useEffect, useState } from "react";
-import DynamicTable from "@/components/ui/DynamicTable";
 
 export default function PayablesPage() {
     useAuthRedirect();

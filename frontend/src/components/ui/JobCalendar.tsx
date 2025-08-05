@@ -5,7 +5,7 @@ import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useCalendarEvents } from '@/hooks/useCalendarEvents';
-import LoadingPage from './Loading';
+import { LoadingPage } from '@/components/ui';
 import api from '@/lib/apis';
 
 function parseEventId(eventId: string): { jobType: string; jobName: string } {

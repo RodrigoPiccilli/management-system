@@ -22,11 +22,9 @@ import {
     TableHeader,
     TableRow,
     Button,
-    Input
+    Input,
+    AddJobDialog
 } from "@/components/ui"
-
-import AddJobDialog from "@/components/ui/AddJobDialog"
-
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]

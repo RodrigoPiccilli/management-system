@@ -1,7 +1,6 @@
 "use client"
 
-import LoadingPage from '@/components/ui/Loading';
-import { Navigation } from '@/components/ui';
+import { Navigation, LoadingPage } from '@/components/ui';
 import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 import dynamic from 'next/dynamic';
 
@@ -11,8 +10,6 @@ const Calendar = dynamic(() => import('@/components/ui/JobCalendar'), {
 });
 
 export default function CalendarPage() {
-
-
 
     useAuthRedirect();
 

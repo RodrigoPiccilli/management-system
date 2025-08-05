@@ -15,7 +15,7 @@ interface ExtraRow {
     amount: number;
 }
 
-export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rate: number }) {
+function DynamicTable({ totalFT2, rate }: { totalFT2: number, rate: number }) {
     const [helpersTotal, setHelpersTotal] = useState(0);
     const [extraRows, setExtraRows] = useState<ExtraRow[]>([]);
 
@@ -129,3 +129,5 @@ export default function DynamicTable({ totalFT2, rate }: { totalFT2: number, rat
         </div>
     );
 }
+
+export { DynamicTable }
