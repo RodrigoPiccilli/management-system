@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import api from "@/lib/apis";
+import { invalidateCache } from '@/lib/cache';
 
 interface CalendarEvent {
     id: string;
@@ -23,6 +24,7 @@ export const useCalendarEvents = () => {
     );
 
     const fetchJobs = useCallback(async () => {
+        
         try {
             setLoading(true);
             const [res1, res2] = await Promise.all([

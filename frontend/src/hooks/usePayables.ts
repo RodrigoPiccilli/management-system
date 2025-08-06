@@ -12,8 +12,10 @@ export function usePayables(params: UsePayablesParams) {
     const [loading, setLoading] = useState(true);
 
     const fetchJobs = async () => {
+
         if (!params.enabled || !params.dateFrom || !params.dateTo) {
             setJobs([]);
+            setLoading(false);
             return;
         }
 
@@ -38,11 +40,7 @@ export function usePayables(params: UsePayablesParams) {
     };
 
     useEffect(() => {
-        if (params.enabled && params.dateFrom && params.dateTo) {
-            fetchJobs();
-        } else {
-            setJobs([]);
-        }
+        fetchJobs();
     }, [params.dateFrom, params.dateTo, params.enabled]);
 
     return { jobs, loading, fetchJobs };

@@ -7,6 +7,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { useCalendarEvents } from '@/hooks/useCalendarEvents';
 import { LoadingPage } from '@/components/ui';
 import api from '@/lib/apis';
+import { invalidateCache } from '@/lib/cache';
+
 
 function parseEventId(eventId: string): { jobType: string; jobName: string } {
     const [jobType, ...jobNameParts] = eventId.split('-');
@@ -15,6 +17,16 @@ function parseEventId(eventId: string): { jobType: string; jobName: string } {
         jobName: jobNameParts.join('-'),
     };
 }
+
+const invalidateCaches = (jobType: string) => {
+
+    if (jobType === "homeowners") {
+        invalidateCache('homeowner_jobs_cache');
+        invalidateCache('receivables_cache');
+    } else if (jobType === "nvr") {
+        invalidateCache('nvr_jobs_cache');
+    }
+};
 
 export default function ReactCalendar() {
     const { events, loading, refetch } = useCalendarEvents();
@@ -51,6 +63,8 @@ export default function ReactCalendar() {
                             installDate: new Date(info.event.startStr)
                         });
                         console.log('Install Date updated successfully');
+                        invalidateCaches(jobType);
+
                     } catch (error) {
                         console.error('Failed to update install date:', error);
                         info.revert();
