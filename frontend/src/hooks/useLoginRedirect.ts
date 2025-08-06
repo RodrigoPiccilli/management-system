@@ -11,7 +11,7 @@ export function useLoginRedirect() {
         const checkUser = async () => {
             const { data } = await supabase.auth.getUser();
             if (data?.user) {
-                router.replace("/nvr");
+                router.replace("/calendar");
             } else {
                 setLoading(false);
             }

@@ -24,6 +24,7 @@ import {
 } from "@/components/ui";
 import api from "@/lib/apis"
 import { HomeownerJob, NVRJob } from "@/app/types/job";
+import { invalidateCache } from "@/lib/cache";
 
 
 
@@ -55,6 +56,11 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
             fetchJobs();
             setOpen(false);
             console.log("Job deleted successfully!");
+
+            if (apiEndpoint === "/homeowners") {
+                invalidateCache('receivables_cache');
+
+            }
         } catch (error) {
             console.error("Failed to delete job: ", error);
         }
@@ -68,6 +74,10 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
             fetchJobs();
             setOpen(false);
             console.log("Job updated successfully!");
+
+            if (apiEndpoint === "/homeowners") {
+                invalidateCache('receivables_cache');
+            }
         } catch (error) {
             console.error("Failed to update job:", error);
         }
