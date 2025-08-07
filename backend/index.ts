@@ -1,13 +1,14 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 
 import nvrRoutes from './routes/nvr';
 import homeownerRoutes from './routes/homeowners';
 
 const app = express();
+const BACKEND_URL = 'https://management-system-8nbo.onrender.com'
 
 app.use(cors({
     origin: true,
@@ -16,8 +17,14 @@ app.use(cors({
 
 app.use(express.json());
 
+app.get('/', (req: Request, res: Response) => {
+    res.status(200).send(`Backend is running: ${BACKEND_URL}`);
+});
+
 app.use('/api/nvr', nvrRoutes);
 app.use('/api/homeowners', homeownerRoutes);
+
+
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
