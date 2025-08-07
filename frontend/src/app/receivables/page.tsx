@@ -12,8 +12,6 @@ export default function Receivables() {
 
     const { jobs, loading, fetchJobs } = useReceivables();
 
-    if (loading) return <LoadingPage />;
-
     return (
         <div className="outer-div-template">
 
@@ -23,9 +21,15 @@ export default function Receivables() {
                 <h1 className="page-title">Receivables</h1>
             </header>
 
-            <div className="data-table">
-                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
-            </div>
+            {
+                !loading ? (
+                    <div className="data-table">
+                        <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
+                    </div>
+                ) : (
+                    <LoadingPage />
+                )
+            }
 
         </div>
     )

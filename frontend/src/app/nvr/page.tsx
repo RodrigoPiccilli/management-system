@@ -13,8 +13,6 @@ export default function NVRPage() {
 
     const { jobs, loading, fetchJobs } = useNVRJobs();
 
-    if (loading) return <LoadingPage />
-
     return (
         <div className="outer-div-template">
 
@@ -24,9 +22,17 @@ export default function NVRPage() {
                 <h1 className="page-title">NVR Jobs</h1>
             </header>
 
-            <div className="data-table">
-                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
-            </div>
+
+            {
+                !loading ? (
+                    <div className="data-table">
+                        <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
+                    </div>
+                ) : (
+                    <LoadingPage />
+                )
+            }
+
 
         </div>
     )

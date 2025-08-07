@@ -12,8 +12,6 @@ export default function HOPage() {
 
     const { jobs, loading, fetchJobs } = useHomeownerJobs();
 
-    if (loading) return <LoadingPage />;
-
     return (
         <div className="outer-div-template">
 
@@ -23,9 +21,17 @@ export default function HOPage() {
                 <h1 className="page-title">Homeowner Jobs</h1>
             </header>
 
-            <div className="data-table">
-                <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
-            </div>
+            {
+                !loading ? (
+                    <div className="data-table">
+                        <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
+                    </div>
+                ) : (
+                    <LoadingPage />
+                )
+            }
+
+
 
         </div>
 
