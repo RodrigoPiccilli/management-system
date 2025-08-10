@@ -8,7 +8,7 @@ import nvrRoutes from './routes/nvr';
 import homeownerRoutes from './routes/homeowners';
 
 const app = express();
-const BACKEND_URL = 'https://management-system-8nbo.onrender.com'
+const BACKEND_URL = process.env.BACKEND_URL;
 
 app.use(cors({
     origin: true,
