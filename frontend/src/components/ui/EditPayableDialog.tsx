@@ -44,22 +44,6 @@ const EditPayableDialog = ({ nvr, job, fetchJobs }: EditPayableDialogProps) => {
 
     }, [open, job]);
 
-    const handleChange = <T extends keyof (NVRJob & HomeownerJob)>(field: T) =>
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setForm({ ...form, [field]: e.target.value });
-        };
-
-    const handleDelete = async () => {
-        try {
-            await api.delete(`${apiEndpoint}/${job.jobName}`)
-            fetchJobs();
-            setOpen(false);
-            console.log("Job deleted successfully!");
-        } catch (error) {
-            console.error("Failed to delete job: ", error);
-        }
-    }
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 

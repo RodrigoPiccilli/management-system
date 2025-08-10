@@ -73,12 +73,12 @@ export default function PayablesPage() {
                 <Navigation activeTab="payables" />
             </div>
 
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 print:max-w-none print:px-0 print:mx-0">
                 <header className="page-header print:hidden">
                     <h1 className="page-title">Payables</h1>
                 </header>
 
-                <div className="flex gap-10 print:hidden py-3">
+                <div className="flex gap-10 py-3 print:hidden">
                     <div className="flex items-center justify-center gap-2">
                         <h3 className="font-bold">From: </h3>
                         <DatePicker onDateChange={handleFrom} value={selectedFrom} />
@@ -96,11 +96,11 @@ export default function PayablesPage() {
                     </Button>
                 </div>
 
-                <div className="flex gap-20 pb-10">
+                <div className="flex gap-20 pb-10 print:p-0 print:m-0">
 
-                    <div className="data-table flex flex-col gap-5">
+                    <div className="data-table flex flex-col gap-5 print:gap-0.5">
 
-                        <h1 className="text-xl text-center hidden print:block">Lionel <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
+                        <h1 className="text-base text-center hidden print:block">Lionel <span className="text-xs">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
                         <h1 className="text-2xl print:hidden text-slate-900">Lionel's Jobs</h1>
                         <DataTable
                             columns={columns(fetchJobs)}
@@ -114,9 +114,9 @@ export default function PayablesPage() {
 
                     </div>
 
-                    <div className="data-table flex flex-col gap-5">
-                        <h1 className="text-xl text-center text-nowrap hidden print:block">Umberto <span className="text-lg">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
+                    <div className="data-table flex flex-col gap-5 print:gap-0.5">
 
+                        <h1 className="text-base text-center text-nowrap hidden print:block">Umberto <span className="text-xs">({selectedFrom?.toLocaleDateString()}-{selectedTo?.toLocaleDateString()})</span></h1>
                         <h1 className="text-2xl text-slate-900 print:hidden">Umberto's Jobs</h1>
                         <DataTable
                             columns={columns(fetchJobs)}

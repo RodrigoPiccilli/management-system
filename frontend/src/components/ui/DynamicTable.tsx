@@ -52,19 +52,19 @@ function DynamicTable({ totalFT2, rate }: { totalFT2: number, rate: number }) {
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500 min-w-50 print:min-w-0">Total FT²</TableCell>
-                        <TableCell className="text-center">{totalFT2.toFixed(2)}</TableCell>
+                        <TableCell className="border-r-1 border-r-gray-500 min-w-50 print:text-xs print:p-0 print:m-0">Total FT²</TableCell>
+                        <TableCell className="text-center print:text-xs print:p-0 print:m-0">{totalFT2.toFixed(2)}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500">Rate</TableCell>
-                        <TableCell className="text-center">{new Intl.NumberFormat("en-US", {
+                        <TableCell className="border-r-1 border-r-gray-500 print:text-xs print:p-0 print:m-0">Rate</TableCell>
+                        <TableCell className="text-center print:text-xs print:p-0 print:m-0">{new Intl.NumberFormat("en-US", {
                             style: "currency",
                             currency: "USD",
                         }).format(rate)}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500">Base</TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="border-r-1 border-r-gray-500 print:text-xs print:p-0 print:m-0">Base</TableCell>
+                        <TableCell className="text-center print:text-xs print:p-0 print:m-0">
                             {new Intl.NumberFormat("en-US", {
                                 style: "currency",
                                 currency: "USD",
@@ -72,11 +72,11 @@ function DynamicTable({ totalFT2, rate }: { totalFT2: number, rate: number }) {
                         </TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell className="border-r-1 border-r-gray-500 ">Helpers</TableCell>
-                        <TableCell className="">
+                        <TableCell className="border-r-1 border-r-gray-500 print:text-xs print:p-0 print:m-0">Helpers</TableCell>
+                        <TableCell className="print:p-0 print:m-0">
                             <Input
                                 type="number"
-                                className="max-w-fit border-1 text-center no-step print:text-sm"
+                                className="max-w-fit border-0 text-center no-step print:text-xs"
                                 placeholder="$0.00"
                                 onChange={(e) => setHelpersTotal(Number(e.target.value))}
                             />
@@ -84,13 +84,13 @@ function DynamicTable({ totalFT2, rate }: { totalFT2: number, rate: number }) {
                     </TableRow>
                     {extraRows.map((row) => (
                         <TableRow key={row.id}>
-                            <TableCell className="border-r-1 border-r-gray-500">
+                            <TableCell className="border-r-1 border-r-gray-500 print:text-xs print:p-0 print:m-0">
                                 <Input
                                     type="text"
                                     value={row.description}
                                     onChange={(e) => updateRow(row.id, 'description', e.target.value)}
                                     placeholder="Description"
-                                    className="border-0 p-0 print:text-sm"
+                                    className="border-0 p-0 print:text-xs print:max-w-fit"
                                 />
                             </TableCell>
                             <TableCell className="relative">
@@ -99,7 +99,7 @@ function DynamicTable({ totalFT2, rate }: { totalFT2: number, rate: number }) {
                                     value={row.amount === 0 ? '' : row.amount} onChange={(e) => updateRow(row.id, 'amount', parseFloat(e.target.value) || 0)}
                                     placeholder="$0.00"
                                     min={0}
-                                    className="border-1 text-center no-step print:text-sm" />
+                                    className="border-0 text-center no-step print:text-xs print:p-0 print:m-0" />
                                 <Button
                                     variant="destructive"
                                     size="sm"
@@ -111,14 +111,14 @@ function DynamicTable({ totalFT2, rate }: { totalFT2: number, rate: number }) {
                             </TableCell>
                         </TableRow>
                     ))}
+
+                    <TableRow>
+                        <TableCell colSpan={1} className="font-bold print:p-1 print:m-0">Total</TableCell>
+                        <TableCell className="text-right print:p-1 print:m-0 font-bold">{calculateTotal()}</TableCell>
+                    </TableRow>
+                    
                 </TableBody>
 
-                <TableFooter>
-                    <TableRow>
-                        <TableCell colSpan={1}>Total</TableCell>
-                        <TableCell className="text-right">{calculateTotal()}</TableCell>
-                    </TableRow>
-                </TableFooter>
             </Table>
 
             <div className="mt-4 self-center print:hidden">

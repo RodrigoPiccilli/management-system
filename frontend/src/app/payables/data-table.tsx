@@ -80,9 +80,6 @@ export function DataTable<TData, TValue>({
     return (
 
         <div>
-
-            {/* style={{ minHeight: `${someVariable}px` }} */}
-
             {/* Table */}
             <div className='table-edges'>
                 <Table>

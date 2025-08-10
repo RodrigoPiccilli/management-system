@@ -8,12 +8,17 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
     {
         accessorKey: "jobName",
         header: ({ column }) => (
-            <Button variant="ghost" className="rounded-full">
+            <Button variant="ghost" className="rounded-full print:text-xs">
                 Job Name
             </Button>
         ),
         cell: ({ row }) => (
-            <EditPayableDialog job={row.original} fetchJobs={fetchJobs} nvr={"community" in row.original} />
+            <div>
+                <h1 className="hidden text-xs p-2 print:block">{row.original.jobName}</h1>
+                <div className="print:hidden">
+                    <EditPayableDialog job={row.original} fetchJobs={fetchJobs} nvr={"community" in row.original} />
+                </div>
+            </div>
         ),
         meta: { className: "text-left max-w-12 p-2 print:p-0" }
 
@@ -32,11 +37,6 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
         },
         meta: { className: "text-center max-w-12 print:hidden" }
     },
-    // {
-    //     accessorKey: "installedBy",
-    //     header: "Installed By",
-    //     meta: { className: "max-w-12 text-center print:hidden" }
-    // },
     {
         accessorKey: "ft2",
         header: "FT²",
@@ -47,6 +47,6 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
             }
             return "";
         },
-        meta: { className: "max-w-12 text-center" }
+        meta: { className: "max-w-12 text-center print:text-xs print:p-0" }
     },
 ]
