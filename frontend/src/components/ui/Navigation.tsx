@@ -12,11 +12,13 @@ import * as React from "react"
 import Link from "next/link"
 import { invalidateCache } from "@/lib/cache"
 
+const JOB_NAME_FILTER = 'jobNameFilter'
+
 
 export function Navigation({ activeTab }: { activeTab?: string }) {
 
     const removeFilter = () => {
-        invalidateCache('jobNameFilter');
+        invalidateCache(JOB_NAME_FILTER);
     }
 
     return (

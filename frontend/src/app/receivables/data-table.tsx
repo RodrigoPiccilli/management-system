@@ -24,8 +24,6 @@ import {
     Button,
     Input,
 } from "@/components/ui"
-import { useEffect, useState } from "react"
-
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
@@ -80,14 +78,29 @@ export function DataTable<TData, TValue>({
         onPaginationChange: setPagination,
     })
 
-    const [filterInput, setFilterInput] = useState(() => {
-        const savedFilter = localStorage.getItem("jobNameFilter");
-        return savedFilter || "";
+    const FILTER_KEY = 'jobNameFilter';
+
+    const [filterInput, setFilterInput] = React.useState(() => {
+        if (typeof window === "undefined") return "";
+        try {
+            const savedFilter = window.localStorage.getItem(FILTER_KEY);
+            return savedFilter ?? "";
+        } catch {
+            return "";
+        }
     });
 
-    useEffect(() => {
-        localStorage.setItem("jobNameFilter", filterInput);
-        table.getColumn("jobName")?.setFilterValue(filterInput);
+
+    React.useEffect(() => {
+        try {
+            window.localStorage.setItem(FILTER_KEY, filterInput);
+        } catch {
+            // Storage is unavailable
+        }
+        const col = table.getColumn("jobName");
+        if (col && (col.getFilterValue() as string | undefined) !== filterInput) {
+            col.setFilterValue(filterInput);
+        }
     }, [filterInput, table]);
 
 
@@ -100,8 +113,8 @@ export function DataTable<TData, TValue>({
                     placeholder="Filter Jobs By Name"
                     value={(table.getColumn("jobName")?.getFilterValue() as string) ?? ""}
                     onChange={(event) => {
-                        table.getColumn("jobName")?.setFilterValue(event.target.value),
-                            setFilterInput(event.target.value);
+                        table.getColumn("jobName")?.setFilterValue(event.target.value);
+                        setFilterInput(event.target.value);
                     }}
                     className="filter-input"
                 />
@@ -139,7 +152,6 @@ export function DataTable<TData, TValue>({
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id} className="divide-x divide-slate-200 even:bg-slate-50 odd:bg-white hover:bg-indigo-50" >
                                     {row.getVisibleCells().map((cell) => {
-                                        // Safely access className only if meta and className exist
                                         const className = cell.column.columnDef.meta && 'className' in cell.column.columnDef.meta
                                             ? (cell.column.columnDef.meta as { className?: string }).className
                                             : undefined;
@@ -165,7 +177,6 @@ export function DataTable<TData, TValue>({
             {/* Pagination */}
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button
-                    // variant="outline"
                     className="bg-slate-600 text-white hover:bg-slate-700"
                     size="sm"
                     onClick={() => table.previousPage()}
@@ -174,7 +185,6 @@ export function DataTable<TData, TValue>({
                     Previous
                 </Button>
                 <Button
-                    // variant="outline"
                     className="bg-indigo-600 text-white hover:bg-indigo-700"
                     size="sm"
                     onClick={() => table.nextPage()}

@@ -25,8 +25,6 @@ import {
     Input,
     AddJobDialog
 } from "@/components/ui"
-import { useEffect, useState } from "react"
-
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
@@ -78,14 +76,15 @@ export function DataTable<TData, TValue>({
         },
         onPaginationChange: setPagination,
     })
+    const FILTER_KEY = "jobNameFilter";
 
-    const [filterInput, setFilterInput] = useState(() => {
-        const savedFilter = localStorage.getItem("jobNameFilter");
+    const [filterInput, setFilterInput] = React.useState(() => {
+        const savedFilter = localStorage.getItem(FILTER_KEY);
         return savedFilter || "";
     });
 
-    useEffect(() => {
-        localStorage.setItem("jobNameFilter", filterInput);
+    React.useEffect(() => {
+        localStorage.setItem(FILTER_KEY, filterInput);
         table.getColumn("jobName")?.setFilterValue(filterInput);
     }, [filterInput, table]);
 
@@ -101,8 +100,8 @@ export function DataTable<TData, TValue>({
                     placeholder="Filter Jobs By Name"
                     value={(table.getColumn("jobName")?.getFilterValue() as string) ?? ""}
                     onChange={(event) => {
-                        table.getColumn("jobName")?.setFilterValue(event.target.value),
-                            setFilterInput(event.target.value);
+                        table.getColumn("jobName")?.setFilterValue(event.target.value);
+                        setFilterInput(event.target.value);
                     }}
                     className="filter-input"
                 />
