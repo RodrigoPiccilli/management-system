@@ -10,9 +10,14 @@ import {
 
 import * as React from "react"
 import Link from "next/link"
+import { invalidateCache } from "@/lib/cache"
 
 
 export function Navigation({ activeTab }: { activeTab?: string }) {
+
+    const removeFilter = () => {
+        invalidateCache('jobNameFilter');
+    }
 
     return (
 
@@ -22,7 +27,8 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                     <NavigationMenuLink asChild className="cursor-pointer">
                         <Link
                             href="/calendar"
-                            className={`navigation-title ${activeTab === "calendar" ? "text-indigo-600 font-bold" : ""}`}>
+                            className={`navigation-title ${activeTab === "calendar" ? "text-indigo-600 font-bold" : ""}`}
+                            onClick={removeFilter}>
                             Calendar
                         </Link>
                     </NavigationMenuLink>
@@ -31,7 +37,8 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                     <NavigationMenuLink asChild className="cursor-pointer">
                         <Link
                             href="/nvr"
-                            className={`navigation-title ${activeTab === "nvr" ? "text-indigo-600 font-bold" : ""}`}>
+                            className={`navigation-title ${activeTab === "nvr" ? "text-indigo-600 font-bold" : ""}`}
+                            onClick={removeFilter}>
                             NVR
                         </Link>
                     </NavigationMenuLink>
@@ -40,7 +47,8 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                     <NavigationMenuLink asChild className="cursor-pointer">
                         <Link
                             href="/homeowners"
-                            className={`navigation-title ${activeTab === "homeowners" ? "text-indigo-600 font-bold" : ""}`}>
+                            className={`navigation-title ${activeTab === "homeowners" ? "text-indigo-600 font-bold" : ""}`}
+                            onClick={removeFilter}>
                             Homeowners
                         </Link>
                     </NavigationMenuLink>
@@ -49,7 +57,8 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                     <NavigationMenuLink asChild className="cursor-pointer">
                         <Link
                             href="/receivables"
-                            className={`navigation-title ${activeTab === "receivables" ? "text-indigo-600 font-bold" : ""}`}>
+                            className={`navigation-title ${activeTab === "receivables" ? "text-indigo-600 font-bold" : ""}`}
+                            onClick={removeFilter}>
                             Receivables
                         </Link>
                     </NavigationMenuLink>
@@ -58,7 +67,8 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                     <NavigationMenuLink asChild className="cursor-pointer">
                         <Link
                             href="/payables"
-                            className={`navigation-title ${activeTab === "payables" ? "text-indigo-600 font-bold" : ""}`}>
+                            className={`navigation-title ${activeTab === "payables" ? "text-indigo-600 font-bold" : ""}`}
+                            onClick={removeFilter}>
                             Payables
                         </Link>
                     </NavigationMenuLink>
