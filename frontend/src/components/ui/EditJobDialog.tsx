@@ -257,7 +257,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                                 {apiEndpoint === "/homeowners" && (
                                                     <SelectItem value="Custom">Custom</SelectItem>
                                                 )}
-                                                { apiEndpoint === "/nvr" && (
+                                                {apiEndpoint === "/nvr" && (
                                                     <SelectItem value="Farm Sink">Farm Sink</SelectItem>
                                                 )}
 

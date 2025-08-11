@@ -265,7 +265,13 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                             <SelectContent>
                                                 <SelectItem value="Single Bowl">Single Bowl</SelectItem>
                                                 <SelectItem value="50/50">50/50</SelectItem>
-                                                <SelectItem value="Farm Sink">Farm Sink</SelectItem>
+                                                {apiEndpoint === "/homeowners" && (
+                                                    <SelectItem value="Custom">Custom</SelectItem>
+                                                )}
+                                                {apiEndpoint === "/nvr" && (
+                                                    <SelectItem value="Farm Sink">Farm Sink</SelectItem>
+                                                )}
+
                                             </SelectContent>
                                         </Select>
                                     </TableCell>
