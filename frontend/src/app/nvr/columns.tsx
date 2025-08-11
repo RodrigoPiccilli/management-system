@@ -16,6 +16,17 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob>[] => [
             </Button>
         ),
         cell: ({ row }) => <EditJobDialog apiEndpoint="/nvr" job={row.original} fetchJobs={fetchJobs} />,
+        sortingFn: (rowA, rowB) => {
+            // Get Job Number Values
+            const jobA = (rowA.getValue("jobName") as string).split('-')[1];
+            const jobB = (rowB.getValue("jobName") as string).split('-')[1];
+
+            // Convert to numbers and sort ascending
+            const numA = parseInt(jobA, 10);
+            const numB = parseInt(jobB, 10);
+
+            return numA - numB;
+        }
 
     },
     {
