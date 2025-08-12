@@ -2,10 +2,11 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
-import { Button, EditJobDialog } from "@/components/ui"
-import { HomeownerJob } from "../types/job"
+import { Button, EditRepairDialog } from "@/components/ui"
+import { Repair } from "../types/job"
 
-export const columns = (fetchJobs: () => void): ColumnDef<HomeownerJob>[] => [
+
+export const columns = (fetchJobs: () => void): ColumnDef<Repair>[] => [
     {
         accessorKey: "jobName",
         header: ({ column }) => (
@@ -14,13 +15,18 @@ export const columns = (fetchJobs: () => void): ColumnDef<HomeownerJob>[] => [
                 <ArrowUpDown className="h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <EditJobDialog apiEndpoint="/homeowners" job={row.original} fetchJobs={fetchJobs} />,
+        cell: ({ row }) => <EditRepairDialog job={row.original} fetchJobs={fetchJobs} />,
+        sortingFn: (rowA, rowB) => {
+            // Get Job Number Values
+            const jobA = (rowA.getValue("jobName") as string).split('-')[1];
+            const jobB = (rowB.getValue("jobName") as string).split('-')[1];
 
-    },
-    {
-        accessorKey: "stone",
-        header: "Stone",
-        meta: { className: "text-center" }
+            // Convert to numbers and sort ascending
+            const numA = parseInt(jobA, 10);
+            const numB = parseInt(jobB, 10);
+
+            return numA - numB;
+        }
 
     },
     {
@@ -38,39 +44,13 @@ export const columns = (fetchJobs: () => void): ColumnDef<HomeownerJob>[] => [
         meta: { className: "text-center" }
     },
     {
-        accessorKey: "ft2",
-        header: "FT²",
-        cell: ({ row }) => {
-            const value = row.getValue("ft2");
-            if (typeof value === "number") {
-                return value.toFixed(2);
-            }
-            return "";
-        },
+        accessorKey: "installedBy",
+        header: "Installed By",
         meta: { className: "text-center" }
     },
     {
         accessorKey: "address",
         header: "Address",
-        meta: { className: "text-center" }
-    },
-    {
-        accessorKey: "sink",
-        header: "Sink",
-        meta: { className: "text-center" }
-    },
-    {
-        accessorKey: "amount",
-        header: "Amount",
-        cell: ({ row }) => {
-            const value = row.getValue("amount");
-            if (typeof value === "number") {
-                return new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                }).format(value);
-            }
-        },
         meta: { className: "text-center" }
     },
 ]

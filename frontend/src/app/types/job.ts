@@ -30,3 +30,12 @@ export type HomeownerJob = {
     deposit?: boolean;
     final?: boolean;
 };
+
+export type Repair = {
+    id: string;
+    jobName: string;
+    installDate?: string;
+    installedBy?: string;
+    address?: string;
+    notes?: string;
+}

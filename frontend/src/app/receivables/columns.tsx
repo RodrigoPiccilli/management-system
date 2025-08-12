@@ -46,6 +46,20 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
         meta: { className: "text-center" }
     },
     {
+        accessorKey: "amount",
+        header: "Amount",
+        cell: ({ row }) => {
+            const value = row.getValue("amount");
+            if (typeof value === "number") {
+                return new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                }).format(value);
+            }
+        },
+        meta: { className: "text-center" }
+    },
+    {
         accessorKey: "deposit",
         header: "Deposit",
         cell: ({ row }) => {

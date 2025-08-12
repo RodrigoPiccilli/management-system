@@ -6,6 +6,8 @@ import cors from 'cors';
 
 import nvrRoutes from './routes/nvr';
 import homeownerRoutes from './routes/homeowners';
+import repairRoutes from './routes/repairs';
+
 
 const app = express();
 const BACKEND_URL = process.env.BACKEND_URL;
@@ -23,6 +25,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/nvr', nvrRoutes);
 app.use('/api/homeowners', homeownerRoutes);
+app.use('/api/repairs', repairRoutes);
 
 
 

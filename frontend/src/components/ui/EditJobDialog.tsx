@@ -313,28 +313,6 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                             </TableCell>
                                         </TableRow>
                                     )}
-
-                                    {"backsplash" in form && (
-                                        <TableRow>
-                                            <TableHead>Backsplash</TableHead>
-                                            <TableCell>
-                                                <Select
-                                                    value={form.backsplash === true ? "Yes" : form.backsplash === false ? "No" : ""}
-                                                    onValueChange={(value) =>
-                                                        setForm({ ...form, backsplash: value === "Yes" ? true : value === "No" ? false : undefined })
-                                                    }
-                                                >
-                                                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
-                                                        <SelectValue placeholder="Backsplash" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="Yes">Yes</SelectItem>
-                                                        <SelectItem value="No">No</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
                                     {"installDate" in form && (
                                         <TableRow>
                                             <TableHead>Install Date</TableHead>
@@ -371,6 +349,10 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                             </TableCell>
                                         </TableRow>
                                     )}
+                                </TableBody>
+                            </Table>
+                            <Table>
+                                <TableBody>
                                     {"ft2" in form && (
                                         <TableRow>
                                             <TableHead>FT²</TableHead>
