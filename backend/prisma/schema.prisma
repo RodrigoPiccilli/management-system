@@ -1,41 +1,49 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model NVRJob {
-  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  jobName     String    @unique
-  areaCode    String?
-  model       String?
-  direction   String?
-  stone       String?
-  backsplash  Boolean?
-  installDate DateTime? @db.Date
-  ft2         Float?
-  community   String?
-  address     String?
-  sink        String?
-  amount      Float?
-  poNumber    String?
-  installedBy String?
+    id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    jobName     String    @unique
+    areaCode    String?
+    model       String?
+    direction   String?
+    stone       String?
+    backsplash  Boolean?
+    installDate DateTime? @db.Date
+    ft2         Float?
+    community   String?
+    address     String?
+    sink        String?
+    amount      Float?
+    poNumber    String?
+    installedBy String?
 }
 
 model HomeownerJob {
-  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  jobName     String    @unique
-  stone       String?
-  backsplash  Boolean?
-  installDate DateTime? @db.Date
-  ft2         Float?
-  address     String?
-  sink        String?
-  amount      Float?
-  deposit     Boolean?
-  final       Boolean?
-  installedBy String?
+    id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    jobName     String    @unique
+    stone       String?
+    installDate DateTime? @db.Date
+    ft2         Float?
+    address     String?
+    sink        String?
+    amount      Float?
+    deposit     Boolean?
+    final       Boolean?
+    installedBy String?
+}
+
+model Repair {
+    id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    jobName     String    @unique
+    installDate DateTime? @db.Date
+    installedBy String?
+    address     String?
+    notes       String?
 }
