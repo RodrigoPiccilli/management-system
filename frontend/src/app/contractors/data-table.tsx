@@ -57,10 +57,8 @@ export function DataTable<TData, TValue>({
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [pagination, setPagination] = React.useState({
         pageIndex: 0,
-        pageSize: 10, // Changes the Number of Jobs Being Showed Per Page.
+        pageSize: 10,
     })
-    const FILTER_KEY = "jobNameFilter";
-
 
     const table = useReactTable({
         data,
@@ -78,6 +76,7 @@ export function DataTable<TData, TValue>({
         },
         onPaginationChange: setPagination,
     })
+    const FILTER_KEY = "jobNameFilter";
 
     const [filterInput, setFilterInput] = React.useState(() => {
         const savedFilter = localStorage.getItem(FILTER_KEY);
@@ -87,7 +86,10 @@ export function DataTable<TData, TValue>({
     React.useEffect(() => {
         localStorage.setItem(FILTER_KEY, filterInput);
         table.getColumn("jobName")?.setFilterValue(filterInput);
-    }, [filterInput]);
+    }, [filterInput, table]);
+
+
+
 
     return (
 
@@ -98,32 +100,28 @@ export function DataTable<TData, TValue>({
                     placeholder="Filter Jobs By Name"
                     value={(table.getColumn("jobName")?.getFilterValue() as string) ?? ""}
                     onChange={(event) => {
-                        const value = event.target.value;
-                        setFilterInput(value);
-                        table.getColumn("jobName")?.setFilterValue(value);
+                        table.getColumn("jobName")?.setFilterValue(event.target.value);
+                        setFilterInput(event.target.value);
                     }}
                     className="filter-input"
                 />
                 <div className="flex">
                     <AddJobDialog
-                        apiEndpoint="/nvr"
+                        apiEndpoint="/contractors"
                         initialForm={{
                             jobName: "",
-                            areaCode: null,
-                            model: null,
-                            direction: null,
+                            contractor: "",
                             stone: null,
-                            backsplash: null,
                             installDate: null,
                             installedBy: null,
                             ft2: null,
-                            community: null,
                             address: null,
                             sink: null,
                             amount: null,
-                            poNumber: null,
+                            deposit: false,
+                            final: false
                         }}
-                        title="Add NVR Job"
+                        title="Add Contractor Job"
                         fetchJobs={fetchJobs}
                     />
                     <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700 cursor-pointer" onClick={fetchJobs}>Refresh</Button>
@@ -194,7 +192,6 @@ export function DataTable<TData, TValue>({
                     Previous
                 </Button>
                 <Button
-                    // variant="outline"
                     variant="primary"
                     size="sm"
                     onClick={() => table.nextPage()}

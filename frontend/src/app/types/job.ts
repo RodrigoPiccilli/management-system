@@ -31,6 +31,22 @@ export type HomeownerJob = {
     final?: boolean;
 };
 
+export type ContractorJob = {
+    id: string;
+    jobName: string;
+    contractor: string;
+    stone?: string;
+    backsplash?: boolean;
+    installDate?: string;
+    installedBy?: string;
+    ft2?: number;
+    address?: string;
+    sink?: string;
+    amount?: number;
+    deposit?: boolean;
+    final?: boolean;
+};
+
 export type Repair = {
     id: string;
     jobName: string;

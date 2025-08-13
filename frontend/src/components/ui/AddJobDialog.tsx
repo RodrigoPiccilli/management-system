@@ -329,21 +329,147 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableHead>Backsplash</TableHead>
+                                        <TableHead>Install Date</TableHead>
+                                        <TableCell>
+                                            <Input
+                                                className="border-slate-300 focus:border-indigo-500"
+                                                type="date"
+                                                value={form.installDate || ""}
+                                                onChange={handleChange("installDate")}
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Installed By</TableHead>
                                         <TableCell>
                                             <Select
-                                                value={form.backsplash === true ? "yes" : form.backsplash === false ? "no" : ""}
-                                                onValueChange={value =>
-                                                    setForm({ ...form, backsplash: value === "yes" ? true : value === "no" ? false : undefined })
-                                                }>
+                                                value={form.installedBy || ""}
+                                                onValueChange={(value) =>
+                                                    setForm({ ...form, installedBy: value })
+                                                }
+                                            >
                                                 <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
-                                                    <SelectValue placeholder="Backsplash" />
+                                                    <SelectValue placeholder="Installed By" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    <SelectItem value="yes">Yes</SelectItem>
-                                                    <SelectItem value="no">No</SelectItem>
+                                                    <SelectItem value="Lionel">Lionel</SelectItem>
+                                                    <SelectItem value="Umberto">Umberto</SelectItem>
                                                 </SelectContent>
                                             </Select>
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                            <Table>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableHead>FT²</TableHead>
+                                        <TableCell>
+                                            <Input
+                                                className="border-slate-300 focus:border-indigo-500"
+                                                type="number"
+                                                value={form.ft2 != null ? form.ft2 : ""}
+                                                onChange={e =>
+                                                    setForm({
+                                                        ...form,
+                                                        ft2: e.target.value === "" ? undefined : Number(e.target.value)
+                                                    })
+                                                }
+                                                placeholder="FT²"
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Address</TableHead>
+                                        <TableCell>
+                                            <Input
+                                                className="border-slate-300 focus:border-indigo-500"
+                                                value={form.address || ""}
+                                                placeholder="Address"
+                                                onChange={handleChange("address")} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Sink</TableHead>
+                                        <TableCell>
+                                            <Select
+                                                value={form.sink || ""}
+                                                onValueChange={value => setForm({ ...form, sink: value })}
+                                            >
+                                                <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                    <SelectValue placeholder="Sink Type" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="Single Bowl">Single Bowl</SelectItem>
+                                                    <SelectItem value="50/50">50/50</SelectItem>
+                                                    <SelectItem value="Custom">Custom</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Amount</TableHead>
+                                        <TableCell>
+                                            <Input
+                                                className="border-slate-300 focus:border-indigo-500"
+                                                type="number"
+                                                value={form.amount != null ? form.amount : ""}
+                                                placeholder="Amount ($)"
+                                                onChange={e =>
+                                                    setForm({
+                                                        ...form,
+                                                        amount: e.target.value === "" ? undefined : Number(e.target.value)
+                                                    })
+                                                }
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </div>
+                    )}
+
+                    {apiEndpoint === "/contractors" && (
+                        <div className="flex gap-[2rem]">
+                            <Table>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableHead>Job Name</TableHead>
+                                        <TableCell>
+                                            <Input
+                                                className="border-slate-300 focus:border-indigo-500"
+                                                value={form.jobName || ""}
+                                                placeholder="Job Name"
+                                                onChange={handleChange("jobName")} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Contractor</TableHead>
+                                        <TableCell>
+                                            <Select
+                                                value={form.contractor || ""}
+                                                onValueChange={(value) =>
+                                                    setForm({ ...form, contractor: value })
+                                                }
+                                            >
+                                                <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                    <SelectValue placeholder="Contractor" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="ERX">ERX</SelectItem>
+                                                    <SelectItem value="NewFloor">NewFloor</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableHead>Stone</TableHead>
+                                        <TableCell>
+                                            <Input
+                                                className="border-slate-300 focus:border-indigo-500"
+                                                value={form.stone || ""}
+                                                placeholder="Stone Type"
+                                                onChange={handleChange("stone")} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -376,6 +502,11 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                             </Select>
                                         </TableCell>
                                     </TableRow>
+
+                                </TableBody>
+                            </Table>
+                            <Table>
+                                <TableBody>
                                     <TableRow>
                                         <TableHead>FT²</TableHead>
                                         <TableCell>

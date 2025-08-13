@@ -3,10 +3,9 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { Button, EditJobDialog } from "@/components/ui"
-import { NVRJob } from "../types/job"
+import { ContractorJob } from "../types/job"
 
-
-export const columns = (fetchJobs: () => void): ColumnDef<NVRJob>[] => [
+export const columns = (fetchJobs: () => void): ColumnDef<ContractorJob>[] => [
     {
         accessorKey: "jobName",
         header: ({ column }) => (
@@ -15,53 +14,20 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob>[] => [
                 <ArrowUpDown className="h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <EditJobDialog apiEndpoint="/nvr" job={row.original} fetchJobs={fetchJobs} />,
-        sortingFn: (rowA, rowB) => {
-            // Get Job Number Values
-            const jobA = (rowA.getValue("jobName") as string).split('-')[1];
-            const jobB = (rowB.getValue("jobName") as string).split('-')[1];
-
-            // Convert to numbers and sort ascending
-            const numA = parseInt(jobA, 10);
-            const numB = parseInt(jobB, 10);
-
-            return numA - numB;
-        }
+        cell: ({ row }) => <EditJobDialog apiEndpoint="/contractors" job={row.original} fetchJobs={fetchJobs} />,
 
     },
     {
-        accessorKey: "areaCode",
-        header: "Area Code",
-        cell: info => info.getValue(),
+        accessorKey: "contractor",
+        header: "Contractor",
         meta: { className: "text-center" }
-    },
-    {
-        accessorKey: "model",
-        header: "Model",
-        meta: { className: "w-24 text-center" }
-    },
-    {
-        accessorKey: "direction",
-        header: "Direction",
-        meta: { className: "max-w-24 text-center" }
+
     },
     {
         accessorKey: "stone",
         header: "Stone",
-        meta: { className: "w-24 text-center" }
+        meta: { className: "text-center" }
 
-    },
-
-    {
-        accessorKey: "backsplash",
-        header: "Backsplash",
-        cell: ({ row }) => {
-            const value = row.getValue("backsplash");
-            return (
-                <div>{value === true ? "Yes" : value === false ? "No" : ""}</div>
-            );
-        },
-        meta: { className: "max-w-24 text-center" }
     },
     {
         accessorKey: "installDate",
@@ -87,22 +53,17 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob>[] => [
             }
             return "";
         },
-        meta: { className: "w-20 text-center" }
-    },
-    {
-        accessorKey: "community",
-        header: "Community",
-        meta: { className: "text-left" }
+        meta: { className: "text-center" }
     },
     {
         accessorKey: "address",
         header: "Address",
-        meta: { className: "text-left" }
+        meta: { className: "text-center" }
     },
     {
         accessorKey: "sink",
         header: "Sink",
-        meta: { className: "w-24 text-center" }
+        meta: { className: "text-center" }
     },
     {
         accessorKey: "amount",
@@ -116,11 +77,6 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob>[] => [
                 }).format(value);
             }
         },
-        meta: { className: "w-24 text-right" }
-    },
-    {
-        accessorKey: "poNumber",
-        header: "PO Number",
-        meta: { className: "pr-5 text-right" }
+        meta: { className: "text-center" }
     },
 ]

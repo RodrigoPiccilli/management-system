@@ -3,15 +3,15 @@
 import { Navigation, LoadingPage } from "@/components/ui";
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
-import { useNVRJobs } from "@/hooks/useNVRJobs";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { useContractorJobs } from "@/hooks/useContractorJobs";
 
 
 export default function ContractorsPage() {
 
     useAuthRedirect();
 
-    const { jobs, loading, fetchJobs } = useNVRJobs();
+    const { jobs, loading, fetchJobs } = useContractorJobs();
 
     return (
         <div className="outer-div-template">
@@ -23,7 +23,7 @@ export default function ContractorsPage() {
             </header>
 
 
-            {/* {
+            {
                 !loading ? (
                     <div className="data-table">
                         <DataTable columns={columns(fetchJobs)} data={jobs} fetchJobs={fetchJobs} />
@@ -31,7 +31,7 @@ export default function ContractorsPage() {
                 ) : (
                     <LoadingPage />
                 )
-            } */}
+            }
 
 
         </div>
