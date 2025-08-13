@@ -3,7 +3,7 @@ import api from "@/lib/apis";
 import { Repair } from '@/app/types/job'
 import { saveToCache, loadFromCache, UseJobsReturn } from '@/lib/cache'
 
-const CACHE_KEY = 'repairs__cache';
+const CACHE_KEY = 'repairs_cache';
 
 export function useRepairs(): UseJobsReturn<Repair> {
     const [jobs, setJobs] = useState<Repair[]>([]);

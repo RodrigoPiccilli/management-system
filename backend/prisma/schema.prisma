@@ -47,3 +47,9 @@ model Repair {
     address     String?
     notes       String?
 }
+
+model PrefixMapping {
+    id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    prefix    String @unique
+    community String
+}

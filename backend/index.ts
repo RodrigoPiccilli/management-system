@@ -7,6 +7,7 @@ import cors from 'cors';
 import nvrRoutes from './routes/nvr';
 import homeownerRoutes from './routes/homeowners';
 import repairRoutes from './routes/repairs';
+import prefixMappings from './routes/prefix-mappings';
 
 
 const app = express();
@@ -26,7 +27,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/nvr', nvrRoutes);
 app.use('/api/homeowners', homeownerRoutes);
 app.use('/api/repairs', repairRoutes);
-
+app.use('/api/prefix-mappings', prefixMappings);
 
 
 const PORT = process.env.PORT || 4000;

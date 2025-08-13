@@ -12,12 +12,12 @@ export const useCalendarEvents = () => {
     const [loading, setLoading] = useState(true);
     const [jobs, setJobs] = useState<any[]>([]);
 
-    const transformData = useCallback((jobs: any[], jobType: 'nvr' | 'homeowners') =>
+    const transformData = useCallback((jobs: any[], jobType: 'nvr' | 'homeowners' | 'repairs') =>
         jobs.map(job => ({
             id: `${jobType}-${job.jobName}`,
             title: job.jobName,
             start: new Date(job.installDate).toISOString().split('T')[0],
-            color: job.installedBy === 'Lionel' ? 'rgb(16, 185, 129)' : 'rgb(56, 189, 248)',
+            color: jobType === 'repairs' ? 'red' : job.installedBy === 'Lionel' ? 'rgb(16, 185, 129)' : 'rgb(56, 189, 248)',
         })), []
     );
 
@@ -25,15 +25,18 @@ export const useCalendarEvents = () => {
 
         try {
             setLoading(true);
-            const [res1, res2] = await Promise.all([
+            const [res1, res2, res3] = await Promise.all([
                 api.get(`/nvr`),
-                api.get(`/homeowners`)
+                api.get(`/homeowners`),
+                api.get(`/repairs`),
             ]);
 
             const nvrEvents = transformData(res1.data, 'nvr');
             const homeownerEvents = transformData(res2.data, 'homeowners');
+            const repairEvents = transformData(res3.data, 'repairs');
 
-            setEvents([...nvrEvents, ...homeownerEvents]);
+
+            setEvents([...nvrEvents, ...homeownerEvents, ...repairEvents]);
 
 
         } catch (err) {
