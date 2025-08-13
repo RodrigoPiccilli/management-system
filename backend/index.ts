@@ -6,6 +6,7 @@ import cors from 'cors';
 
 import nvrRoutes from './routes/nvr';
 import homeownerRoutes from './routes/homeowners';
+import contractorRoutes from './routes/contractors';
 import repairRoutes from './routes/repairs';
 import prefixMappings from './routes/prefix-mappings';
 
@@ -26,6 +27,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/nvr', nvrRoutes);
 app.use('/api/homeowners', homeownerRoutes);
+app.use('/api/contractors', contractorRoutes);
 app.use('/api/repairs', repairRoutes);
 app.use('/api/prefix-mappings', prefixMappings);
 

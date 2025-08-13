@@ -88,6 +88,16 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                     <NavigationMenuItem>
                         <NavigationMenuLink asChild className="cursor-pointer">
                             <Link
+                                href="/contractors"
+                                className={`navigation-title ${activeTab === "contractors" ? "text-indigo-600 font-bold" : ""}`}
+                                onClick={removeFilter}>
+                                Contractors
+                            </Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink asChild className="cursor-pointer">
+                            <Link
                                 href="/repairs"
                                 className={`navigation-title ${activeTab === "repairs" ? "text-indigo-600 font-bold" : ""}`}
                                 onClick={removeFilter}>

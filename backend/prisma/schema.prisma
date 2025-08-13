@@ -39,6 +39,21 @@ model HomeownerJob {
     installedBy String?
 }
 
+model ContractorJob {
+    id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    jobName     String    @unique
+    contractor  String
+    stone       String?
+    installDate DateTime? @db.Date
+    installedBy String?
+    ft2         Float?
+    address     String?
+    sink        String?
+    amount      Float?
+    deposit     Boolean?
+    final       Boolean?
+}
+
 model Repair {
     id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
     jobName     String    @unique
