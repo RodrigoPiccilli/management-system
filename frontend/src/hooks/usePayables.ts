@@ -25,12 +25,13 @@ export function usePayables(params: UsePayablesParams) {
         setLoading(true);
 
         try {
-            const [res1, res2] = await Promise.all([
+            const [res1, res2, res3] = await Promise.all([
                 api.get(`/nvr/from/${from}/to/${to}`),
-                api.get(`/homeowners/from/${from}/to/${to}`)
+                api.get(`/homeowners/from/${from}/to/${to}`),
+                api.get(`/contractors/from/${from}/to/${to}`)
             ]);
 
-            setJobs([...res1.data, ...res2.data]);
+            setJobs([...res1.data, ...res2.data, ...res3.data]);
         } catch (err) {
             console.log('Axios error:', err);
             setJobs([]);

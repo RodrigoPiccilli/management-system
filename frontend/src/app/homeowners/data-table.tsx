@@ -111,7 +111,6 @@ export function DataTable<TData, TValue>({
                         initialForm={{
                             jobName: "",
                             stone: null,
-                            backsplash: null,
                             installDate: null,
                             installedBy: null,
                             ft2: null,

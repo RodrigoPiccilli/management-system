@@ -2,9 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Button, EditPayableDialog } from "@/components/ui"
-import { NVRJob, HomeownerJob } from "../types/job"
+import { NVRJob, HomeownerJob, ContractorJob } from "../types/job"
 
-export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>[] => [
+export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob | ContractorJob>[] => [
     {
         accessorKey: "jobName",
         header: ({ column }) => (
@@ -16,7 +16,7 @@ export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob>
             <div>
                 <h1 className="hidden text-xs p-2 print:block">{row.original.jobName}</h1>
                 <div className="print:hidden">
-                    <EditPayableDialog job={row.original} fetchJobs={fetchJobs} nvr={"community" in row.original} />
+                    <EditPayableDialog job={row.original} fetchJobs={fetchJobs} apiEndpoint={"community" in row.original ? "/nvr" : "contractor" in row.original ? "/contractors" : "/homeowners"} />
                 </div>
             </div>
         ),

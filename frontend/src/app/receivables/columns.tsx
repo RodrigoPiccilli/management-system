@@ -28,7 +28,7 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
                 <ArrowUpDown className="h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <EditJobDialog apiEndpoint="/homeowners" job={row.original} fetchJobs={fetchJobs} />,
+        cell: ({ row }) => <EditJobDialog apiEndpoint={"contractor" in row.original ? "/contractors" : "/homeowners"} job={row.original} fetchJobs={fetchJobs} />,
 
     },
     {

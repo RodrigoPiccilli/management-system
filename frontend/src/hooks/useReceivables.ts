@@ -17,8 +17,14 @@ export function useReceivables(): UseJobsReturn<any> {
         setLoading(true);
 
         try {
-            const res = await api.get('/homeowners/receivables');
-            const jobsData: any[] = res.data;
+
+            const [res1, res2] = await Promise.all([
+                api.get('/homeowners/receivables'),
+                api.get('/contractors/receivables')
+            ])
+
+
+            const jobsData: any[] = [...res1.data, ...res2.data];
             setJobs(jobsData);
             saveToCache(CACHE_KEY, jobsData);
 

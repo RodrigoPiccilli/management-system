@@ -26,17 +26,15 @@ import { HomeownerJob, NVRJob } from "@/app/types/job";
 
 
 interface EditPayableDialogProps {
-    nvr: boolean;
+    apiEndpoint: string;
     job: NVRJob | HomeownerJob;
     fetchJobs: () => void;
 }
 
-const EditPayableDialog = ({ nvr, job, fetchJobs }: EditPayableDialogProps) => {
+const EditPayableDialog = ({ apiEndpoint, job, fetchJobs }: EditPayableDialogProps) => {
 
     const [form, setForm] = useState({ ...job });
     const [open, setOpen] = useState(false);
-
-    const apiEndpoint = nvr ? "/nvr" : "/homeowners";
 
     useEffect(() => {
 
