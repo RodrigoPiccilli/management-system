@@ -23,6 +23,9 @@ const invalidateCaches = (jobType: string) => {
     if (jobType === "homeowners") {
         invalidateCache('homeowner_jobs_cache');
         invalidateCache('receivables_cache');
+    } else if (jobType === "contractors") {
+        invalidateCache('contractors_jobs_cache');
+        invalidateCache('receivables_cache');
     } else if (jobType === "nvr") {
         invalidateCache('nvr_jobs_cache');
     } else if(jobType === "repairs") {
