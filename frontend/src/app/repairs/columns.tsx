@@ -2,8 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
-import { Button, EditRepairDialog } from "@/components/ui"
+import { Button } from "@/components/ui"
 import { Repair } from "../types/job"
+import { EditRepairDialog } from "@/components/ui/EditRepairDialog";
 
 
 export const columns = (fetchJobs: () => void): ColumnDef<Repair>[] => [
