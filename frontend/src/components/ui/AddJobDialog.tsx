@@ -62,9 +62,9 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
             console.log("Job added successfully!");
             setOpen(false);
             fetchJobs();
-            
+
             const invalidCache = (apiEndpoint === "/homeowners" || apiEndpoint === "/contractors") ? 'receivables_cache' : null;
-            if(invalidCache != null) invalidateCache(invalidCache);
+            if (invalidCache != null) invalidateCache(invalidCache);
 
         } catch (error) {
             console.error("Failed to add job:", error);
@@ -462,6 +462,7 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                                 <SelectContent>
                                                     <SelectItem value="ERX">ERX</SelectItem>
                                                     <SelectItem value="NewFloor">NewFloor</SelectItem>
+                                                    <SelectItem value="Contents">Contents</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </TableCell>

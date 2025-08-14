@@ -462,6 +462,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                                     <SelectContent>
                                                         <SelectItem value="ERX">ERX</SelectItem>
                                                         <SelectItem value="NewFloor">NewFloor</SelectItem>
+                                                        <SelectItem value="Contents">Contents</SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                             </TableCell>
