@@ -29,7 +29,6 @@ const invalidateCaches = (jobType: string) => {
     } else if (jobType === "nvr") {
         invalidateCache('nvr_jobs_cache');
     } else if(jobType === "repairs") {
-        console.log("here.");
         invalidateCache('repairs_cache');
     }
 };

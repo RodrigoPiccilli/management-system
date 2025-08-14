@@ -55,9 +55,14 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
             setOpen(false);
             console.log("Job deleted successfully!");
 
-            if (apiEndpoint === "/homeowners" || apiEndpoint === "/contractors") {
+            if (apiEndpoint === "/homeowners") {
                 invalidateCache('receivables_cache');
+                invalidateCache('homeowner_jobs_cache');
+            } else if (apiEndpoint === "/contractors") {
+                invalidateCache('receivables_cache');
+                invalidateCache('contractors_jobs_cache');
             }
+
         } catch (error) {
             console.error("Failed to delete job: ", error);
         }
@@ -72,8 +77,12 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
             setOpen(false);
             console.log("Job updated successfully!");
 
-            if (apiEndpoint === "/homeowners" || apiEndpoint === "/contractors") {
+            if (apiEndpoint === "/homeowners") {
                 invalidateCache('receivables_cache');
+                invalidateCache('homeowner_jobs_cache');
+            } else if (apiEndpoint === "/contractors") {
+                invalidateCache('receivables_cache');
+                invalidateCache('contractors_jobs_cache');
             }
         } catch (error) {
             console.error("Failed to update job:", error);

@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -13,7 +12,6 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-
 import {
     Table,
     TableBody,
@@ -25,6 +23,7 @@ import {
     Input,
     AddJobDialog
 } from "@/components/ui"
+
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
@@ -87,8 +86,6 @@ export function DataTable<TData, TValue>({
         localStorage.setItem(FILTER_KEY, filterInput);
         table.getColumn("jobName")?.setFilterValue(filterInput);
     }, [filterInput, table]);
-
-
 
 
     return (
@@ -156,7 +153,6 @@ export function DataTable<TData, TValue>({
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id} className="divide-x divide-slate-200 even:bg-slate-50 odd:bg-white hover:bg-indigo-50" >
                                     {row.getVisibleCells().map((cell) => {
-                                        // Safely access className only if meta and className exist
                                         const className = cell.column.columnDef.meta && 'className' in cell.column.columnDef.meta
                                             ? (cell.column.columnDef.meta as { className?: string }).className
                                             : undefined;
@@ -182,7 +178,6 @@ export function DataTable<TData, TValue>({
             {/* Pagination */}
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button
-                    // variant="outline"
                     className="bg-slate-600 text-white hover:bg-slate-700 cursor-pointer"
                     size="sm"
                     onClick={() => table.previousPage()}

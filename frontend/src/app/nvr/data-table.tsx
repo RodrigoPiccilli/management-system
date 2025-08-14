@@ -1,10 +1,8 @@
 "use client"
 
 import * as React from "react"
-
 import {
     ColumnDef,
-    ColumnFiltersState,
     SortingState,
     flexRender,
     getCoreRowModel,
@@ -12,8 +10,8 @@ import {
     getPaginationRowModel,
     getSortedRowModel,
     useReactTable,
+    FilterFn
 } from "@tanstack/react-table"
-
 import {
     Table,
     TableBody,
@@ -25,6 +23,7 @@ import {
     Input,
     AddJobDialog
 } from "@/components/ui"
+
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
@@ -52,56 +51,58 @@ export function DataTable<TData, TValue>({
     data: TData[];
     fetchJobs: () => void;
 }) {
-
     const [sorting, setSorting] = React.useState<SortingState>([])
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [pagination, setPagination] = React.useState({
         pageIndex: 0,
-        pageSize: 10, // Changes the Number of Jobs Being Showed Per Page.
+        pageSize: 10,
     })
-    const FILTER_KEY = "jobNameFilter";
 
+    // NEW — single filter state
+    const [globalFilter, setGlobalFilter] = React.useState(() => {
+        const saved = localStorage.getItem("globalJobFilter");
+        return saved || "";
+    });
+
+    // Custom filter for jobName OR community
+    const globalFilterFn: FilterFn<any> = (row, columnIds, filterValue) => {
+        if (!filterValue) return true;
+        const search = String(filterValue).toLowerCase();
+        return (
+            String(row.getValue("jobName") || "").toLowerCase().includes(search) ||
+            String(row.getValue("community") || "").toLowerCase().includes(search)
+        );
+    };
 
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
-        onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         state: {
             sorting,
-            columnFilters,
+            globalFilter,
             pagination,
         },
+        onSortingChange: setSorting,
         onPaginationChange: setPagination,
-    })
-
-    const [filterInput, setFilterInput] = React.useState(() => {
-        const savedFilter = localStorage.getItem(FILTER_KEY);
-        return savedFilter || "";
+        onGlobalFilterChange: setGlobalFilter,
+        globalFilterFn, // attach custom fn
     });
 
     React.useEffect(() => {
-        localStorage.setItem(FILTER_KEY, filterInput);
-        table.getColumn("jobName")?.setFilterValue(filterInput);
-    }, [filterInput]);
+        localStorage.setItem("globalJobFilter", globalFilter);
+    }, [globalFilter]);
 
     return (
-
         <div>
             {/* Filter Input */}
             <div className="data-actions">
                 <Input
-                    placeholder="Filter Jobs By Name"
-                    value={(table.getColumn("jobName")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) => {
-                        const value = event.target.value;
-                        setFilterInput(value);
-                        table.getColumn("jobName")?.setFilterValue(value);
-                    }}
+                    placeholder="Filter by Name or Community"
+                    value={globalFilter}
+                    onChange={(event) => setGlobalFilter(event.target.value)}
                     className="filter-input"
                 />
                 <div className="flex">
@@ -126,7 +127,12 @@ export function DataTable<TData, TValue>({
                         title="Add NVR Job"
                         fetchJobs={fetchJobs}
                     />
-                    <Button className="w-fit bg-slate-600 text-white hover:bg-slate-700 cursor-pointer" onClick={fetchJobs}>Refresh</Button>
+                    <Button
+                        className="w-fit bg-slate-600 text-white hover:bg-slate-700 cursor-pointer"
+                        onClick={fetchJobs}
+                    >
+                        Refresh
+                    </Button>
                 </div>
             </div>
 
@@ -154,12 +160,11 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         ))}
                     </TableHeader>
-                    <TableBody >
+                    <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} className="divide-x divide-slate-200 even:bg-slate-50 odd:bg-white hover:bg-indigo-50" >
+                                <TableRow key={row.id} className="divide-x divide-slate-200 even:bg-slate-50 odd:bg-white hover:bg-indigo-50">
                                     {row.getVisibleCells().map((cell) => {
-                                        // Safely access className only if meta and className exist
                                         const className = cell.column.columnDef.meta && 'className' in cell.column.columnDef.meta
                                             ? (cell.column.columnDef.meta as { className?: string }).className
                                             : undefined;
@@ -185,7 +190,6 @@ export function DataTable<TData, TValue>({
             {/* Pagination */}
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button
-                    // variant="outline"
                     className="bg-slate-600 text-white hover:bg-slate-700 cursor-pointer"
                     size="sm"
                     onClick={() => table.previousPage()}
@@ -194,7 +198,6 @@ export function DataTable<TData, TValue>({
                     Previous
                 </Button>
                 <Button
-                    // variant="outline"
                     variant="primary"
                     size="sm"
                     onClick={() => table.nextPage()}

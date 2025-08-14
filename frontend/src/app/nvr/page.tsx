@@ -16,12 +16,11 @@ export default function NVRPage() {
     return (
         <div className="outer-div-template">
 
-            < Navigation activeTab="nvr" />
+            < Navigation activeTab="nvr"/>
 
             <header className="page-header">
                 <h1 className="page-title">NVR Jobs</h1>
             </header>
-
 
             {
                 !loading ? (

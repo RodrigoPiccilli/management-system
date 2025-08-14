@@ -24,6 +24,7 @@ import {
 } from '@/components/ui';
 import { useEffect, useState } from "react"
 import api from "@/lib/apis";
+import { invalidateCache } from '@/lib/cache';
 
 type JobForm = Record<string, any>;
 
@@ -57,11 +58,14 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
         };
 
         try {
-            console.log(dataToSend);
             await api.post(apiEndpoint, dataToSend);
             console.log("Job added successfully!");
             setOpen(false);
             fetchJobs();
+            
+            const invalidCache = (apiEndpoint === "/homeowners" || apiEndpoint === "/contractors") ? 'receivables_cache' : null;
+            if(invalidCache != null) invalidateCache(invalidCache);
+
         } catch (error) {
             console.error("Failed to add job:", error);
             setOpen(false);
