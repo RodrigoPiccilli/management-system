@@ -141,7 +141,7 @@ export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
             }
 
             if (statusA === 1) { // both due
-                return daysAgoA - daysAgoB; // least days until due first
+                return daysAgoB - daysAgoA; // least days until due first
             }
 
             return 0; // both paid
