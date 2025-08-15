@@ -14,8 +14,24 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
+// Get Repair Job with Install Date
+router.get('/installed', async (req: Request, res: Response) => {
+    try {
+        const jobs = await prisma.repair.findMany({
+            where: {
+                installDate: {
+                    not: null
+                }
+            }
+        });
+        return res.json(jobs);
+    } catch (error) {
+        handleError(res, 'Failed to fetch job', error);
+    }
+});
+
 // Get Repair Job by Job Name
-router.get('/:repairName', async (req: Request, res: Response) => {
+router.get('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
         const job = await prisma.repair.findUnique({ where: { jobName } });

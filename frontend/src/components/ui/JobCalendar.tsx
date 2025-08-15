@@ -28,7 +28,7 @@ const invalidateCaches = (jobType: string) => {
         invalidateCache('receivables_cache');
     } else if (jobType === "nvr") {
         invalidateCache('nvr_jobs_cache');
-    } else if(jobType === "repairs") {
+    } else if (jobType === "repairs") {
         invalidateCache('repairs_cache');
     }
 };
@@ -83,6 +83,16 @@ export default function ReactCalendar() {
                 select={handleDateSelect}
                 eventClick={handleEventClick}
                 height="auto"
+                eventOrder={(a :any, b: any) => {
+
+                    const installedByComparison = (a.extendedProps.installedBy || "").localeCompare(b.extendedProps.installedBy || "");
+                    if (installedByComparison !== 0) return installedByComparison;
+
+                    if (a.extendedProps.jobType === 'repairs' && b.extendedProps.jobType !== 'repairs') return -1;
+                    if (b.extendedProps.jobType === 'repairs' && a.extendedProps.jobType !== 'repairs') return 1;
+
+                    return a.title.localeCompare(b.title);
+                }}
             />
         </div>
     );

@@ -448,7 +448,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                     )}
                                     {"contractor" in form && (
                                         <TableRow>
-                                            <TableHead>Job Name</TableHead>
+                                            <TableHead>Contractor</TableHead>
                                             <TableCell>
                                                 <Select
                                                     value={form.contractor || ""}

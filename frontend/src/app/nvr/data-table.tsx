@@ -59,7 +59,7 @@ export function DataTable<TData, TValue>({
 
     // NEW — single filter state
     const [globalFilter, setGlobalFilter] = React.useState(() => {
-        const saved = localStorage.getItem("globalJobFilter");
+        const saved = localStorage.getItem("jobNameFilter");
         return saved || "";
     });
 
@@ -92,7 +92,7 @@ export function DataTable<TData, TValue>({
     });
 
     React.useEffect(() => {
-        localStorage.setItem("globalJobFilter", globalFilter);
+        localStorage.setItem("jobNameFilter", globalFilter);
     }, [globalFilter]);
 
     return (

@@ -68,6 +68,22 @@ router.get('/from/:from/to/:to', async (req: Request, res: Response) => {
     }
 });
 
+// Get Homeowner Job with Install Date
+router.get('/installed', async (req: Request, res: Response) => {
+    try {
+        const jobs = await prisma.homeownerJob.findMany({
+            where: {
+                installDate: {
+                    not: null
+                }
+            }
+        });
+        return res.json(jobs);
+    } catch (error) {
+        handleError(res, 'Failed to fetch job', error);
+    }
+});
+
 // Get Homeowner Job by Job Name
 router.get('/:jobName', async (req: Request, res: Response) => {
     try {

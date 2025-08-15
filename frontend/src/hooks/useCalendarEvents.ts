@@ -17,7 +17,11 @@ export const useCalendarEvents = () => {
             id: `${jobType}-${job.jobName}`,
             title: job.jobName,
             start: new Date(job.installDate).toISOString().split('T')[0],
-            color: jobType === 'repairs' ? 'red' : job.installedBy === 'Lionel' ? 'rgb(16, 185, 129)' : job.installedBy === "Umberto" ? 'rgb(56, 189, 248)' : "rgb(122,122,122)"
+            color: jobType === 'repairs' ? 'red' : job.installedBy === 'Lionel' ? 'rgb(16, 185, 129)' : job.installedBy === "Umberto" ? 'rgb(56, 189, 248)' : "rgb(122,122,122)",
+            extendedProps: {
+                jobType: jobType,
+                installedBy: job.installedBy || "Unassigned"
+            }
         })), []
     );
 
@@ -26,10 +30,10 @@ export const useCalendarEvents = () => {
         try {
             setLoading(true);
             const [res1, res2, res3, res4] = await Promise.all([
-                api.get(`/nvr`),
-                api.get(`/homeowners`),
-                api.get(`/contractors`),
-                api.get(`/repairs`),
+                api.get(`/nvr/installed`),
+                api.get(`/homeowners/installed`),
+                api.get(`/contractors/installed`),
+                api.get(`/repairs/installed`),
             ]);
 
             const nvrEvents = transformData(res1.data, 'nvr');
@@ -38,7 +42,26 @@ export const useCalendarEvents = () => {
             const repairEvents = transformData(res4.data, 'repairs');
 
 
-            setEvents([...nvrEvents, ...homeownerEvents, ...contractorEvents, ...repairEvents]);
+            const allEvents = ([...nvrEvents, ...homeownerEvents, ...contractorEvents, ...repairEvents]);
+            // const sortedEvents = allEvents.sort((a, b) => {
+
+            //     const installedByComparison = a.installedBy.localeCompare(b.installedBy);
+            //     if (installedByComparison !== 0) {
+            //         return installedByComparison;
+            //     }
+
+            //     if (a.jobType === 'repairs' && b.jobType !== 'repairs') {
+            //         return -1;
+            //     }
+            //     if (b.jobType === 'repairs' && a.jobType !== 'repairs') {
+            //         return 1;
+            //     }
+
+            //     return a.jobType.localeCompare(b.jobType);
+            // }); 
+
+            setEvents(allEvents);
+
 
 
         } catch (err) {
