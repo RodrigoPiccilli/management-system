@@ -137,14 +137,6 @@ const EditRepairDialog = ({ job, fetchJobs }: EditRepairDialogProps) => {
                                         </TableCell>
                                     </TableRow>
                                 )}
-                                {"address" in form && (
-                                    <TableRow>
-                                        <TableHead>Address</TableHead>
-                                        <TableCell>
-                                            <Input value={form.address || ""} onChange={handleChange("address")} className="border-slate-300 focus:border-indigo-500" />
-                                        </TableCell>
-                                    </TableRow>
-                                )}
                                 {"notes" in form && (
                                     <TableRow>
                                         <TableHead>Notes</TableHead>

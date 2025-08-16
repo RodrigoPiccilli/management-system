@@ -52,6 +52,5 @@ export type Repair = {
     jobName: string;
     installDate?: string;
     installedBy?: string;
-    address?: string;
     notes?: string;
 }

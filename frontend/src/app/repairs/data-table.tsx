@@ -111,7 +111,6 @@ export function DataTable<TData, TValue>({
                             jobName: "",
                             installDate: null,
                             installedBy: null,
-                            address: null,
                             notes: null,
                         }}
                         fetchJobs={fetchJobs}

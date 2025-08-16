@@ -123,16 +123,6 @@ const AddRepairDialog = ({ initialForm, fetchJobs }: AddRepairDialogProps) => {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableHead>Address</TableHead>
-                                    <TableCell>
-                                        <Input
-                                            className="border-slate-300 focus:border-indigo-500"
-                                            value={form.address || ""}
-                                            placeholder="Address"
-                                            onChange={handleChange("address")} />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
                                     <TableHead>Notes</TableHead>
                                     <TableCell>
                                         <Textarea

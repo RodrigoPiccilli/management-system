@@ -49,9 +49,4 @@ export const columns = (fetchJobs: () => void): ColumnDef<Repair>[] => [
         header: "Installed By",
         meta: { className: "text-center" }
     },
-    {
-        accessorKey: "address",
-        header: "Address",
-        meta: { className: "text-center" }
-    },
 ]
