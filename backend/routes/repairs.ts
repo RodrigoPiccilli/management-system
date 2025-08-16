@@ -46,6 +46,24 @@ router.get('/:jobName', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
     try {
         const data = req.body;
+
+        if (!data.jobName) {
+            return res.status(400).json({
+                error: "MISSING_JOB_NAME",
+                message: "Job name is required"
+            });
+        }
+
+        const existingJob = await prisma.repair.findFirst({
+            where: { jobName: data.jobName }
+        });
+
+
+        if (existingJob) {
+            return res.status(409).json(
+                { error: "DUPLICATE_JOB_NAME", message: "A job with this name already exists" },
+            );
+        }
         const newRepair = await prisma.repair.create({ data });
         return res.status(201).json(newRepair);
     } catch (error) {

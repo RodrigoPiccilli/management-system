@@ -39,9 +39,11 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
 
     const [form, setForm] = useState<JobForm>(initialForm);
     const [open, setOpen] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         setForm(initialForm);
+        setError("");
     }, [open, initialForm]);
 
     const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +61,7 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
 
         try {
             await api.post(apiEndpoint, dataToSend);
+            setError("");
             console.log("Job added successfully!");
             setOpen(false);
             fetchJobs();
@@ -66,9 +69,19 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
             const invalidCache = (apiEndpoint === "/homeowners" || apiEndpoint === "/contractors") ? 'receivables_cache' : null;
             if (invalidCache != null) invalidateCache(invalidCache);
 
-        } catch (error) {
+        } catch (error: any) {
+
             console.error("Failed to add job:", error);
-            setOpen(false);
+
+            const { status, data } = error.response;
+
+            if (status === 409 && data.error === 'DUPLICATE_JOB_NAME') {
+                setError("Duplicate Job Name");
+            } else if (status === 400 && data.error === "MISSING_JOB_NAME") {
+                setError("Job Name Required");
+            }
+
+            setOpen(true);
         }
     };
 
@@ -82,7 +95,10 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                 <DialogContent className="sm:max-w-fit">
                     <DialogHeader>
                         <DialogTitle>{title}</DialogTitle>
-                        <DialogDescription></DialogDescription>
+                        <DialogDescription>
+                            {error && (
+                                <span className="text-base text-red-500 font-semibold">{error}</span>
+                            )}</DialogDescription>
                     </DialogHeader>
 
                     {apiEndpoint === "/nvr" && (
@@ -623,7 +639,9 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                         <Button className="bg-emerald-600 hover:bg-emerald-700 cursor-pointer" onClick={handleSubmit}>Add</Button>
                     </DialogFooter>
                 </DialogContent>
+
             </form>
+
         </Dialog>
     )
 

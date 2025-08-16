@@ -36,9 +36,11 @@ const AddRepairDialog = ({ initialForm, fetchJobs }: AddRepairDialogProps) => {
 
     const [form, setForm] = useState<RepairForm>(initialForm);
     const [open, setOpen] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         setForm(initialForm);
+        setError("");
     }, [open, initialForm]);
 
     const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -57,12 +59,22 @@ const AddRepairDialog = ({ initialForm, fetchJobs }: AddRepairDialogProps) => {
         try {
             console.log(dataToSend);
             await api.post("/repairs", dataToSend);
+            setError("");
             console.log("Repair added successfully!");
             setOpen(false);
             fetchJobs();
-        } catch (error) {
+        } catch (error: any) {
+
             console.error("Failed to repair job:", error);
-            setOpen(false);
+
+            const { status, data } = error.response;
+
+            if (status === 409 && data.error === 'DUPLICATE_JOB_NAME') {
+                setError("Duplicate Repair Name");
+            } else if (status === 400 && data.error === "MISSING_JOB_NAME") {
+                setError("Repair Name Required");
+            }
+            setOpen(true);
         }
     };
 
@@ -76,7 +88,11 @@ const AddRepairDialog = ({ initialForm, fetchJobs }: AddRepairDialogProps) => {
                 <DialogContent className="sm:max-w-fit">
                     <DialogHeader>
                         <DialogTitle><span className="text-emerald-600">Add</span> Repair</DialogTitle>
-                        <DialogDescription></DialogDescription>
+                        <DialogDescription>
+                            {error && (
+                                <span className="text-base text-red-500 font-semibold">{error}</span>
+                            )}
+                        </DialogDescription>
                     </DialogHeader>
 
                     <div className="flex gap-[2rem]">
