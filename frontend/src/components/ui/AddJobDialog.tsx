@@ -403,9 +403,18 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                                 <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
                                                     <SelectValue placeholder="Sink Type" />
                                                 </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="Single Bowl">Single Bowl</SelectItem>
-                                                    <SelectItem value="50/50">50/50</SelectItem>
+                                                <SelectContent className="max-h-[10rem] overflow-y-auto">
+                                                    <SelectItem value="Sterling Single">Sterling Single</SelectItem>
+                                                    <SelectItem value="Sterling 50/50">Sterling 50/50</SelectItem>
+                                                    <SelectItem value="60/40">60/40</SelectItem>
+                                                    <SelectItem value="40/60">40/60</SelectItem>
+                                                    <SelectItem value="20/80">20/80</SelectItem>
+                                                    <SelectItem value="80/20">80/20</SelectItem>
+                                                    <SelectItem value="Laundry">Laundry</SelectItem>
+                                                    <SelectItem value="Bar">Bar</SelectItem>
+                                                    <SelectItem value="Apartment">Apartment</SelectItem>
+                                                    <SelectItem value="0-Radius">0-Radius</SelectItem>
+                                                    <SelectItem value="0-Radius-Accessories">0-Radius (Accessories)</SelectItem>
                                                     <SelectItem value="Custom">Custom</SelectItem>
                                                 </SelectContent>
                                             </Select>
@@ -539,9 +548,18 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                                 <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
                                                     <SelectValue placeholder="Sink Type" />
                                                 </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="Single Bowl">Single Bowl</SelectItem>
-                                                    <SelectItem value="50/50">50/50</SelectItem>
+                                                <SelectContent className="max-h-[10rem] overflow-y-auto">
+                                                    <SelectItem value="Sterling Single">Sterling Single</SelectItem>
+                                                    <SelectItem value="Sterling 50/50">Sterling 50/50</SelectItem>
+                                                    <SelectItem value="60/40">60/40</SelectItem>
+                                                    <SelectItem value="40/60">40/60</SelectItem>
+                                                    <SelectItem value="20/80">20/80</SelectItem>
+                                                    <SelectItem value="80/20">80/20</SelectItem>
+                                                    <SelectItem value="Laundry">Laundry</SelectItem>
+                                                    <SelectItem value="Bar">Bar</SelectItem>
+                                                    <SelectItem value="Apartment">Apartment</SelectItem>
+                                                    <SelectItem value="0-Radius">0-Radius</SelectItem>
+                                                    <SelectItem value="0-Radius-Accessories">0-Radius (Accessories)</SelectItem>
                                                     <SelectItem value="Custom">Custom</SelectItem>
                                                 </SelectContent>
                                             </Select>
