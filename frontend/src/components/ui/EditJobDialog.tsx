@@ -450,21 +450,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                         <TableRow>
                                             <TableHead>Contractor</TableHead>
                                             <TableCell>
-                                                <Select
-                                                    value={form.contractor || ""}
-                                                    onValueChange={(value) =>
-                                                        setForm({ ...form, contractor: value })
-                                                    }
-                                                >
-                                                    <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
-                                                        <SelectValue placeholder="Contractor" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="ERX">ERX</SelectItem>
-                                                        <SelectItem value="NewFloor">NewFloor</SelectItem>
-                                                        <SelectItem value="Contents">Contents</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
+                                                <Input value={form.contractor || ""} onChange={handleChange("contractor")} className="border-slate-300 focus:border-indigo-500" />
                                             </TableCell>
                                         </TableRow>
                                     )}

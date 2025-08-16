@@ -450,21 +450,11 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                     <TableRow>
                                         <TableHead>Contractor</TableHead>
                                         <TableCell>
-                                            <Select
+                                            <Input
+                                                className="border-slate-300 focus:border-indigo-500"
                                                 value={form.contractor || ""}
-                                                onValueChange={(value) =>
-                                                    setForm({ ...form, contractor: value })
-                                                }
-                                            >
-                                                <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
-                                                    <SelectValue placeholder="Contractor" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="ERX">ERX</SelectItem>
-                                                    <SelectItem value="NewFloor">NewFloor</SelectItem>
-                                                    <SelectItem value="Contents">Contents</SelectItem>
-                                                </SelectContent>
-                                            </Select>
+                                                placeholder="Contractor"
+                                                onChange={handleChange("contractor")} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
