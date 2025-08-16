@@ -49,4 +49,15 @@ export const columns = (fetchJobs: () => void): ColumnDef<Repair>[] => [
         header: "Installed By",
         meta: { className: "text-center" }
     },
+    {
+        accessorKey: "changeOrder",
+        header: "Change Order",
+        cell: ({ row }) => {
+            const value = row.getValue("changeOrder");
+            return (
+                <div>{value === true ? "Yes" : value === false ? "No" : ""}</div>
+            );
+        },
+        meta: { className: "text-center" }
+    },
 ]

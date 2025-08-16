@@ -123,6 +123,24 @@ const AddRepairDialog = ({ initialForm, fetchJobs }: AddRepairDialogProps) => {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
+                                    <TableHead>Change Order</TableHead>
+                                    <TableCell>
+                                        <Select
+                                            value={form.changeOrder === true ? "yes" : form.changeOrder === false ? "no" : ""}
+                                            onValueChange={value =>
+                                                setForm({ ...form, changeOrder: value === "yes" ? true : value === "no" ? false : undefined })
+                                            }>
+                                            <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                <SelectValue placeholder="Change Order" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="yes">Yes</SelectItem>
+                                                <SelectItem value="no">No</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
                                     <TableHead>Notes</TableHead>
                                     <TableCell>
                                         <Textarea

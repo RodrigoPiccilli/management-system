@@ -53,4 +53,5 @@ export type Repair = {
     installDate?: string;
     installedBy?: string;
     notes?: string;
+    changeOrder?: boolean;
 }

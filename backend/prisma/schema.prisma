@@ -59,6 +59,7 @@ model Repair {
     jobName     String    @unique
     installDate DateTime? @db.Date
     installedBy String?
+    changeOrder Boolean?
     notes       String?
 }
 

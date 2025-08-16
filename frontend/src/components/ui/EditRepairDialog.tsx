@@ -137,6 +137,27 @@ const EditRepairDialog = ({ job, fetchJobs }: EditRepairDialogProps) => {
                                         </TableCell>
                                     </TableRow>
                                 )}
+                                {"changeOrder" in form && (
+                                    <TableRow>
+                                        <TableHead>Change Order</TableHead>
+                                        <TableCell>
+                                            <Select
+                                                value={form.changeOrder === true ? "Yes" : form.changeOrder === false ? "No" : ""}
+                                                onValueChange={(value) =>
+                                                    setForm({ ...form, changeOrder: value === "Yes" ? true : value === "No" ? false : undefined })
+                                                }
+                                            >
+                                                <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                    <SelectValue placeholder="Change Order" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="Yes">Yes</SelectItem>
+                                                    <SelectItem value="No">No</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </TableCell>
+                                    </TableRow>
+                                )}
                                 {"notes" in form && (
                                     <TableRow>
                                         <TableHead>Notes</TableHead>
