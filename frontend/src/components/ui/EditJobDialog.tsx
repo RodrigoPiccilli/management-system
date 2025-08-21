@@ -116,7 +116,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                         <TableRow>
                                             <TableHead>Area Code</TableHead>
                                             <TableCell>
-                                                <Input value={form.areaCode || ""} onChange={handleChange("areaCode")} className="border-slate-300 focus:border-indigo-500" />
+                                                <Input readOnly value={form.areaCode || ""} onChange={handleChange("areaCode")} className="border-slate-300 focus:border-indigo-500" />
                                             </TableCell>
                                         </TableRow>
                                     )}
@@ -239,7 +239,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                         <TableRow>
                                             <TableHead>Community</TableHead>
                                             <TableCell>
-                                                <Input value={form.community || ""} onChange={handleChange("community")} className="border-slate-300 focus:border-indigo-500" />
+                                                <Input readOnly value={form.community || ""} onChange={handleChange("community")} className="border-slate-300 focus:border-indigo-500" />
                                             </TableCell>
                                         </TableRow>
                                     )}

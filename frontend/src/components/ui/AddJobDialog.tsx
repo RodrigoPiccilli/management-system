@@ -59,6 +59,24 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
             ...(form.installDate ? { installDate: new Date(form.installDate).toISOString() } : {}),
         };
 
+        if (apiEndpoint === "/nvr") {
+
+            try {
+
+                const prefix = form.jobName.split("-")[0].toUpperCase();
+                const community = await api.get(`/prefix-mappings/${prefix}`);
+
+                console.log(community.data);
+
+                setForm({ ...form, "areaCode": community.data.areaCode });
+                setForm({ ...form, "community": community.data.community });
+
+            } catch (error) {
+                console.error("Failed to auto-complete job:", error);
+            }
+
+        }
+
         try {
             await api.post(apiEndpoint, dataToSend);
             setError("");
@@ -117,7 +135,7 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                             </TableCell>
                                         </TableRow>
                                     )}
-                                    {"areaCode" in form && (
+                                    {/* {"areaCode" in form && (
                                         <TableRow>
                                             <TableHead>Area Code</TableHead>
                                             <TableCell>
@@ -128,7 +146,7 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                                     onChange={handleChange("areaCode")} />
                                             </TableCell>
                                         </TableRow>
-                                    )}
+                                    )} */}
                                     {"model" in form && (
                                         <TableRow>
                                             <TableHead>Model</TableHead>
@@ -248,7 +266,7 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                         </TableCell>
                                     </TableRow>
 
-                                    <TableRow>
+                                    {/* <TableRow>
                                         <TableHead>Community</TableHead>
                                         <TableCell>
                                             <Input
@@ -258,7 +276,7 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
                                                 onChange={handleChange("community")}
                                             />
                                         </TableCell>
-                                    </TableRow>
+                                    </TableRow> */}
 
                                     <TableRow>
                                         <TableHead>Address</TableHead>

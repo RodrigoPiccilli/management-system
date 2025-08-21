@@ -28,7 +28,7 @@ router.get('/:prefix', async (req: Request, res: Response) => {
 
 // Add or update a mapping
 router.post('/', async (req: Request, res: Response) => {
-    const { prefix, community } = req.body;
+    const { prefix, community, areaCode } = req.body;
     if (!prefix || !community) {
         handleError(res, 'Prefix and Community Required');
     }
@@ -36,8 +36,8 @@ router.post('/', async (req: Request, res: Response) => {
     try {
         const mapping = await prisma.prefixMapping.upsert({
             where: { prefix },
-            update: { community },
-            create: { prefix, community }
+            update: { community, areaCode },
+            create: { prefix, community, areaCode }
         });
         return res.json(mapping);
     } catch (err) {
