@@ -54,28 +54,34 @@ const AddJobDialog = ({ apiEndpoint, initialForm, title, fetchJobs }: AddJobDial
 
         e.preventDefault();
 
-        const dataToSend = {
-            ...form,
-            ...(form.installDate ? { installDate: new Date(form.installDate).toISOString() } : {}),
-        };
+        let areaCode = form.areaCode;
+        let community = form.community;
 
         if (apiEndpoint === "/nvr") {
 
             try {
 
                 const prefix = form.jobName.split("-")[0].toUpperCase();
-                const community = await api.get(`/prefix-mappings/${prefix}`);
+                const communityInfo = await api.get(`/prefix-mappings/${prefix}`);
+                console.log(communityInfo.data);
 
-                console.log(community.data);
-
-                setForm({ ...form, "areaCode": community.data.areaCode });
-                setForm({ ...form, "community": community.data.community });
+                areaCode = communityInfo.data.areaCode;
+                community = communityInfo.data.community;
 
             } catch (error) {
                 console.error("Failed to auto-complete job:", error);
             }
 
         }
+
+        const dataToSend = {
+            ...form,
+            ...(form.installDate ? { installDate: new Date(form.installDate).toISOString() } : {}),
+            areaCode: areaCode,
+            community: community,
+        };
+
+        console.log(dataToSend);
 
         try {
             await api.post(apiEndpoint, dataToSend);

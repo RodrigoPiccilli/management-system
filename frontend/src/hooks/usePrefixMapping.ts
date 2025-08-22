@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import api from "@/lib/apis";
 
+const CACHE_KEY = 'prefix_cache';
+
 export function usePrefixMapping(prefix: string): string | undefined {
 
     const [communityMapping, setCommunity] = useState<string | undefined>();

@@ -26,11 +26,26 @@ router.get('/:prefix', async (req: Request, res: Response) => {
     }
 });
 
-// Add or update a mapping
+// Add Mapping
 router.post('/', async (req: Request, res: Response) => {
     const { prefix, community, areaCode } = req.body;
-    if (!prefix || !community) {
-        handleError(res, 'Prefix and Community Required');
+
+    if(!prefix || !community || !areaCode) {
+        return res.status(400).json({
+            error: "MISSING_ATTRIBUTE",
+            message: "All Fields are Required!"
+        })
+    }
+
+    const existingMapping = await prisma.prefixMapping.findFirst({
+        where: {prefix: prefix}
+    });
+
+    if(existingMapping) {
+        return res.status(409).json({
+            error: "DUPLICATE_MAPPING",
+            message: "Community Already Exists!"
+        })
     }
 
     try {

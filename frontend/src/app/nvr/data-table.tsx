@@ -57,7 +57,6 @@ export function DataTable<TData, TValue>({
         pageSize: 10,
     })
 
-    // NEW — single filter state
     const [globalFilter, setGlobalFilter] = React.useState(() => {
         const saved = localStorage.getItem("jobNameFilter");
         return saved || "";

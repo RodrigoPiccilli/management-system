@@ -6,6 +6,7 @@ import {
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
+    SettingsDialog,
 } from "@/components/ui"
 
 
@@ -14,6 +15,7 @@ import Link from "next/link"
 import { invalidateCache } from "@/lib/cache"
 import supabase from "@/lib/supabaseClient"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 const JOB_NAME_FILTER = 'jobNameFilter'
 
@@ -48,7 +50,6 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
             alert('An unexpected error occurred. Please try again.');
         }
     }
-
 
     return (
         <div className="relative">
@@ -128,7 +129,10 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                 </NavigationMenuList>
             </NavigationMenu>
 
-            <Button variant="primary" className="absolute top-[0.75rem] right-[1rem]" onClick={handleSignOut}>Logout</Button>
+            <div className="flex items-center absolute top-[0.75rem] right-[1rem] gap-[1rem]">
+                <SettingsDialog/>
+                <Button variant="primary" className="" onClick={handleSignOut}>Logout</Button>
+            </div>
 
         </div >
 
