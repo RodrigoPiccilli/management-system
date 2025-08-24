@@ -54,8 +54,6 @@ const AddCommunityDialog = () => {
             setError("");
             setSuccess(`${form.prefix} Added!`);
             setForm(initialForm);
-            const invalidCache = 'prefix_cache'; //TODO: Add this to NVR page.
-            if (invalidCache != null) invalidateCache(invalidCache);
 
         } catch (message: any) {
 
@@ -109,7 +107,7 @@ const AddCommunityDialog = () => {
                                             <Input
                                                 className="border-slate-300 focus:border-indigo-500"
                                                 value={form.prefix || ""}
-                                                placeholder="Prefix"
+                                                placeholder="Ex: WD"
                                                 onChange={handleChange("prefix")} />
                                         </TableCell>
                                     </TableRow>
@@ -121,7 +119,7 @@ const AddCommunityDialog = () => {
                                             <Input
                                                 className="border-slate-300 focus:border-indigo-500"
                                                 value={form.community || ""}
-                                                placeholder="Community"
+                                                placeholder="Ex: Wren Woods"
                                                 onChange={handleChange("community")} />
                                         </TableCell>
                                     </TableRow>
@@ -133,7 +131,7 @@ const AddCommunityDialog = () => {
                                             <Input
                                                 className="border-slate-300 focus:border-indigo-500"
                                                 value={form.areaCode || ""}
-                                                placeholder="Area Code"
+                                                placeholder="Ex: GVS"
                                                 onChange={handleChange("areaCode")} />
                                         </TableCell>
                                     </TableRow>
