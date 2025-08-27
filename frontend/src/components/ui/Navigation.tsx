@@ -16,6 +16,8 @@ import { invalidateCache } from "@/lib/cache"
 import supabase from "@/lib/supabaseClient"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
+import MobileMenu from "./MobileNavigation"
+import MobileNavigation from "./MobileNavigation"
 
 const JOB_NAME_FILTER = 'jobNameFilter'
 
@@ -54,7 +56,8 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
     return (
         <div className="relative">
 
-            <NavigationMenu className="h-15 bg-slate-100 text-slate-700 min-w-full flex justify-start pl-17 border-b-2 border-indigo-500 shadow-lg rounded-lg">
+            <MobileNavigation/>
+            <NavigationMenu className="h-15 bg-slate-100 text-slate-700 min-w-full justify-start pl-17 border-b-2 border-indigo-500 shadow-lg rounded-lg hidden lg:flex">
                 <NavigationMenuList className="flex gap-5">
                     <NavigationMenuItem>
                         <NavigationMenuLink asChild className="cursor-pointer">
@@ -129,7 +132,7 @@ export function Navigation({ activeTab }: { activeTab?: string }) {
                 </NavigationMenuList>
             </NavigationMenu>
 
-            <div className="flex items-center absolute top-[0.75rem] right-[1rem] gap-[1rem]">
+            <div className="items-center absolute top-[0.75rem] right-[1rem] gap-[1rem] hidden lg:flex">
                 <SettingsDialog/>
                 <Button variant="primary" className="" onClick={handleSignOut}>Logout</Button>
             </div>

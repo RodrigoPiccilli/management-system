@@ -60,9 +60,6 @@ export default function ReactCalendar() {
                 editable={true}
                 eventDrop={async (info) => {
                     const { jobType, jobName } = parseEventId(info.event.id);
-
-                    console.log(`/${jobType}/${jobName}`);
-
                     try {
                         await api.put(`/${jobType}/${jobName}`, {
                             installDate: new Date(info.event.startStr)
