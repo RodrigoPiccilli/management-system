@@ -4,8 +4,26 @@ import { Popover, PopoverContent, PopoverTrigger, SettingsDialog } from "@/compo
 import { Button } from "@/components/ui";
 import Link from "next/link";
 import { Menu } from "lucide-react";
+import supabase from "@/lib/supabaseClient";
+import router from "next/router";
 
 export default function MobileMenu() {
+
+    async function handleSignOut() {
+        try {
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+                console.error('Sign out error:', error);
+                alert('Failed to sign out. Please try again.');
+                return;
+            }
+
+            router.push('/login');
+        } catch (err) {
+            console.error('Unexpected error during sign out:', err);
+            alert('An unexpected error occurred. Please try again.');
+        }
+    }
 
     return (
         <div className="bg-indigo-600 shadow-2xl">
@@ -14,7 +32,7 @@ export default function MobileMenu() {
                     <Button
                         variant="primary"
                         className="lg:hidden">
-                        <Menu size={32} color="white"/>
+                        <Menu size={32} color="white" />
                     </Button>
                 </PopoverTrigger>
 
@@ -27,7 +45,7 @@ export default function MobileMenu() {
                         <Link href="/repairs">Repairs</Link>
                         <Link href="/receivables">Receivables</Link>
                         <Link href="/payables">Payables</Link>
-                        <Button variant="primary" className="">Logout</Button>
+                        <Button variant="primary" onClick={handleSignOut}>Logout</Button>
 
 
                     </nav>

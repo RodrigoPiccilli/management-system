@@ -20,7 +20,8 @@ import {
     SelectTrigger,
     SelectValue,
     SelectContent,
-    SelectItem
+    SelectItem,
+    ScrollArea
 } from "@/components/ui";
 import api from "@/lib/apis"
 import { ContractorJob, HomeownerJob, NVRJob } from "@/app/types/job";
@@ -101,7 +102,7 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                 <form onSubmit={handleSubmit}>
 
                     {apiEndpoint === "/nvr" && (
-                        <div className="flex gap-[2rem]">
+                        <div className="gap-[2rem] hidden lg:flex">
                             <Table>
                                 <TableBody>
                                     {"jobName" in form && (
@@ -301,8 +302,207 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                         </div>
                     )}
 
+                    {apiEndpoint === "/nvr" && (
+                        <div className="flex gap-[2rem] lg:hidden items-center justify-center">
+                            <ScrollArea className="h-[200px] w-fit rounded-md border p-4">
+                                <Table>
+                                    <TableBody>
+                                        {"jobName" in form && (
+                                            <TableRow>
+                                                <TableHead>Job Name</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.jobName || ""} readOnly className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"areaCode" in form && (
+                                            <TableRow>
+                                                <TableHead>Area Code</TableHead>
+                                                <TableCell>
+                                                    <Input readOnly value={form.areaCode || ""} onChange={handleChange("areaCode")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"model" in form && (
+                                            <TableRow>
+                                                <TableHead>Model</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.model || ""} onChange={handleChange("model")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"direction" in form && (
+                                            <TableRow>
+                                                <TableHead>Direction</TableHead>
+                                                <TableCell>
+                                                    <Select
+                                                        value={form.direction || ""}
+                                                        onValueChange={(value) =>
+                                                            setForm({ ...form, direction: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                            <SelectValue placeholder="Direction" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Per Plan">Per Plan</SelectItem>
+                                                            <SelectItem value="Reverse">Reverse</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"stone" in form && (
+                                            <TableRow>
+                                                <TableHead>Stone</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.stone || ""} onChange={handleChange("stone")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"backsplash" in form && (
+                                            <TableRow>
+                                                <TableHead>Backsplash</TableHead>
+                                                <TableCell>
+                                                    <Select
+                                                        value={form.backsplash === true ? "Yes" : form.backsplash === false ? "No" : ""}
+                                                        onValueChange={(value) =>
+                                                            setForm({ ...form, backsplash: value === "Yes" ? true : value === "No" ? false : undefined })
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                            <SelectValue placeholder="Backsplash" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Yes">Yes</SelectItem>
+                                                            <SelectItem value="No">No</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"installDate" in form && (
+                                            <TableRow>
+                                                <TableHead>Install Date</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        className="border-slate-300 focus:border-indigo-500"
+                                                        type="date"
+                                                        value={form.installDate ? form.installDate.substring(0, 10) : ""}
+                                                        onChange={e => {
+                                                            setForm({ ...form, installDate: new Date(e.target.value).toISOString() });
+                                                        }}
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"installedBy" in form && (
+                                            <TableRow>
+                                                <TableHead>Installed By</TableHead>
+                                                <TableCell>
+                                                    <Select
+                                                        value={form.installedBy || ""}
+                                                        onValueChange={(value) =>
+                                                            setForm({ ...form, installedBy: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                            <SelectValue placeholder="Installed By" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Lionel">Lionel</SelectItem>
+                                                            <SelectItem value="Umberto">Umberto</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"ft2" in form && (
+                                            <TableRow>
+                                                <TableHead>FT²</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        type="number"
+                                                        value={form.ft2 != undefined ? form.ft2 : ""}
+                                                        onChange={e =>
+                                                            setForm({
+                                                                ...form,
+                                                                ft2: e.target.value === "" ? undefined : Number(e.target.value)
+                                                            })
+                                                        }
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"community" in form && (
+                                            <TableRow>
+                                                <TableHead>Community</TableHead>
+                                                <TableCell>
+                                                    <Input readOnly value={form.community || ""} onChange={handleChange("community")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"address" in form && (
+                                            <TableRow>
+                                                <TableHead>Address</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.address || ""} onChange={handleChange("address")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"sink" in form && (
+                                            <TableRow>
+                                                <TableHead>Sink</TableHead>
+                                                <TableCell>
+                                                    <Select
+                                                        value={form.sink || ""}
+                                                        onValueChange={(value) =>
+                                                            setForm({ ...form, sink: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                            <SelectValue placeholder="Sink Type" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Single Bowl">Single Bowl</SelectItem>
+                                                            <SelectItem value="50/50">50/50</SelectItem>
+                                                            <SelectItem value="Farm Sink">Farm Sink</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"amount" in form && (
+                                            <TableRow>
+                                                <TableHead>Amount</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        type="number"
+                                                        value={form.amount != null ? form.amount : ""}
+                                                        onChange={e =>
+                                                            setForm({ ...form, amount: e.target.value === "" ? undefined : Number(e.target.value) })
+                                                        }
+                                                        className="border-slate-300 focus:border-indigo-500"
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"poNumber" in form && (
+                                            <TableRow>
+                                                <TableHead>PO Number</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.poNumber || ""} onChange={handleChange("poNumber")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            </ScrollArea>
+                        </div>
+                    )}
+
                     {apiEndpoint === "/homeowners" && (
-                        <div className="flex gap-[2rem]">
+                        <div className="gap-[2rem] hidden lg:flex">
                             <Table>
                                 <TableBody>
                                     {"jobName" in form && (
@@ -439,8 +639,144 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                         </div>
                     )}
 
+                    {apiEndpoint === "/homeowners" && (
+                        <div className="flex gap-[2rem] lg:hidden items-center justify-center">
+                            <ScrollArea className="h-[200px] w-fit rounded-md border p-4">
+                                <Table>
+                                    <TableBody>
+                                        {"jobName" in form && (
+                                            <TableRow>
+                                                <TableHead>Job Name</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.jobName || ""} readOnly className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+
+                                        {"stone" in form && (
+                                            <TableRow>
+                                                <TableHead>Stone</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.stone || ""} onChange={handleChange("stone")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"installDate" in form && (
+                                            <TableRow>
+                                                <TableHead>Install Date</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        className="border-slate-300 focus:border-indigo-500"
+                                                        type="date"
+                                                        value={form.installDate ? form.installDate.substring(0, 10) : ""}
+                                                        onChange={e => {
+                                                            setForm({ ...form, installDate: new Date(e.target.value).toISOString() });
+                                                        }}
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"installedBy" in form && (
+                                            <TableRow>
+                                                <TableHead>Installed By</TableHead>
+                                                <TableCell>
+                                                    <Select
+                                                        value={form.installedBy || ""}
+                                                        onValueChange={(value) =>
+                                                            setForm({ ...form, installedBy: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                            <SelectValue placeholder="Installed By" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Lionel">Lionel</SelectItem>
+                                                            <SelectItem value="Umberto">Umberto</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"ft2" in form && (
+                                            <TableRow>
+                                                <TableHead>FT²</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        type="number"
+                                                        value={form.ft2 != undefined ? form.ft2 : ""}
+                                                        onChange={e =>
+                                                            setForm({
+                                                                ...form,
+                                                                ft2: e.target.value === "" ? undefined : Number(e.target.value)
+                                                            })
+                                                        }
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+
+                                        {"address" in form && (
+                                            <TableRow>
+                                                <TableHead>Address</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.address || ""} onChange={handleChange("address")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"sink" in form && (
+                                            <TableRow>
+                                                <TableHead>Sink</TableHead>
+                                                <TableCell>
+                                                    <Select
+                                                        value={form.sink || ""}
+                                                        onValueChange={(value) =>
+                                                            setForm({ ...form, sink: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                            <SelectValue placeholder="Sink Type" />
+                                                        </SelectTrigger>
+                                                        <SelectContent className="max-h-[10rem] overflow-y-auto">
+                                                            <SelectItem value="Sterling Single">Sterling Single</SelectItem>
+                                                            <SelectItem value="Sterling 50/50">Sterling 50/50</SelectItem>
+                                                            <SelectItem value="60/40">60/40</SelectItem>
+                                                            <SelectItem value="40/60">40/60</SelectItem>
+                                                            <SelectItem value="20/80">20/80</SelectItem>
+                                                            <SelectItem value="80/20">80/20</SelectItem>
+                                                            <SelectItem value="Laundry">Laundry</SelectItem>
+                                                            <SelectItem value="Bar">Bar</SelectItem>
+                                                            <SelectItem value="Apartment">Apartment</SelectItem>
+                                                            <SelectItem value="0-Radius">0-Radius</SelectItem>
+                                                            <SelectItem value="0-Radius-Accessories">0-Radius (Accessories)</SelectItem>
+                                                            <SelectItem value="Custom">Custom</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"amount" in form && (
+                                            <TableRow>
+                                                <TableHead>Amount</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        type="number"
+                                                        value={form.amount != null ? form.amount : ""}
+                                                        onChange={e =>
+                                                            setForm({ ...form, amount: e.target.value === "" ? undefined : Number(e.target.value) })
+                                                        }
+                                                        className="border-slate-300 focus:border-indigo-500"
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            </ScrollArea>
+                        </div>
+                    )}
+
                     {apiEndpoint === "/contractors" && (
-                        <div className="flex gap-[2rem]">
+                        <div className="gap-[2rem] hidden lg:flex">
                             <Table>
                                 <TableBody>
                                     {"jobName" in form && (
@@ -582,6 +918,151 @@ const EditJobDialog = ({ apiEndpoint, job, fetchJobs }: EditJobDialogProps) => {
                                     )}
                                 </TableBody>
                             </Table>
+                        </div>
+                    )}
+
+                    {apiEndpoint === "/contractors" && (
+                        <div className="flex gap-[2rem] lg:hidden items-center justify-center">
+                            <ScrollArea className="h-[200px] w-fit rounded-md border p-4">
+                                <Table>
+                                    <TableBody>
+                                        {"jobName" in form && (
+                                            <TableRow>
+                                                <TableHead>Job Name</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.jobName || ""} readOnly className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"contractor" in form && (
+                                            <TableRow>
+                                                <TableHead>Contractor</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.contractor || ""} onChange={handleChange("contractor")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+
+                                        {"stone" in form && (
+                                            <TableRow>
+                                                <TableHead>Stone</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.stone || ""} onChange={handleChange("stone")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"installDate" in form && (
+                                            <TableRow>
+                                                <TableHead>Install Date</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        className="border-slate-300 focus:border-indigo-500"
+                                                        type="date"
+                                                        value={form.installDate ? form.installDate.substring(0, 10) : ""}
+                                                        onChange={e => {
+                                                            setForm({ ...form, installDate: new Date(e.target.value).toISOString() });
+                                                        }}
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"installedBy" in form && (
+                                            <TableRow>
+                                                <TableHead>Installed By</TableHead>
+                                                <TableCell>
+                                                    <Select
+                                                        value={form.installedBy || ""}
+                                                        onValueChange={(value) =>
+                                                            setForm({ ...form, installedBy: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                            <SelectValue placeholder="Installed By" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Lionel">Lionel</SelectItem>
+                                                            <SelectItem value="Umberto">Umberto</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+
+                                        {"ft2" in form && (
+                                            <TableRow>
+                                                <TableHead>FT²</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        type="number"
+                                                        value={form.ft2 != undefined ? form.ft2 : ""}
+                                                        onChange={e =>
+                                                            setForm({
+                                                                ...form,
+                                                                ft2: e.target.value === "" ? undefined : Number(e.target.value)
+                                                            })
+                                                        }
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+
+                                        {"address" in form && (
+                                            <TableRow>
+                                                <TableHead>Address</TableHead>
+                                                <TableCell>
+                                                    <Input value={form.address || ""} onChange={handleChange("address")} className="border-slate-300 focus:border-indigo-500" />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"sink" in form && (
+                                            <TableRow>
+                                                <TableHead>Sink</TableHead>
+                                                <TableCell>
+                                                    <Select
+                                                        value={form.sink || ""}
+                                                        onValueChange={(value) =>
+                                                            setForm({ ...form, sink: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full border-slate-300 focus:border-indigo-500">
+                                                            <SelectValue placeholder="Sink Type" />
+                                                        </SelectTrigger>
+                                                        <SelectContent className="max-h-[10rem] overflow-y-auto">
+                                                            <SelectItem value="Sterling Single">Sterling Single</SelectItem>
+                                                            <SelectItem value="Sterling 50/50">Sterling 50/50</SelectItem>
+                                                            <SelectItem value="60/40">60/40</SelectItem>
+                                                            <SelectItem value="40/60">40/60</SelectItem>
+                                                            <SelectItem value="20/80">20/80</SelectItem>
+                                                            <SelectItem value="80/20">80/20</SelectItem>
+                                                            <SelectItem value="Laundry">Laundry</SelectItem>
+                                                            <SelectItem value="Bar">Bar</SelectItem>
+                                                            <SelectItem value="Apartment">Apartment</SelectItem>
+                                                            <SelectItem value="0-Radius">0-Radius</SelectItem>
+                                                            <SelectItem value="0-Radius-Accessories">0-Radius (Accessories)</SelectItem>
+                                                            <SelectItem value="Custom">Custom</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                        {"amount" in form && (
+                                            <TableRow>
+                                                <TableHead>Amount</TableHead>
+                                                <TableCell>
+                                                    <Input
+                                                        type="number"
+                                                        value={form.amount != null ? form.amount : ""}
+                                                        onChange={e =>
+                                                            setForm({ ...form, amount: e.target.value === "" ? undefined : Number(e.target.value) })
+                                                        }
+                                                        className="border-slate-300 focus:border-indigo-500"
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            </ScrollArea>
                         </div>
                     )}
 
