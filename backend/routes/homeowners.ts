@@ -4,7 +4,15 @@ import prisma from '../prisma/prisma';
 
 const router = express.Router();
 
-// Get All Homeowner Jobs
+/**
+* GET /api/homeowners/
+*
+* Retrieves all homeowner jobs from database.
+*
+* @route GET /
+* @returns {HomeownerJob[]} Array of homeowner job objects.
+* @throws {500} Internal server error if database query fails.
+*/
 router.get('/', async (req: Request, res: Response) => {
     try {
         const jobs = await prisma.homeownerJob.findMany();
@@ -14,8 +22,16 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
-// Get Homeowner Jobs with Install Dates
-router.get('/receivables', async (req: Request, res: Response) => {
+/**
+ * GET /api/homeowners/installed/
+ *
+ * Retrieves all homeowner jobs with an install date from the database.
+ *
+ * @route GET /installed
+ * @returns {HomeownerJob[]} Array of homeowner job objects.
+ * @throws {500} Internal server error if database query fails.
+ */
+router.get('/installed', async (req: Request, res: Response) => {
     try {
         const jobs = await prisma.homeownerJob.findMany({
             where: {
@@ -24,14 +40,24 @@ router.get('/receivables', async (req: Request, res: Response) => {
                 }
             }
         });
-
         return res.json(jobs);
     } catch (error) {
-        handleError(res, 'Failed to fetch receivables', error);
+        handleError(res, 'Failed to fetch job', error);
     }
 });
 
-// Get Homeowner Jobs by Install Date Range
+/**
+ * GET /api/homeowners/from/:from/to/:to
+ *
+ * Retrieves all homeowner jobs within specified date range from database.
+ *
+ * @route GET /from/:from/to/:to
+ * @param {string} from - Start date in YYYY-MM-DD format (local timezone).
+ * @param {string} to - End date in YYYY-MM-DD format (local timezone, inclusive of entire day).
+ * @returns {HomeownerJob[]} Array of homeowner job objects ordered by install date (ascending).
+ * @throws {400} Bad request error if date format is invalid.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.get('/from/:from/to/:to', async (req: Request, res: Response) => {
     try {
         const { from, to } = req.params;
@@ -64,27 +90,21 @@ router.get('/from/:from/to/:to', async (req: Request, res: Response) => {
 
 
     } catch (error) {
-        handleError(res, 'Failed to fetch jobs in data range', error);
+        handleError(res, 'Failed to fetch jobs in date range', error);
     }
 });
 
-// Get Homeowner Job with Install Date
-router.get('/installed', async (req: Request, res: Response) => {
-    try {
-        const jobs = await prisma.homeownerJob.findMany({
-            where: {
-                installDate: {
-                    not: null
-                }
-            }
-        });
-        return res.json(jobs);
-    } catch (error) {
-        handleError(res, 'Failed to fetch job', error);
-    }
-});
-
-// Get Homeowner Job by Job Name
+/**
+ * GET /api/homeowners/:jobName
+ *
+ * Retrieves the homeowner job with the specified name from the database.
+ *
+ * @route GET /:jobName
+ * @param {string} jobName - Name of the Job.
+ * @returns {HomeownerJob} Homeowner Job with specified job name.
+ * @throws {404} Not found error if no job with the specified name exists.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.get('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
@@ -96,7 +116,23 @@ router.get('/:jobName', async (req: Request, res: Response) => {
     }
 });
 
-// Add Homeowner Job
+/**
+ * POST /api/homeowners/
+ *
+ * Adds a new homeowner job to the database.
+ *
+ * @route POST /
+ * @param {Object} body - Homeowner job data.
+ * @param {string} body.jobName - Unique name for the homeowner job (required).
+ * @param {string} [body.installDate] - Scheduled installation date (YYYY-MM-DD format).
+ * @param {string} [body.installedBy] - Name of installer.
+ * @param {boolean} [body.changeOrder] - Whether job requires change order.
+ * @param {string} [body.notes] - Additional notes about the job.
+ * @returns {HomeownerJob} Created homeowner job object with generated ID.
+ * @throws {400} Bad request error if jobName is missing.
+ * @throws {409} Conflict error if jobName already exists.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.post('/', async (req: Request, res: Response) => {
     try {
         const data = req.body;
@@ -125,7 +161,23 @@ router.post('/', async (req: Request, res: Response) => {
     }
 });
 
-// Update Homeowner Job
+/**
+ * PUT /api/homeowners/:jobName
+ *
+ * Updates an existing homeowner job by job name.
+ *
+ * @route PUT /:jobName
+ * @param {string} jobName - Name of the homeowner job to update.
+ * @param {Object} body - Updated homeowner job data.
+ * @param {string} [body.jobName] - Updated job name.
+ * @param {string} [body.installDate] - Updated installation date (YYYY-MM-DD format).
+ * @param {string} [body.installedBy] - Updated installer name.
+ * @param {boolean} [body.changeOrder] - Updated change order status.
+ * @param {string} [body.notes] - Updated notes.
+ * @returns {HomeownerJob} Updated homeowner job object.
+ * @throws {404} Not found error if homeowner job doesn't exist.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.put('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
@@ -140,7 +192,17 @@ router.put('/:jobName', async (req: Request, res: Response) => {
     }
 });
 
-// Delete Homeowner Job
+/**
+ * DELETE /api/homeowners/:jobName
+ *
+ * Deletes a homeowner job from the database by job name.
+ *
+ * @route DELETE /:jobName
+ * @param {string} jobName - Name of the homeowner job to delete.
+ * @returns {HomeownerJob} Deleted homeowner job object.
+ * @throws {404} Not found error if homeowner job doesn't exist.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.delete('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;

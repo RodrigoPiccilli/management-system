@@ -19,8 +19,8 @@ export function useReceivables(): UseJobsReturn<any> {
         try {
 
             const [res1, res2] = await Promise.all([
-                api.get('/homeowners/receivables'),
-                api.get('/contractors/receivables')
+                api.get('/homeowners/installed'),
+                api.get('/contractors/installed')
             ])
 
 

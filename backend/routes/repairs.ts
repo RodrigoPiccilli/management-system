@@ -4,7 +4,15 @@ import prisma from '../prisma/prisma';
 
 const router = express.Router();
 
-// Get All Repair Jobs
+/**
+ * GET /api/repairs/
+ *
+ * Retrieves all repair jobs from database.
+ *
+ * @route GET /
+ * @returns {Repair[]} Array of repair job objects.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.get('/', async (req: Request, res: Response) => {
     try {
         const jobs = await prisma.repair.findMany();
@@ -14,7 +22,15 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
-// Get Repair Job with Install Date
+/**
+ * GET /api/repairs/installed/
+ *
+ * Retrieves all repair jobs with an install date from the database.
+ *
+ * @route GET /installed
+ * @returns {Repair[]} Array of repair job objects.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.get('/installed', async (req: Request, res: Response) => {
     try {
         const jobs = await prisma.repair.findMany({
@@ -30,7 +46,17 @@ router.get('/installed', async (req: Request, res: Response) => {
     }
 });
 
-// Get Repair Job by Job Name
+/**
+ * GET /api/repairs/:jobName
+ *
+ * Retrieves the repair job with the specified name from the database.
+ *
+ * @route GET /:jobName
+ * @param {string} jobName - Name of the repair job.
+ * @returns {Repair} Repair job with specified job name.
+ * @throws {404} Not found error if no repair job with the specified name exists.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.get('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
@@ -42,11 +68,26 @@ router.get('/:jobName', async (req: Request, res: Response) => {
     }
 });
 
-// Add Repair Job
+/**
+ * POST /api/repairs/
+ *
+ * Adds a new repair job to the database.
+ *
+ * @route POST /
+ * @param {Object} body - Repair job data.
+ * @param {string} body.jobName - Unique name for the repair job (required).
+ * @param {string} [body.installDate] - Scheduled installation date (YYYY-MM-DD format).
+ * @param {string} [body.installedBy] - Name of installer.
+ * @param {boolean} [body.changeOrder] - Whether job requires change order.
+ * @param {string} [body.notes] - Additional notes about the repair job.
+ * @returns {Repair} Created repair job object with generated ID.
+ * @throws {400} Bad request error if jobName is missing.
+ * @throws {409} Conflict error if jobName already exists.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.post('/', async (req: Request, res: Response) => {
     try {
         const data = req.body;
-
         if (!data.jobName) {
             return res.status(400).json({
                 error: "MISSING_JOB_NAME",
@@ -58,12 +99,12 @@ router.post('/', async (req: Request, res: Response) => {
             where: { jobName: data.jobName }
         });
 
-
         if (existingJob) {
             return res.status(409).json(
                 { error: "DUPLICATE_JOB_NAME", message: "A job with this name already exists" },
             );
         }
+
         const newRepair = await prisma.repair.create({ data });
         return res.status(201).json(newRepair);
     } catch (error) {
@@ -71,7 +112,23 @@ router.post('/', async (req: Request, res: Response) => {
     }
 });
 
-// Update Repair Job
+/**
+ * PUT /api/repairs/:jobName
+ *
+ * Updates an existing repair job by job name.
+ *
+ * @route PUT /:jobName
+ * @param {string} jobName - Name of the repair job to update.
+ * @param {Object} body - Updated repair job data.
+ * @param {string} [body.jobName] - Updated job name.
+ * @param {string} [body.installDate] - Updated installation date (YYYY-MM-DD format).
+ * @param {string} [body.installedBy] - Updated installer name.
+ * @param {boolean} [body.changeOrder] - Updated change order status.
+ * @param {string} [body.notes] - Updated notes.
+ * @returns {Repair} Updated repair job object.
+ * @throws {404} Not found error if repair job doesn't exist.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.put('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
@@ -86,7 +143,17 @@ router.put('/:jobName', async (req: Request, res: Response) => {
     }
 });
 
-// Delete Repair Job
+/**
+ * DELETE /api/repairs/:jobName
+ *
+ * Deletes a repair job from the database by job name.
+ *
+ * @route DELETE /:jobName
+ * @param {string} jobName - Name of the repair job to delete.
+ * @returns {Repair} Deleted repair job object.
+ * @throws {404} Not found error if repair job doesn't exist.
+ * @throws {500} Internal server error if database query fails.
+ */
 router.delete('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
