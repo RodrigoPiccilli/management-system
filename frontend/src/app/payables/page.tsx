@@ -6,6 +6,33 @@ import { columns } from "./columns";
 import { usePayables } from "@/hooks/usePayables";
 import React, { useEffect, useState } from "react";
 
+/**
+ * PayablesPage
+ *
+ * Page component for managing and printing payables for Lionel and Umberto.
+ *
+ * Features:
+ * - Enforces authentication redirect via `useAuthRedirect()`.
+ * - Allows filtering jobs by a date range (From / To).
+ * - Fetches jobs using `usePayables` hook with date range filtering.
+ * - Separates jobs by installer (Lionel vs Umberto) and calculates total FT² per installer.
+ * - Displays two DataTables (one per installer) for inline editing and inspection.
+ * - Displays a DynamicTable per installer that calculates pay based on total FT² and rate.
+ * - Print-friendly layout:
+ *   - Hides navigation, buttons, and headers not needed for printing.
+ *   - Shows simplified headers and smaller gaps.
+ * - Includes a "Print" button that triggers `window.print()`.
+ *
+ * State:
+ * - `selectedFrom` / `selectedTo`: currently selected date range for filtering.
+ * - `searchDates`: stored date range after clicking Apply.
+ * - `lionelFT2` / `umbertoFT2`: total FT² for each installer (used in DynamicTable).
+ *
+ * Handlers:
+ * - `handleFrom` / `handleTo`: update selected dates.
+ * - `handleSearch`: apply date filter to trigger fetching jobs.
+ * - `calculateTotalFT2`: sum FT² of filtered jobs.
+ */
 export default function PayablesPage() {
     useAuthRedirect();
 

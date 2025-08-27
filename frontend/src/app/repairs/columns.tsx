@@ -6,7 +6,19 @@ import { Button } from "@/components/ui"
 import { Repair } from "../types/job"
 import { EditRepairDialog } from "@/components/ui/EditRepairDialog";
 
-
+/**
+ * Table column definitions for Repairs.
+ * 
+ * Features:
+ * - Supports sorting by Job Name (via toggleSorting and numeric job number sorting).
+ * - Inline editing available through EditRepairDialog on Job Name.
+ * - Formats installDate as MM-DD-YYYY.
+ * - Displays changeOrder as Yes/No.
+ * - Aligns most fields center using `meta.className`.
+ *
+ * Props:
+ * - fetchJobs: () => void — callback to refresh repairs list after edits.
+ */
 export const columns = (fetchJobs: () => void): ColumnDef<Repair>[] => [
     {
         accessorKey: "jobName",

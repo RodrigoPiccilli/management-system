@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -13,7 +12,6 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-
 import {
     Table,
     TableBody,
@@ -41,6 +39,29 @@ export type PaginationInitialTableState = {
     pagination?: Partial<PaginationState>
 }
 
+/**
+ * PayablesDataTable<TData, TValue>
+ *
+ * A reusable table component built on TanStack React Table for displaying jobs (NVR, Homeowner, Contractor) in the payables context.
+ *
+ * Features:
+ * - Client-side pagination (default pageSize: 40 for larger tables).
+ * - Sorting support via clickable column headers.
+ * - Column filtering support (optional, not currently exposed).
+ * - Inline row rendering via flexRender (supports custom cell components like EditPayableDialog).
+ * - Tailwind-based styling for hover, stripe, and print-friendly layouts.
+ * - Handles empty state with a "No results" message.
+ *
+ * Props:
+ * - columns: ColumnDef<TData, TValue>[] => table column definitions.
+ * - data: TData[] => array of job objects to render.
+ * - fetchJobs: () => void => callback to refresh job list after edits.
+ *
+ * Notes:
+ * - ColumnDef.meta can include a `className` for cell alignment and styling.
+ * - Pagination, sorting, and filtering states are managed internally via React state hooks.
+ * - Designed for payables table usage where interactivity (editing) is needed.
+ */
 export function DataTable<TData, TValue>({
     columns,
     data,

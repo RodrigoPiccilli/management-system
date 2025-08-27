@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -13,7 +12,6 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-
 import {
     Table,
     TableBody,
@@ -44,6 +42,29 @@ export type PaginationInitialTableState = {
     pagination?: Partial<PaginationState>
 }
 
+/**
+ * DataTable<TData, TValue>
+ *
+ * A reusable table component built on TanStack React Table for repair jobs.
+ *
+ * Features:
+ * - Client-side pagination (default pageSize: 10).
+ * - Sorting via clickable column headers.
+ * - Column filtering (supports "jobName" with persisted filter in localStorage).
+ * - Inline row rendering via flexRender (supports custom cell rendering, e.g., AddRepairDialog).
+ * - AddRepairDialog for inserting new repairs.
+ * - Manual refresh button that triggers fetchJobs().
+ * - Basic pagination controls ("Previous" / "Next").
+ *
+ * Props:
+ * - columns: ColumnDef<TData, TValue>[] => table column definitions.
+ * - data: TData[] => data array to render.
+ * - fetchJobs: () => void => callback to refresh job list after edits/additions.
+ *
+ * Notes:
+ * - The filter state is persisted under the localStorage key "jobNameFilter".
+ * - ColumnDef.meta can optionally include a `className` to control cell alignment.
+ */
 export function DataTable<TData, TValue>({
     columns,
     data,

@@ -5,6 +5,20 @@ import { ArrowUpDown } from "lucide-react"
 import { Button, EditJobDialog } from "@/components/ui"
 import { ContractorJob } from "../types/job"
 
+/**
+ * Table column definitions for Contractor Jobs.
+ * 
+ * Features:
+ * - Supports sorting by Job Name (via toggleSorting).
+ * - Inline editing available through EditJobDialog on Job Name.
+ * - Formats installDate as MM-DD-YYYY.
+ * - Formats ft2 values to 2 decimal places.
+ * - Formats amount values as USD currency.
+ * - Aligns most fields center using `meta.className`.
+ *
+ * Props:
+ * - fetchJobs (function): Refreshes the job list after edits.
+ */
 export const columns = (fetchJobs: () => void): ColumnDef<ContractorJob>[] => [
     {
         accessorKey: "jobName",

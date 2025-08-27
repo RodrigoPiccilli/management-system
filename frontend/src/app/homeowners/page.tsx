@@ -6,6 +6,17 @@ import { columns } from "./columns";
 import { useHomeownerJobs } from "@/hooks/useHomeownerJobs";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
+/**
+ * HOPage
+ *
+ * Page component for displaying and managing homeowner jobs.
+ *
+ * Features:
+ * - Enforces authentication redirect via useAuthRedirect()
+ * - Fetches homeowner jobs using useHomeownerJobs()
+ * - Renders DataTable with job data and refresh capability
+ * - Shows LoadingPage while jobs are being fetched
+ */
 export default function HOPage() {
 
     useAuthRedirect();

@@ -42,6 +42,31 @@ export type PaginationInitialTableState = {
     pagination?: Partial<PaginationState>
 }
 
+/**
+ * DataTable<TData, TValue>
+ *
+ * A reusable table component built on TanStack React Table.
+ *
+ * Features:
+ * - Client-side pagination (default pageSize: 10) with "Previous" / "Next" buttons.
+ * - Sorting (default: "status" column) via clickable headers.
+ * - Column filtering for "jobName", with persisted filter in localStorage ("jobNameFilter").
+ * - Inline row rendering via flexRender.
+ * - Manual refresh button triggers fetchJobs().
+ *
+ * Props:
+ * - columns: ColumnDef<TData, TValue>[] => table column definitions (can include meta.className for alignment)
+ * - data: TData[] => array of rows to render
+ * - fetchJobs: () => void => callback to refresh table data
+ *
+ * Notes:
+ * - Filter state is persisted in localStorage for client sessions.
+ * - This component is consistent with the other DataTable implementations for:
+ *   - NVRPage (NVR jobs)
+ *   - HOPage / PayablesPage (Homeowner jobs)
+ *   - ReceivablesPage
+ *   - RepairsPage
+ */
 export function DataTable<TData, TValue>({
     columns,
     data,

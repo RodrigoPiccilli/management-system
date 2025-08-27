@@ -6,8 +6,19 @@ import { DataTable } from "./data-table"
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import { useRepairs } from "@/hooks/useRepairs";
 
-
-export default function NVRPage() {
+/**
+ * RepairsPage
+ *
+ * Page component for displaying and managing repair jobs.
+ *
+ * Features:
+ * - Enforces authentication redirect via `useAuthRedirect()`.
+ * - Fetches repair jobs using the `useRepairs()` hook.
+ * - Displays repair jobs in a `DataTable` with support for sorting, pagination, and inline editing.
+ * - Shows `LoadingPage` while repair jobs are being fetched.
+ *
+ */
+export default function RepairsPage() {
 
     useAuthRedirect();
 
