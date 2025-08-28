@@ -72,7 +72,7 @@ export function LoginForm() {
                                     required />
                             </div>
                             <div className="flex flex-col gap-3">
-                                <Button type="submit" className="w-full">
+                                <Button type="submit" className="w-full" variant="primary">
                                     Login
                                 </Button>
                                 {message && (
