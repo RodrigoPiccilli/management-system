@@ -1,13 +1,14 @@
 'use client';
 
 import FullCalendar from '@fullcalendar/react';
-import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
+import { CalendarApi, DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { useCalendarEvents } from '@/hooks/useCalendarEvents';
 import { LoadingPage } from '@/components/ui';
 import api from '@/lib/apis';
 import { invalidateCache } from '@/lib/cache';
+import { useRef, useState } from 'react';
 
 
 function parseEventId(eventId: string): { jobType: string; jobName: string } {
@@ -33,8 +34,11 @@ const invalidateCaches = (jobType: string) => {
     }
 };
 
+
 export default function ReactCalendar() {
+
     const { events, loading, refetch } = useCalendarEvents();
+    const calendarRef = useRef<FullCalendar | null>(null);
 
     if (loading) return <LoadingPage />
 
@@ -44,6 +48,13 @@ export default function ReactCalendar() {
 
     const handleEventClick = (clickInfo: EventClickArg) => {
         console.log('Event clicked:', clickInfo.event);
+    };
+
+    const handleDayClick = (clickInfo: DateClickArg) => {
+        const calendarApi = calendarRef.current?.getApi() as CalendarApi;
+        if (calendarApi) {
+            calendarApi.changeView('dayGridDay', clickInfo.date);
+        }
     };
 
     return (
@@ -56,6 +67,8 @@ export default function ReactCalendar() {
                     center: 'title',
                     right: 'dayGridMonth dayGridWeek'
                 }}
+                ref={calendarRef}
+                dateClick={(info) => handleDayClick(info)}
                 initialView='dayGridMonth'
                 editable={true}
                 eventDrop={async (info) => {
@@ -80,7 +93,7 @@ export default function ReactCalendar() {
                 select={handleDateSelect}
                 eventClick={handleEventClick}
                 height="auto"
-                eventOrder={(a :any, b: any) => {
+                eventOrder={(a: any, b: any) => {
 
                     const installedByComparison = (a.extendedProps.installedBy || "").localeCompare(b.extendedProps.installedBy || "");
                     if (installedByComparison !== 0) return installedByComparison;
@@ -90,6 +103,7 @@ export default function ReactCalendar() {
 
                     return a.title.localeCompare(b.title);
                 }}
+
             />
         </div>
     );
