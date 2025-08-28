@@ -51,6 +51,12 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 /**
+ * NVR job routes.
+ * @route /api/nvr/*
+ */
+app.use('/api/nvr', nvrRoutes);
+
+/**
  * Homeowner job routes.
  * @route /api/homeowners/*
  */
