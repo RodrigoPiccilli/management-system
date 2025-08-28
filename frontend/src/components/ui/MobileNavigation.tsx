@@ -44,7 +44,7 @@ export default function MobileMenu() {
                         <Link href="/contractors">Contractors</Link>
                         <Link href="/repairs">Repairs</Link>
                         <Link href="/receivables">Receivables</Link>
-                        <Link href="/payables">Payables</Link>
+                        {/* <Link href="/payables">Payables</Link> */}
                         <Button variant="primary" onClick={handleSignOut}>Logout</Button>
 
 
