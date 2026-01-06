@@ -154,7 +154,12 @@ router.post('/', async (req: Request, res: Response) => {
                 { error: "DUPLICATE_JOB_NAME", message: "A job with this name already exists" },
             );
         }
-        const newJob = await prisma.homeownerJob.create({ data });
+        const newJob = await prisma.homeownerJob.create({
+            data: {
+                ...data,
+                jobName: req.body.jobName.trim(),
+            },
+        });
         return res.status(201).json(newJob);
     } catch (error) {
         handleError(res, 'Failed to create job', error);

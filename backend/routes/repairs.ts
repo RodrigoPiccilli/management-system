@@ -105,7 +105,12 @@ router.post('/', async (req: Request, res: Response) => {
             );
         }
 
-        const newRepair = await prisma.repair.create({ data });
+        const newRepair = await prisma.repair.create({
+            data: {
+                ...data,
+                jobName: req.body.jobName.trim(),
+            },
+        });;
         return res.status(201).json(newRepair);
     } catch (error) {
         handleError(res, 'Failed to create repair', error);

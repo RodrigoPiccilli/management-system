@@ -154,7 +154,13 @@ router.post('/', async (req: Request, res: Response) => {
                 { error: "DUPLICATE_JOB_NAME", message: "A job with this name already exists" },
             );
         }
-        const newJob = await prisma.contractorJob.create({ data });
+        const newJob = await prisma.contractorJob.create({
+            data: {
+                ...data,
+                jobName: req.body.jobName.trim(),
+            },
+        });
+
         return res.status(201).json(newJob);
     } catch (error) {
         handleError(res, 'Failed to create job', error);
@@ -181,6 +187,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.put('/:jobName', async (req: Request, res: Response) => {
     try {
         const { jobName } = req.params;
+        
         const data = req.body;
         const updatedJob = await prisma.contractorJob.update({
             where: { jobName },
@@ -188,6 +195,7 @@ router.put('/:jobName', async (req: Request, res: Response) => {
         });
         return res.status(200).json(updatedJob);
     } catch (error) {
+
         handleError(res, 'Failed to update job', error);
     }
 });
