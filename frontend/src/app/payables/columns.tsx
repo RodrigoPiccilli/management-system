@@ -4,6 +4,28 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button, EditPayableDialog } from "@/components/ui"
 import { NVRJob, HomeownerJob, ContractorJob } from "../types/job"
 
+/**
+ * PayablesTable Columns
+ *
+ * Column definitions for displaying jobs (NVR, Homeowner, Contractor) in a table with payable management.
+ *
+ * Features:
+ * - Inline editing of payables via EditPayableDialog.
+ * - Prints job name as text while hiding interactive elements.
+ * - Formats installDate as MM-DD-YYYY and hides it when printing.
+ * - Formats ft2 values to 2 decimal places.
+ * - Uses `meta.className` for alignment and print-specific styles.
+ *
+ * Props:
+ * - fetchJobs (function): Callback to refresh the job list after edits.
+ *
+ * Notes:
+ * - Dynamically determines API endpoint based on job type:
+ *   - NVR jobs: "/nvr"
+ *   - Contractor jobs: "/contractors"
+ *   - Homeowner jobs: "/homeowners"
+ * - Uses responsive and print-friendly styling with Tailwind classes.
+ */
 export const columns = (fetchJobs: () => void): ColumnDef<NVRJob | HomeownerJob | ContractorJob>[] => [
     {
         accessorKey: "jobName",

@@ -9,6 +9,14 @@ const Calendar = dynamic(() => import('@/components/ui/JobCalendar'), {
     loading: () => <LoadingPage />
 });
 
+/**
+ * CalendarPage
+ * 
+ * Displays the job calendar view.
+ * - Redirects unauthorized users (via useAuthRedirect hook).
+ * - Shows Navigation with "calendar" active.
+ * - Loads JobCalendar component dynamically (client-only).
+ */
 export default function CalendarPage() {
 
     useAuthRedirect();

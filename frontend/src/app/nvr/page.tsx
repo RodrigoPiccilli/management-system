@@ -6,7 +6,17 @@ import { DataTable } from "./data-table"
 import { useNVRJobs } from "@/hooks/useNVRJobs";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
-
+/**
+ * NVRPage
+ *
+ * Page component for displaying and managing NVR jobs.
+ *
+ * Features:
+ * - Enforces authentication redirect via useAuthRedirect().
+ * - Fetches NVR jobs using useNVRJobs().
+ * - Renders DataTable with job data, global filtering, and refresh capability.
+ * - Shows LoadingPage while jobs are being fetched.
+ */
 export default function NVRPage() {
 
     useAuthRedirect();

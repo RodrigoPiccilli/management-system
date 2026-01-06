@@ -7,6 +7,17 @@ import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import { useContractorJobs } from "@/hooks/useContractorJobs";
 
 
+/**
+ * ContractorsPage
+ *
+ * Page component for displaying and managing contractor jobs.
+ *
+ * Features:
+ * - Enforces authentication redirect via useAuthRedirect().
+ * - Fetches contractor jobs using useContractorJobs().
+ * - Renders DataTable with job data and refresh capability.
+ * - Shows LoadingPage while jobs are being fetched.
+ */
 export default function ContractorsPage() {
 
     useAuthRedirect();

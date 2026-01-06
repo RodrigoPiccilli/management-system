@@ -1,3 +1,35 @@
+/**
+ * Job Type Definitions
+ *
+ * Describes the structure of job entities used throughout the application.
+ *
+ * NVRJob:
+ * - Represents NVR jobs.
+ * - Fields:
+ *   - id: unique identifier
+ *   - jobName: job title, using the standard format :[A-Z][A-Z][0-9][0-9][0-9][0-9]
+ *   - areaCode, model, direction, stone, backsplash, installDate, installedBy, ft2, community, address, sink, amount, poNumber
+ *
+ * HomeownerJob:
+ * - Represents homeowner jobs.
+ * - Fields:
+ *   - id, jobName
+ *   - stone, backsplash, installDate, installedBy, ft2, address, sink, amount, deposit, final
+ *   - deposit / final are booleans indicating payment status
+ *
+ * ContractorJob:
+ * - Represents contractor jobs.
+ * - Fields:
+ *   - id, jobName, contractor
+ *   - stone, backsplash, installDate, installedBy, ft2, address, sink, amount, deposit, final
+ *
+ * Repair:
+ * - Represents repair jobs.
+ * - Fields:
+ *   - id, jobName, installDate, installedBy, notes, changeOrder
+ *   - changeOrder: boolean indicating if repair required a change order
+ */
+
 export type NVRJob = {
     id: string;
     jobName: string;

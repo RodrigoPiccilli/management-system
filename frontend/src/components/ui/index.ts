@@ -68,6 +68,8 @@ export { LoginForm } from './LoginForm'
 
 export { Textarea } from './TextArea'
 
+export { ScrollArea } from './Scroll-Area'
+
 
 // Custom Components
 export { AddJobDialog } from './AddJobDialog'

@@ -42,6 +42,30 @@ export type PaginationInitialTableState = {
     pagination?: Partial<PaginationState>
 }
 
+/**
+ * DataTable<TData, TValue>
+ *
+ * A reusable table component built on TanStack React Table for NVR jobs.
+ *
+ * Features:
+ * - Client-side pagination (default pageSize: 10).
+ * - Sorting via clickable column headers.
+ * - Global filtering that searches both "jobName" and "community" fields.
+ * - Filter state is persisted in localStorage under key "jobNameFilter".
+ * - Inline row rendering via flexRender (supports custom cell rendering).
+ * - AddJobDialog for inserting new NVR jobs.
+ * - Manual refresh button triggers fetchJobs().
+ * - Basic pagination controls ("Previous" / "Next").
+ *
+ * Props:
+ * - columns: ColumnDef<TData, TValue>[] => table column definitions.
+ * - data: TData[] => data array to render.
+ * - fetchJobs: () => void => callback to refresh job list after edits/additions.
+ *
+ * Notes:
+ * - The globalFilterFn supports filtering by jobName OR community.
+ * - ColumnDef.meta can optionally include a `className` to control cell alignment.
+ */
 export function DataTable<TData, TValue>({
     columns,
     data,

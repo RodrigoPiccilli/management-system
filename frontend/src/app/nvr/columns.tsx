@@ -6,6 +6,24 @@ import { Button, EditJobDialog } from "@/components/ui"
 import { NVRJob } from "../types/job"
 
 
+/**
+ * Table column definitions for NVR Jobs.
+ * 
+ * Features:
+ * - Supports sorting by Job Name using numeric portion after dash.
+ * - Inline editing available via EditJobDialog on Job Name.
+ * - Formats installDate as MM-DD-YYYY.
+ * - Formats ft2 values to 2 decimal places.
+ * - Formats amount values as USD currency.
+ * - Converts backsplash boolean values to "Yes"/"No".
+ * - Aligns most fields using `meta.className` for text alignment and width control.
+ *
+ * Props:
+ * - fetchJobs (function): Callback to refresh job list after edits.
+ *
+ * Notes:
+ * - Sorting function for Job Name extracts numeric portion after '-' and sorts numerically.
+ */
 export const columns = (fetchJobs: () => void): ColumnDef<NVRJob>[] => [
     {
         accessorKey: "jobName",

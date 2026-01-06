@@ -6,6 +6,17 @@ import { columns } from "./columns";
 import { useReceivables } from "@/hooks/useReceivables";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
+/**
+ * ReceivablesPage
+ *
+ * Page component for displaying and managing receivable jobs.
+ *
+ * Features:
+ * - Enforces authentication redirect via useAuthRedirect()
+ * - Fetches receivable jobs using useReceivables()
+ * - Renders DataTable with job data and refresh capability
+ * - Shows LoadingPage while jobs are being fetched
+ */
 export default function Receivables() {
 
     useAuthRedirect();

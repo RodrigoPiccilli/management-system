@@ -17,6 +17,12 @@ export const metadata: Metadata = {
     description: "Business Management System used by Petra Homes LLC",
 };
 
+/**
+ * Root layout component for the Next.js app.
+ * - Applies global fonts (Geist Sans, Geist Mono).
+ * - Defines <html> and <body> structure for all pages.
+ * - Sets app-wide metadata (title, description).
+ */
 export default function RootLayout({
     children,
 }: Readonly<{

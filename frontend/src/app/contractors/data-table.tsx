@@ -13,7 +13,6 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-
 import {
     Table,
     TableBody,
@@ -25,6 +24,7 @@ import {
     Input,
     AddJobDialog
 } from "@/components/ui"
+
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
@@ -43,6 +43,29 @@ export type PaginationInitialTableState = {
     pagination?: Partial<PaginationState>
 }
 
+/**
+ * DataTable<TData, TValue>
+ *
+ * A reusable table component built on TanStack React Table.
+ *
+ * Features:
+ * - Client-side pagination (default pageSize: 10).
+ * - Sorting (clickable column headers).
+ * - Column filtering (currently supports "jobName" with persisted filter in localStorage).
+ * - Inline row rendering via flexRender (supports custom cell rendering).
+ * - AddJobDialog for inserting new jobs (contractors API).
+ * - Manual refresh button that triggers fetchJobs().
+ * - Basic pagination controls ("Previous" / "Next").
+ *
+ * Props:
+ * - columns: ColumnDef<TData, TValue>[] => table column definitions.
+ * - data: TData[] => data array to render.
+ * - fetchJobs: () => void => callback to refresh job list after edits/additions.
+ *
+ * Notes:
+ * - The filter state is persisted under the localStorage key "jobNameFilter".
+ * - ColumnDef.meta can optionally include a `className` to control cell alignment.
+ */
 export function DataTable<TData, TValue>({
     columns,
     data,

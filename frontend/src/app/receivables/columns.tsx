@@ -19,6 +19,40 @@ export type Job = {
     final?: boolean;
 };
 
+/**
+ * Table column definitions for Jobs (Homeowner / Contractor).
+ *
+ * Features:
+ * - Job Name:
+ *   - Clickable header for sorting (toggleSorting).
+ *   - Inline editing via EditJobDialog.
+ * - Install Date:
+ *   - Formatted as MM-DD-YYYY.
+ *   - Center-aligned.
+ * - Amount:
+ *   - Formatted as USD currency.
+ *   - Center-aligned.
+ * - Deposit / Final:
+ *   - Displays "Paid" or "Unpaid" based on boolean values.
+ * - Status:
+ *   - Computes job status based on deposit, final, and installDate.
+ *   - Status values: "paid", "due", "overdue".
+ *   - Conditional rendering with color-coded labels:
+ *     - Paid in full: green
+ *     - Due: green with days remaining
+ *     - Past due: red with days overdue
+ *   - Custom sorting prioritizes:
+ *     1. Overdue (most overdue first)
+ *     2. Due (soonest due first)
+ *     3. Paid (last)
+ *
+ * Props:
+ * - fetchJobs (function): Refreshes the job list after edits.
+ *
+ * Notes:
+ * - Uses date-fns `differenceInDays` to calculate days since installDate.
+ * - Supports both contractor and homeowner jobs in EditJobDialog.
+ */
 export const columns = (fetchJobs: () => void): ColumnDef<Job>[] => [
     {
         accessorKey: "jobName",
