@@ -42,7 +42,7 @@ export default function PayablesPage() {
     const [lionelFT2, setLionelFT2] = useState(0);
     const [umbertoFT2, setUmbertoFT2] = useState(0);
 
-    const lionelRate = 6;
+    const lionelRate = 5;
     const umbertoRate = 5;
 
     const handleFrom = (date: Date | undefined) => {
